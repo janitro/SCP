@@ -148,6 +148,7 @@ class PagosCliente(models.Model):
 
 
 class Profesional(models.Model):
+  
     id_profesional = models.CharField(primary_key=True, max_length=10)
     nombre_completo = models.CharField(max_length=200)
     email_prof = models.EmailField(max_length=255)
@@ -158,6 +159,7 @@ class Profesional(models.Model):
     estado = models.CharField(max_length=100)
     contrato_activo = models.BooleanField()
     id_tipo_profesional = models.ForeignKey('TipoProfesional', models.DO_NOTHING, db_column='id_tipo_profesional')
+
 
     class Meta:
         managed = False
