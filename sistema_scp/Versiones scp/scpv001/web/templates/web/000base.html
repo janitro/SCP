@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+	<script src="https://kit.fontawesome.com/a8027f23d1.js" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="contenedor">
+		<!-- estatico -->
+		<!-- header -->
+		<!-- menu superior -->
+        <header class="header">
+			<div class="logo">
+				<img src="{% static 'img/logo.png' %}" alt="logo">
+			</div>
+			<nav class="autentificacion">
+				<!-- agregar login -->
+			</nav>
+		</header>
+        <!-- menu -->
+        <nav class="menu">
+			<div class="aling-menu">
+				<a href="">Inicio</a>
+				<a href="">Nosotros</a>
+				<a href="">Contacto</a>				
+			</div>
+        </nav>
+        <!-- fin estatico -->
+
+		<!-- dinamico -->
+		{% block content %}
+        {% endblock %}
+        <!-- fin dinamico -->
+		
+        <!-- estatico -->
+        <!-- footer -->
+		<footer class="footer">
+			<ul class="detalles">
+				<!-- agregar detalles para footer -->
+			</ul>
+			<ul class="copyright">
+				 <li>&copy; Grupo 1</li><li> Distribuido para: <a href="https://www.duoc.cl">DUOC UC</a></li> 
+			</ul>
+        </footer>
+         <!-- fin estatico -->
+	</div>
+	<!-- Compiled and minified JavaScript -->
+	<!-- Otros JS -->
+    {% block carga_js %}
+    {% endblock %}
+</body>
+</html>
