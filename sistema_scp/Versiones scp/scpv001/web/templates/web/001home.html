@@ -1,16 +1,120 @@
-{% extends 'web/000base.html' %}
-	{% load static %}
-	{% block title %}Inicio - SCP{% endblock %}
-		{% block content %}
-		<!-- dinamico -->
-        <!-- one seccion - carrusel -->
-		<div class="slideshow">
-			<!-- agregar carrusel -->
-        </div>
-        <!-- two seccion - post noticia -->
-        <main class="contenido">
-            <!-- agregar contenido -->
-            <h1>Hola Mundo</h1>
-		</main>
-		<!-- fin dinamico -->
-		{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - SCP</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+	<script src="https://kit.fontawesome.com/a8027f23d1.js" crossorigin="anonymous"></script>
+	<script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+
+</head>
+<body>
+    <!-- Wrapper -->
+			<div id="wrapper">
+				<!-- Header -->
+					<ul class="login-button ">
+                        <li><a href="{% url 'login' %}" class="button icon solid fa-home">Ingresar a tu Portal</a></li>
+                    </ul>
+					<header id="header">
+						<div class="content">
+							<div class="inner">
+								<h1>SCP</h1>
+								<p>Sistema de Control de Prevención </p>
+							</div>
+						</div>
+						<nav>
+							<ul>
+								<li><a href="#intro">Inicio</a></li>
+								<li><a href="#work">Nosotros</a></li>
+								<li><a href="#about">Servicio</a></li>
+								<li><a href="#contact">Contacto</a></li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Intro -->
+							<article id="intro">
+								<h2 class="major">Inicio</h2>
+								<span class="image main"><img src="{% static 'img/slider1.jpg' %}" alt="" /></span>
+								<h3>Especialistas en Asesorías en Prevención de Riesgos Laborales</h3>
+								<p>En sysenmovimiento ofrecemos servicios de asesorías profesionales de prevención de riesgos a empresas que requieren externalizar la gestión de riesgos en seguridad y salud ocupacional.</p>
+
+								<h3>Necesidades de Prevención de Riesgos que tienen las empresas</h3>
+								<p>Los servicios de seguridad y salud ocupacional que ofrecemos, están enfocados a brindar asesorías a tiempo parcial, ajustándonos a las necesidades de seguridad y salud ocupacional que tienen las empresas y que conocemos a la perfección:<br>
+								<br>
+								Cumplimiento de la ley 16.744 de accidentes del trabajo y sus decretos complementarios.<br>
+								Mantener ordenada la documentación de prevención de riesgos.<br>
+								Disminuir las tasas siniestralidad, mediante la gestión de riesgos.<br>
+								Obtener las resoluciones, autorizaciones y certificaciones requeridas para el funcionamiento</p>
+							</article>
+
+						<!-- Work -->
+							<article id="work">
+								<h2 class="major">Nosotros</h2>
+								<span class="image main"><img src="{% static 'img/slider1.jpg' %}" alt="" /></span>
+								<h3>NUESTRA VISIÓN</h3>
+								<p>Liderar el área de consultoras en prevención de riesgos, calidad y ambiente, ser reconocidos a nivel nacional por la innovación de sus técnicas y cumplimiento de objetivos propuestos.</p>
+								<br>
+								<h3>NUESTRA MISIÓN</h3>
+								<p>Generar propuestas innovadoras en prevención de riesgos, considerándola como una herramienta de gestión fundamental, tanto para las empresas, como para sus trabajadores, para finalmente contribuir en un marco estratégico para la sinergia de sus distintos componentes.</p>
+								<br>
+								<p>Somos una empresa dedicada a implementar y/o manejar los sistemas de gestión de Prevención de Riesgos en empresas de distintos rubros.</p>
+								<p>Creada en el año 2009, por un grupo de profesionales de prevención, quienes se dedican a asesorar directamente a las empresas. Al día de hoy hemos llegado contar con más de 50 expertos, quienes se desempeñan en todas las regiones del país, trabajando día a día como aliado y socio estratégico para evitar interrupciones en los procesos de Prevención de Riesgos.</p>
+							</article>
+																			
+						<!-- About -->
+							<article id="about">
+								<h2 class="major">Servicio</h2>
+								<span class="image main"><img src="{% static 'img/slider1.jpg' %}" alt="" /></span>
+								<p>Nosotros ofrecemos un servicio igualitario para todas las empresas, el cuan consiste en: 2 visitas mensuales, 1 capacitacion y 10 asesorías mensuales.</p>
+							</article>
+
+						<!-- Contact -->
+							<article id="contact">
+								<h2 class="major">Contacto</h2>
+								<form method="post" action="#">
+									<div class="fields">
+										<div class="field half">
+											<label for="name">Nombre</label>
+											<input type="text" name="name" id="name" />
+										</div>
+										<div class="field half">
+											<label for="email">Correo Electronico</label>
+											<input type="text" name="email" id="email" />
+										</div>
+										<div class="field">
+											<label for="message">Mensaje</label>
+											<textarea name="message" id="message" rows="4"></textarea>
+										</div>
+									</div>
+									<ul class="actions">
+										<li><input type="submit" value="Enviar Mensaje" class="primary" /></li>
+										<li><input type="reset" value="Borrar" /></li>
+									</ul>
+								</form>
+							</article>
+						</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">&copy; Portafolio Titulo. Diseñado: <a>Grupo 1</a>.</p>
+					</footer>								
+			</div>
+		
+			<!-- BG -->
+					<div id="bg"></div>
+		
+				<!-- Scripts -->
+					<script src="{% static 'js/browser.min.js' %}"></script>
+					<script src="{% static 'js/breakpoints.min.js' %}"></script>
+					<script src="{% static 'js/main.js' %}"></script>			
+
+</body>
+</html>
