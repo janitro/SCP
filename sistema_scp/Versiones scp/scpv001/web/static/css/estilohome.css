@@ -1,0 +1,391 @@
+/* ----------- VARIABLES CSS ---------------*/
+:root{
+    --header-height: 3rem;
+    --nav-width: 68px;
+  
+    /*===== Colors =====*/
+    --first-color: rgb(56, 56, 56);
+    --first-color-light: rgb(170, 168, 175);
+    --white-color: rgb(116, 116, 116);
+    
+    /*===== Font and typography =====*/
+    --body-font: "Lucida Console", "Open Sans", Helvetica, sans-serif;
+    --normal-font-size: 1rem;
+    
+    /*===== z index =====*/
+    --z-fixed: 100;
+}
+  
+  /*===== BASE =====*/
+  *,::before,::after{
+    box-sizing: border-box;
+  }
+  html {
+    font-size: 16pt;
+  }
+  
+    @media screen and (max-width: 1680px) {
+  
+      html {
+        font-size: 12pt;
+      }
+  
+    }
+  
+    @media screen and (max-width: 736px) {
+  
+      html {
+        font-size: 11pt;
+      }
+  
+    }
+  
+    @media screen and (max-width: 360px) {
+  
+      html {
+        font-size: 10pt;
+      }
+  
+    }
+  body{
+    position: relative;
+    margin: var(--header-height) 0 0 0;
+    padding: 0 1rem;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+    transition: .5s;
+    background: #1b1f22;
+    color: #ffffff;
+    font-weight: 300;
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+  
+  a{
+    text-decoration: none;
+  }
+  
+  a {
+    -moz-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+    -webkit-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+    -ms-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
+    text-decoration: none;
+    color: inherit;
+    border-bottom-color: transparent;
+  }
+
+  i {
+    font-style: italic;
+  }
+  
+  p {
+    margin: 0 0 2rem 0;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+  }
+  
+    h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+      color: inherit;
+      text-decoration: none;
+    }
+  h1 {
+    font-size: 2.0rem;
+    line-height: 1.3;
+    letter-spacing: 0.5rem;
+  }
+  
+  h2 {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    letter-spacing: 0.5rem;
+  }
+  
+  h3 {
+    font-size: 1rem;
+  }
+  
+  h4 {
+    font-size: 0.8rem;
+  }
+  
+  h5 {
+    font-size: 0.7rem;
+  }
+  
+  h6 {
+    font-size: 0.6rem;
+  }
+
+  hr {
+    border: 0;
+    border-bottom: solid 1px #ffffff;
+    margin: 2.75rem 0;
+  }
+  
+  @media screen and (max-width: 736px) {
+  
+    h1 {
+      font-size: 1.75rem;
+      line-height: 1.4;
+    }
+  
+    h2 {
+      font-size: 1.25em;
+      line-height: 1.5;
+    }
+  
+  }
+
+  /*===== HEADER =====*/
+  .header{
+    width: 100%;
+    height: var(--header-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    background-color: var(--white-color);
+    z-index: var(--z-fixed);
+    -moz-transition: -moz-transform 0.325s ease-in-out, -moz-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	  -webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	  -ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	  transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	  background-image: -moz-radial-gradient(rgba(0, 0, 0, 0.25) 25%, rgba(0, 0, 0, 0) 55%);
+	  background-image: -webkit-radial-gradient(rgba(0, 0, 0, 0.25) 25%, rgba(0, 0, 0, 0) 55%);
+	  background-image: -ms-radial-gradient(rgba(0, 0, 0, 0.25) 25%, rgba(0, 0, 0, 0) 55%);
+	  background-image: radial-gradient(rgba(0, 0, 0, 0.25) 25%, rgba(0, 0, 0, 0) 55%);
+
+  }
+  
+  .header__toggle{
+    color: var(--first-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .header__img{
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .header__img img{
+    width: 40px;
+  }
+  
+  /*===== NAV =====*/
+  .l-navbar{
+    position: fixed;
+    top: 0;
+    left: -30%;
+    width: var(--nav-width);
+    height: 100vh;
+    background-color: var(--first-color);
+    padding: .5rem 1rem 0 0;
+    transition: .5s;
+    z-index: var(--z-fixed);
+  }
+  
+  .nav{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  .nav a{
+    text-decoration: none;
+    font-size: 12px;
+  }
+  
+  .nav__logo, .nav__link{
+    display: grid;
+    grid-template-columns: max-content max-content;
+    align-items: center;
+    column-gap: 1rem;
+    padding: .5rem 0 .5rem 1.5rem;
+  }
+  
+  .nav__logo{
+    margin-bottom: 2rem;
+  }
+  
+  .nav__logo-icon{
+    font-size: 1.25rem;
+    color: var(--white-color);
+  }
+  
+  .nav__logo-name{
+    color: var(--white-color);
+    font-weight: 700;
+  }
+  
+  .nav__link{
+    position: relative;
+    color: var(--first-color-light);
+    margin-bottom: 1.5rem;
+    transition: .3s;
+  }
+  
+  .nav__link:hover{
+    color: var(--white-color);
+  }
+  
+  .nav__icon{
+    font-size: 1.25rem;
+  }
+  
+  /*Show navbar movil*/
+  .show{
+    left: 0;
+  }
+  
+  /*Add padding body movil*/
+  .body-pd{
+    padding-left: calc(var(--nav-width) + 1rem);
+  }
+  
+  /*Active links*/
+  .active{
+    color: var(--white-color);
+  }
+  
+  .active::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 2px;
+    height: 32px;
+    background-color: var(--white-color);
+  }
+  
+  /* ===== MEDIA QUERIES=====*/
+  @media screen and (min-width: 768px){
+    body{
+      margin: calc(var(--header-height) + 1rem) 0 0 0;
+      padding-left: calc(var(--nav-width) + 2rem);
+    }
+  
+    .header{
+      height: calc(var(--header-height) + 1rem);
+      padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
+    }
+  
+    .header__img{
+      width: 40px;
+      height: 40px;
+    }
+  
+    .header__img img{
+      width: 45px;
+    }
+  
+    .l-navbar{
+      left: 0;
+      padding: 1rem 1rem 0 0;
+    }
+    
+    /*Show navbar desktop*/
+    .show{
+      width: calc(var(--nav-width) + 156px);
+    }
+  
+    /*Add padding body desktop*/
+    .body-pd{
+      padding-left: calc(var(--nav-width) + 188px);
+    }
+  }
+
+/* ----------- ICONOS ---------------*/
+
+.icon {
+	text-decoration: none;
+	border-bottom: none;
+	position: relative;
+}
+
+	.icon:before {
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		display: inline-block;
+		font-style: normal;
+		font-variant: normal;
+		text-rendering: auto;
+		line-height: 1;
+		text-transform: none !important;
+		font-family: 'Font Awesome 5 Free';
+		font-weight: 400;
+	}
+
+	.icon > .label {
+		display: none;
+	}
+
+	.icon:before {
+		line-height: inherit;
+	}
+
+	.icon.solid:before {
+		font-weight: 900;
+	}
+
+	.icon.brands:before {
+		font-family: 'Font Awesome 5 Brands';
+	}
+
+/* ----------- FOOTER ---------------*/
+
+#footer {
+	-moz-transition: -moz-transform 0.325s ease-in-out, -moz-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	-webkit-transition: -webkit-transform 0.325s ease-in-out, -webkit-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
+	width: 100%;
+	max-width: 100%;
+	margin-top: 2rem;
+	text-align: center;
+}
+
+	#footer .copyright {
+		letter-spacing: 0.2rem;
+		font-size: 0.6rem;
+		opacity: 0.75;
+		margin-bottom: 0;
+		text-transform: uppercase;
+	}
+
+	body.is-article-visible #footer {
+		-moz-transform: scale(0.95);
+		-webkit-transform: scale(0.95);
+		-ms-transform: scale(0.95);
+		transform: scale(0.95);
+		-moz-filter: blur(0.1rem);
+		-webkit-filter: blur(0.1rem);
+		-ms-filter: blur(0.1rem);
+		filter: blur(0.1rem);
+		opacity: 0;
+	}
+
+	body.is-preload #footer {
+		opacity: 0;
+	}
+
+  
+  
+  
+  

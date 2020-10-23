@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Modificar profesional</title>
+</head>
+<body>
+    <h1>Modificar profesional</h1>
+
+    <div>
+        <form name= 'myForm' action ="" method = "POST">
+            {% csrf_token %}
+         
+            <label for="">Run</label> <input type="text" name="id" value ={{idp}} disabled>
+            <br>
+            <br>
+            <label for="">Nombre</label> <input type="text" name="nombre" value={{nom}}>
+            <br>
+            <br>
+            <label for="">Email</label> <input type="email" name="email" value={{email}}>
+            <br>
+            <br>
+            <label for="">Clave</label> <input type="password" name="password" value={{pass}}>
+            <br>
+            <br>
+            <label for="">Comuna</label> 
+            <select name="lista_comuna" id="lista_comuna">
+                <option value="">Seleccione</option>
+                {% for c in lista_comuna %}
+                    <option value="{{c.0}}">{{c.1}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <br>
+            <label for="">Direccion</label> <input type="text" name="direccion" value="{{direccion}}">
+            <br>
+            <br>
+            <label for="">Telefono</label> <input type="text" name="telefono" value="{{telefono}}">
+            <br>
+            <br>
+            <label for="">Estado</label>
+            <select name="estado" id="estado">
+                <option value="{{estado}}">{{estado}}</option>
+                <option value="Disponible">Disponible</option>
+                <option value="En terreno">En terreno</option>     
+            </select>
+            <br>
+            <label for="">Contrato activo</label> 
+            <select name="contrato" id="contrato">
+                <option value="">Seleccione</option>
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>     
+            </select>
+            <br>
+            <br>
+            <label for="">Tipo de profesional</label> 
+            <select name="tipoprof" id="tipoprof">
+                <option value="">Seleccione</option>
+                {% for t in tipo_profesional %}
+                    <option value="{{t.0}}">{{t.1}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Modificar">
+          
+            </form>
+{{mensaje}}
+        
+
+</body>
+</html>

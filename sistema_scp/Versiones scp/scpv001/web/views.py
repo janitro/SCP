@@ -1,11 +1,18 @@
 from django.shortcuts import render, redirect
 from django.db import connection 
 import cx_Oracle
-from web.models import Profesional, Comuna
+from web.models import Profesional, Comuna, Post
+from django.core.paginator import Paginator
 
 # Create your views here.
 def home(request):
-    return render(request, 'web/001home.html', {})
+    posts = Post.objects.order_by('-published_date')
+    # maximo 3 publicaciones
+    paginator = Paginator(posts,3)
+    page = request.GET.get('page')
+    posts = paginator.get_page(page)
+
+    return render(request, 'web/001home.html', {'posts': posts})
 
 #Función que llama las comunas 
 def SP_listarComunas():
@@ -144,7 +151,7 @@ def PS_modificarProfesional(ID_PROFESIONAL,NOMBRE_COMPLETO, EMAIL_PROF, PASSWORD
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_ACTUALIZAR_PROFESIONAL',[ID_PROFESIONAL,NOMBRE_COMPLETO, EMAIL_PROF, PASSWORD_PROF, ID_COMUNA, DIRECCION, TELEFONO_PROF, ESTADO, ID_TIPO_PROFESIONAL, CONTRATO_ACTIVO,salida])
+    cursor.callproc('SP_ACTUALIZAR_PROFESIONAL',[ID_PROFESIONAL, NOMBRE_COMPLETO, EMAIL_PROF, PASSWORD_PROF, ID_COMUNA, DIRECCION, TELEFONO_PROF, ESTADO, ID_TIPO_PROFESIONAL, CONTRATO_ACTIVO, salida])
     return salida.getvalue()
 
 #Función para eliminar un profesional
@@ -162,3 +169,15 @@ def PS_eliminarProfesional(ID_PROFESIONAL):
     pr = cursor.callproc('SP_ELIMINAR_PROFESIONAL',[ID_PROFESIONAL, salida])
   
     return salida.getvalue()
+    
+def home_profesional(request):
+    return render(request, 'web/004homeprofesional.html', {})
+
+def login(request):
+    return render(request, 'web/002login.html', {})
+
+def home_cliente(request):
+    return render(request, 'web/012homecliente.html', {})
+
+def home_admin(request):
+    return render(request, 'web/021homeadmin.html', {})

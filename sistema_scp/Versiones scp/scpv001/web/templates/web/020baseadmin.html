@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+	<!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="{% static 'css/estilohome.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+	<script src="https://kit.fontawesome.com/a8027f23d1.js" crossorigin="anonymous"></script>
+	<script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+	<script src="{% static 'js/slider.js' %}"></script>
+
+</head>
+<body id="body-pd">
+    <header class="header" id="header">
+        <div class="header__toggle">
+            <i class='bx fas fa-bars' id="header-toggle"></i>
+        </div>
+
+        <div class="header__img">
+            <img src="{% static 'img/logo001.jpg' %}" alt="">
+        </div>
+    </header>
+
+    <div class="l-navbar" id="nav-bar">
+        <nav class="nav">
+            <div>
+                <a href="#" class="nav__logo">
+                    <i class='bx fas fa-user-shield nav__logo-icon'></i>
+                    <span class="nav__logo-name">SCP Sistema Control</span>
+                </a>
+
+                <div class="nav__list">
+                    <a href="#" class="nav__link">
+                        <i class='bx fas fa-user-plus nav__icon' ></i>
+                            <span class="nav__name">Registrar</span>
+                    </a>
+                    
+                    <a href="#" class="nav__link">
+                    <i class='bx fas fa-mail-bulk nav__icon' ></i>
+                        <span class="nav__name">Contrato & Servicios</span>
+                    </a>
+
+                    <a href="#" class="nav__link">
+                        <i class='bx fas fa-people-arrows nav__icon' ></i>
+                        <span class="nav__name">Asignaciones</span>
+                    </a>
+                    
+                    <a href="#" class="nav__link">
+                        <i class='bx fas fa-file-medical nav__icon' ></i>
+                        <span class="nav__name">Informes</span>
+                    </a>
+
+                    <a href="#" class="nav__link">
+                        <i class='bx fas fa-tasks nav__icon' ></i>
+                        <span class="nav__name">Actividades</span>
+                    </a>
+
+                    <a href="#" class="nav__link">
+                        <i class='bx fas fa-laptop-medical nav__icon' ></i>
+                        <span class="nav__name">Solicitudes</span>
+                    </a>
+
+                    <a href="#" class="nav__link">
+                        <i class='bx fas fa-cash-register nav__icon' ></i>
+                        <span class="nav__name">Pagos</span>
+                    </a>
+                    <a href="#" class="nav__link">
+                        <i class='bx fas fa-chart-bar nav__icon' ></i>
+                        <span class="nav__name">Metricas</span>
+                    </a>
+                </div>
+            </div>
+        
+            <a href="#" class="nav__link">
+                <i class='bx fas fa-door-open nav__icon' ></i>
+                <span class="nav__name">Salir</span>
+            </a>
+        </nav>
+    </div>
+    <!-- fin estatico -->
+
+	<!-- dinamico -->
+	{% block content %}
+    {% endblock %}
+    <!-- fin dinamico -->
+		
+    <!-- estatico -->
+    <!-- footer -->
+	<footer id="footer">
+        <p class="copyright">&copy; Portafolio Titulo. Diseñado: <a>Grupo 1</a>.</p>
+    </footer>
+    <!-- fin estatico -->
+	
+	<!-- Compiled and minified JavaScript -->
+	<!-- Otros JS -->
+    <script src="{% static 'js/mainmenu.js' %}"></script>
+    {% block carga_js %}
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet" href="{%static 'css/estilos.css' %}">
+    <title>Listar profesional</title>
+</head>
+<body>
+    <h1>Listado de profesionales</h1>
+<div>
+    <form action="" method="GET">
+        {% csrf_token %}
+    <label for ="rut">RUN</label> 
+    <input type="text" name="rut">  <input type="submit" value="Buscar">
+    {% for s in salida %}
+    <h5>{{s}}</h5>
+    {% endfor %}
+    <table class = "content-table" id="tablalist">
+        <thead>
+            <tr>
+                <th>Run</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Comuna</th>
+                <th>Dirección</th>
+                <th>Telefono</th>
+                <th>Estado</th>
+                <th>Estado del contrato</th>
+                <th>Tipo de profesional</th>
+                <th>acción</th>
+           </tr>
+        </thead>
+        <tbody>
+            {% for i in prof %}
+            <tr>
+                <td>{{i.0}}</td>
+                <td>{{i.1}}</td>
+                <td>{{i.2}}</td>
+                <td>{{i.3}}</td>
+                <td>{{i.4}}</td>
+                <td>{{i.5}}</td>
+                <td>{{i.6}}</td>
+                <td>{{i.7}}</td>
+                <td>{{i.8}}</td>
+                <br>
+                <td>
+                    <a class="button success" href="{% url 'modificar-profesional' i.0 %}">Editar</a>
+                    <a class="button success" href="{% url 'eliminar-profesional' i.0 %}">Eliminar</a>
+                </td>
+     
+            </tr>
+            {% endfor %}
+
+            
+        </tbody>
+    <br>
+    </form>
+</div>
+
+</body>
+</html>
