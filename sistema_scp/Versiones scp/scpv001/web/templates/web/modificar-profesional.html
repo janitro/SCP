@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
         <form name= 'myForm' action ="" method = "POST">
             {% csrf_token %}
          
-            <label for="">Run</label> <input type="text" name="id" value ={{idp}} disabled>
+            <label for="">Run</label> <input type="text" name="id" value ={{idp}} readonly>
             <br>
             <br>
             <label for="">Nombre</label> <input type="text" name="nombre" value={{nom}}>
@@ -27,7 +28,7 @@
             <br>
             <label for="">Comuna</label> 
             <select name="lista_comuna" id="lista_comuna">
-                <option value="">Seleccione</option>
+                <option value="{{comid}}">{{com}}</option>
                 {% for c in lista_comuna %}
                     <option value="{{c.0}}">{{c.1}}</option>
                 {% endfor %}
@@ -48,16 +49,20 @@
             </select>
             <br>
             <label for="">Contrato activo</label> 
-            <select name="contrato" id="contrato">
-                <option value="">Seleccione</option>
-                <option value="1">Activo</option>
-                <option value="0">Inactivo</option>     
+            <select name="contrat" id="contrat" class="contrat">
+                {% if contrat == True %}
+                <option value="{{contrat}}">Activo</option>
+                {% else %}
+                <option value="{{contrat}}">Inactivo</option>
+                {% endif %}
+                <option value="1">Activoo </option>
+                <option value="0">Inactivoo </option>
             </select>
             <br>
             <br>
             <label for="">Tipo de profesional</label> 
             <select name="tipoprof" id="tipoprof">
-                <option value="">Seleccione</option>
+                <option value="{{tipoid}}">{{tipo}}</option>
                 {% for t in tipo_profesional %}
                     <option value="{{t.0}}">{{t.1}}</option>
                 {% endfor %}

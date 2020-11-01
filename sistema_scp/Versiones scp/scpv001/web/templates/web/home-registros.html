@@ -1,0 +1,25 @@
+{% extends 'web/020baseadmin.html' %}
+	{% load static %}
+	{% block title %}Inicio Cliente - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - Slider-->
+		<div class="borde">
+            <h2 class="major">Registrar Usuario</h2>
+            <div class="fields">
+                <ul class="actions">
+                    <li><a href="{% url 'registrar-cliente' %}" class="button">Registrar Cliente</a></li>
+                    <li><a href="{% url 'Profesional' %}" class="button">Registrar Profesional</a></li>
+                </ul>
+            </div>
+            <h2 class="major">Editar Usuario</h2>
+            <div class="fields">
+                <ul class="actions">
+                    <li><a href="{% url 'listar-cliente' %}" class="button">Editar Cliente</a></li>
+                    <li><a href="{% url 'listarProfesional' %}" class="button">Editar Profesional</a></li>
+                </ul>
+            </div>
+        </div>  
+
+		<!-- fin dinamico -->
+		{% endblock %}

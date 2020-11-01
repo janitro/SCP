@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel ="stylesheet" href="{%static 'css/estilos.css' %}">
-    <title>Listar profesional</title>
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <title>Listar profesional</title>  
 </head>
+
 <body>
     <h1>Listado de profesionales</h1>
 <div>
@@ -42,22 +44,24 @@
                 <td>{{i.4}}</td>
                 <td>{{i.5}}</td>
                 <td>{{i.6}}</td>
-                <td>{{i.7}}</td>
+                {% if i.7 == 0 %}
+                <td>Inactivo</td>
+                {% else %}
+                <td>Activo</td>
+                {% endif %}
                 <td>{{i.8}}</td>
                 <br>
                 <td>
                     <a class="button success" href="{% url 'modificar-profesional' i.0 %}">Editar</a>
                     <a class="button success" href="{% url 'eliminar-profesional' i.0 %}">Eliminar</a>
                 </td>
-     
             </tr>
             {% endfor %}
-
-            
         </tbody>
+        </table>
     <br>
     </form>
-</div>
 
+</div>
 </body>
 </html>

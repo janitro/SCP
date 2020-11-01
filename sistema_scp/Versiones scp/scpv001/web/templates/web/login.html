@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SCP</title>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+	<script src="https://kit.fontawesome.com/a8027f23d1.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+
+</head>
+<body>
+    <!-- Wrapper -->
+			<div id="wrapper">
+                <!-- Header -->
+                <div class="borde">
+                        <h1 class="major">Iniciar Sesion</h1>
+                    <article> 		
+                        <div class="fields js-signin-modal"> 
+                            <div class="js-signin-modal-switcher js-signin-modal-trigger"> 
+                                <!-- iniciar sesion  --> 
+                                <div class="js-signin-modal-block" data-type="login">
+                                    <form class="fields" method="POST">
+                                        
+                                        {% csrf_token %}
+
+                                        <p class="field">
+                                            <label for="signup-username">Correo</label>
+                                            <input type="text" name="email", id ="signup-username", placeholder="ejemplo@gmail.com">
+                                        </p>
+                    
+                                        <p class="field half">
+                                            <label for="signin-password">contrasena</label>
+                                            <input id="signin-password" type="password" name="password", placeholder="Contrasena">
+                                            <a href="#0" class=" js-hide-password">Mostrar</a>
+                                        </p>
+                                        
+                                        <p class="field">
+                                            <input type="checkbox" id="remember-me" checked>
+                                            <label for="remember-me">Recuerdame</label>
+                                        </p>
+                    
+                                        <ul class="actions">
+                                            <li><input type="submit" value="Entrar" id="boton" class="primary" /></li>
+                                            <li><input type="reset" value="Limpiar" /></li>
+                                        </ul>
+                                    </form>
+                                </div> 
+                            </div> 
+                        </div>
+                    </article>
+                </div>
+                
+				<!-- Footer -->
+					<footer id="footer">
+						<p class="copyright">&copy; Portafolio Titulo. Diseñado: <a>Grupo 1</a>.</p>
+					</footer>								
+			</div>
+		
+			<!-- BG -->
+					<div id="bg"></div>
+		
+				<!-- Scripts -->
+					<script src="{% static 'js/browser.min.js' %}"></script>
+					<script src="{% static 'js/breakpoints.min.js' %}"></script>
+                    <script src="{% static 'js/main.js' %}"></script>
+                    <script src="{% static 'js/login.js' %}"></script>			
+
+</body>
+</html>
