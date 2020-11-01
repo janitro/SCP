@@ -1,0 +1,56 @@
+{% extends 'web/020baseadmin.html' %}
+	{% load static %}
+	{% block title %}Listar Contrato - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - Slider-->
+		<div class="total">
+            <h2 class="major">Listado de Contrato</h2>
+            <div class="table-wrapper">
+                <form action="" method="GET">
+                    {% csrf_token %}
+                    <table class = "alt" id="tablalist">
+                        <thead>
+                            <tr>
+                                <th>Rut</th>
+                                <th>Empresa</th>
+                                <th>Correo</th>
+                                <th>Telefono</th>
+                                <th>Direccion</th>
+                                <th>Comuna</th>
+                                <th>Num contrato</th>
+                                <th>Fecha</th>
+                                <th>Rubro</th>
+                                <th>Contrato</th>
+            
+                           </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data %}
+                            <tr>
+                                <td>{{i.0}}</td>
+                                <td>{{i.1}}</td>
+                                <td>{{i.2}}</td>
+                                <td>{{i.3}}</td>
+                                <td>{{i.4}}</td>
+                                <td>{{i.5}}</td>
+                                <td>{{i.6}}</td>
+                                <td>{{i.7}}</td>
+                                <td>{{i.8}}</td>
+                                {% if i.9 == 0 %}
+                                <td class="inactivo-table">Inactivo</td>
+                                {% else %}
+                                <td class="activo-table">Activo</td>
+                                {% endif %}
+                                <br>
+                               
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+		<!-- fin dinamico -->
+		{% endblock %}
