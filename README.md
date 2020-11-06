@@ -1,7 +1,8 @@
-Sistema Control de Prevencion v1.4 - Integración de diversos CSS a la web, función del login y función del botón para el rol Admin para agregar y editar Clientes y Profesionales
+Sistema Control de Prevencion v1.6 
+
+
+- Integración de diversos JS a la web, agregado la funcion de checklist de profesional, se agrega servicio y calendario para asiganar servicio al home de admin.
 
  --ERRORES CONOCIDOS--
     
-    -Ingresar mediante login con un administrador (Problema actualmente a nivel local)
-    
-    -problema al validar password para los usuarios
+ --No presenta errores
