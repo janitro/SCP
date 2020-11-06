@@ -1,9 +1,8 @@
-Sistema Control de Prevencion v1.5.
-
-Se corrigue errores de fuente de css, 
-
-Se agregaron nuevos template para al home-admin, 
-
-Se agrego funciona de contratos,
+Sistema Control de Prevencion v1.6 
 
 
+- Integración de diversos JS a la web, agregado la funcion de checklist de profesional, se agrega servicio y calendario para asiganar servicio al home de admin.
+
+ --ERRORES CONOCIDOS--
+    
+ --No presenta errores

@@ -1,1 +1,82 @@
-<h1> Contratos </h1>
+{% extends 'web/020baseadmin.html' %}
+	{% load static %}
+	{% block title %}Registrar Profesional- SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - Slider-->
+        <div class="borde">
+            <h1 class="major">Asignar Profesional </h1>
+            <div class="fields">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                   
+                    <br>
+                    <div class="field half">
+                        <label for="party"></label> 
+                        <input id="partydate" type="date" name="Fecha" value="">
+
+                    </div>
+                    <br>
+                    <div class="field half">
+                        <label for="currency-field">Precio</label> 
+                        <input id="Precio" type="text" name="Precio" data-type="currency" placeholder="$1.000.000">
+                    </div>
+                    <br>
+                    <div class="field">
+                        <label for="reg-cliente">Cliente</label>
+                        <select name="listar_cliente" id="listar_cliente">
+                            <option value="">Seleccionar</option>
+                            {% for c in listar_cliente %}
+                                <option value="{{c.0}}">{{c.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <br>
+                    <div class="field">
+                        <label for="reg-profesional">Profesional</label>
+                        <select name="listar_profesional" id="listar_profesional">
+                            <option value="">Seleccionar</option>
+                            {% for c in listar_profesional %}
+                                <option value="{{c.0}}">{{c.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <br>
+                     <div class="field">
+                        <label for="reg-servicio">Servicio</label>
+                        <select name="tipo_subtipo_servicio" id="tipo_subtipo_servicio">
+                            <option value="">Seleccionar</option>
+                            {% for c in tipo_subtipo_servicio %}
+                                <option value="{{c.0}}">{{c.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <br>
+                     <div class="field">
+                        <label for="reg-estado">Estado</label>
+                        <select name="estado_servicio" id="estado_servicio">
+                            <option value="">Seleccionar</option>
+                            {% for c in estado_servicio %}
+                                <option value="{{c.0}}">{{c.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <br>
+                    <div class="field half">
+                        <input type="checkbox", name="enviopass">
+                        <label for="">Enviar contraseña por correo</label> 
+                    </div>
+                    <br>
+                    <ul class="actions">
+                        <li><input type="submit" value="Guardar" class="primary"></li>
+                        <li><input type="reset" value="Limpiar"></li>
+                    </ul>
+                </form>
+                
+                {{mensaje}}
+            </div>
+        </div>
+		
+
+		<!-- fin dinamico -->
+		{% endblock %}

@@ -1,16 +1,19 @@
 from django.shortcuts import render, redirect
 from django.db import connection 
 import cx_Oracle
-from web.models import Profesional, Comuna, Cliente, Login, Administrador,Contrato
+from web.models import Profesional, Comuna, Cliente, Login, Administrador,Contrato, Servicio, Checklist
 from django.contrib.auth import login, authenticate
 from django.views.generic.edit import FormView
-from web.forms import loginForm
+from web.forms import loginForm, CheckForm
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 from django.shortcuts import reverse
 import django.contrib.sessions as session
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.db.models import Q
+
 
 #Login
 class login_view(TemplateView):
@@ -364,11 +367,30 @@ def registro_contrato(request):
     return render(request, 'web/registro-contrato.html', {})
 
 def registro_servicios(request):
-    return render(request, 'web/registro-servicios.html', {})
+    return render(request, 'web/home-asignar.html', {})
 
 
 def listar_contratosM(request):
-    return render(request, 'web/listar-contrato-M.html', {})
+    contra = ""
+    if request.method == 'GET':
+       ID_CLIENTE = request.GET.get('rut')
+       contra = PS_listarContratoMorosos()
+        
+    return render(request, 'web/listar-contrato-M.html', {'contra':contra})
+
+
+def PS_listarContratoMorosos():
+    django_cursor = connection.cursor()
+    cursor= django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("sp_listar_contrato_NONE", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
 
 
 
@@ -406,13 +428,7 @@ def detalleContrato(request,pk):
 
     return render(request, 'web/detalles-contrato.html', {'data':data})
 
-""""def buscarContrato(request):
-    prof = ""
-    if request.method == 'GET':
-        ID_PROFESIONAL = request.GET.get('rut')
-        salida = PS_buscarProfesional(ID_PROFESIONAL)
-        prof = PS_listarProfesional()
-    return render(request, 'web/listar-profesional.html', {'salida': salida,'prof':prof})"""
+
 
 
 
@@ -431,3 +447,139 @@ def PS_buscarContrato(ID_CLIENTE):
 
 def modificar_contraro(request):
     return render(request, 'web/modificar-contrato.html', {})
+
+
+def listado_tipo_servicio():
+    django_cursor = connection.cursor()
+    cursor= django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_TIPO_SERVICIO", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listado_tipo_subtipo_servicio():
+    django_cursor = connection.cursor()
+    cursor= django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_SUBTIPO_SERVICIO", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listado_estado_servicio():
+    django_cursor = connection.cursor()
+    cursor= django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_ESTADO_SERVICIO", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+
+def Asignar_Profesional(request):
+    data = {
+        #'lista_tipo_servicio':listado_tipo_servicio(),
+        'tipo_subtipo_servicio':listado_tipo_subtipo_servicio(),
+        'listar_cliente':PS_listarCliente(),
+        'listar_profesional':PS_listarProfesional(),
+        'estado_servicio':listado_estado_servicio()
+    }
+    if request.method == 'POST':
+        
+        FECHA_SERVICIO = request.POST.get('Fecha')
+        PRECIO = request.POST.get('Precio')
+        ID_CLIENTE = request.POST.get('listar_cliente')
+        ID_PROFESIONAL = request.POST.get('listar_profesional')
+        ID_SUBTIPO_SERVICIO = request.POST.get('tipo_subtipo_servicio')
+        ID_ESTADO_SERVICIO = request.POST.get('estado_servicio')
+        salida = PS_registrarServicio(FECHA_SERVICIO, PRECIO, ID_CLIENTE, ID_PROFESIONAL, ID_SUBTIPO_SERVICIO, ID_ESTADO_SERVICIO)
+
+        if salida == 1:
+            data['mensaje'] = 'Agregado correctamente'
+        else:
+            data['mensaje'] = 'Error al agregar'
+    return render(request, 'web/registro-servicios.html',data )
+
+
+
+def PS_registrarServicio(FECHA_SERVICIO, PRECIO, ID_CLIENTE, ID_PROFESIONAL, ID_SUBTIPO_SERVICIO, ID_ESTADO_SERVICIO):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('sp_agregar_servicio',[FECHA_SERVICIO, PRECIO, ID_CLIENTE, ID_PROFESIONAL, ID_SUBTIPO_SERVICIO, ID_ESTADO_SERVICIO, salida])
+    return salida.getvalue()
+
+def Prueba(request):
+    cal = ""
+    if request.method == 'GET':
+        FECHA_SERVICIO = request.GET.get('fecha')
+        cal = listado_servicio_calendar()
+    return render(request, 'web/prueba.html', {'cal': cal})
+
+
+
+def listado_servicio_calendar():
+    django_cursor = connection.cursor()
+    cursor= django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_SERVICIO_CALENDAR", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def checkList1(request):
+    checks = Checklist.objects.all()
+    form = CheckForm()
+
+    if request.method == 'POST':
+        form = CheckForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Item agregado al checklist'))
+            return redirect('checklist')
+        else:
+            print("no hay mano")
+
+    context = {'checks':checks, 'form':form}
+    return render(request, 'web/crear-checklist.html',context)
+
+
+def listar_checklist(request):
+    if request.method == 'POST':
+        ID_CLIENTE = request.POST.get('id_cliente')
+        check = Checklist.objects.raw('select * from checklist where id_cliente = %s',[ID_CLIENTE])
+        return render(request,'web/listar-checklist.html',{'check':check})
+    else:
+        ID_CLIENTE = request.GET.get('id_cliente')
+        print(ID_CLIENTE)
+        check = Checklist.objects.raw('select * from checklist where id_cliente = %s',[ID_CLIENTE])
+        return render(request,'web/listar-checklist.html',{'check':check,'ID_CLIENTE':ID_CLIENTE})
+
+def tachar(request,pk):
+    check = Checklist.objects.get(id=pk)
+    check.resultado = True
+    check.save()
+    return redirect('listar-checklist')
+
+def cancelar(request,pk):
+    check = Checklist.objects.get(id=pk)
+    check.resultado = False
+    check.save()
+    return redirect('listar-checklist')
+
+
+
+

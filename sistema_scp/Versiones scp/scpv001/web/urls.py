@@ -26,4 +26,14 @@ urlpatterns = [
     path('listar-contrato/', views.listarContrato, name="listar-contrato"),
     #path('detalle-Contrato/<pk>/', views.detalleContrato, name="detalle-Contrato"),
     path('detalles-contrato/<pk>/', views.detalleContrato, name="detalles-contrato"),
+    path('asignar-profesional/',views.Asignar_Profesional, name="asignar-profesional"),
+    path('prueba/',views.Prueba, name="prueba"),
+    path('crear-checklist/',views.checkList1, name="checklist"),
+    path('listar-checklist/',views.listar_checklist, name="listar-checklist"),
+    path('tachar/<pk>',views.tachar, name="tachar"),
+    path('cancelar/<pk>',views.cancelar, name="cancelar"),
+     
+
+
+
 ]
