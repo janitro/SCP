@@ -1,1 +1,53 @@
-<h1> listar contratos morosos </h1>
+{% extends 'web/020baseadmin.html' %}
+	{% load static %}
+	{% block title %}Listar Contrato - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - Slider-->
+		<div class="total">
+            <h2 class="major">Listado de Contrato</h2>
+            <div class="table-wrapper">
+                <form action="" method="GET">
+                    {% csrf_token %}
+ 
+  
+                    <table class = "alt" id="tablalist">
+                        <thead>
+                            <tr>
+                                <th>Rut</th>
+                                <th>Empresa</th>
+                                <th>Num contrato</th>
+                                <th>Fecha</th>
+                                <th>Rubro</th>
+                                <th>Contrato</th>
+            
+                           </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in contra %}
+                            <tr>
+                                <td>{{i.0}}</td>
+                                <td>{{i.1}}</td>
+                                <td>{{i.2}}</td>
+                                <td>{{i.3}}</td>
+                                <td>{{i.4}}</td>
+                                {% if i.5 == 0 %}
+                                <td class="inactivo-table">Inactivo</td>
+                                {% else %}
+                                <td class="activo-table">Activo</td>
+                                {% endif %}
+                                <br>
+                                <td>
+                                
+                                    <a class="button"  href="{% url 'detalles-contrato' i.0 %}">Detalle  </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+
+		<!-- fin dinamico -->
+		{% endblock %}

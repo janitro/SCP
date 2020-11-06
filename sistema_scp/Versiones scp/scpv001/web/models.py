@@ -398,3 +398,17 @@ class VisitaMensual(models.Model):
     class Meta:
         managed = False
         db_table = 'visita_mensual'
+
+
+
+class Checklist(models.Model):
+    id = models.AutoField(primary_key=True)
+    checklist = models.CharField(max_length=250, blank=True, null=True)
+    resultado = models.BooleanField(blank=True, null=True)
+    id_cliente = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='id_cliente', blank=True, null=True)
+
+    def str(self):
+        return self.checklist + ' | ' + str(self.resultado)
+
+    class Meta:
+        db_table = 'checklist'

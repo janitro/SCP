@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet" href="{%static 'css/estilos.css' %}">
+    <title>Checklist</title>
+</head>
+<body>
+    <h1>Checklist</h1>
+
+    <form method="POST" action=""> {% csrf_token %}
+        <label for="">Checklist </label><input class="form-control" type="text" name="checklist", id ="checklist">
+        <label for="">Respuesta </label>
+        <select for="" class="form-control" name="resultado">
+            <option value="">En blanco</option>
+            <option value="1">Si</option>
+            <option value="0">No</option>
+        </select>
+        <label for="">Rut empresa </label><input class="form-control" type="text" name="id_cliente", id ="id_cliente">
+        <input type="submit" name="Crear item">
+    </form>   
+    <br>
+    <table class = "content-table" id="tablalist">
+        <thead>
+            <tr>
+                <th>Item</th>
+                <th>Respuesta</th>
+                <th>Cliente</th>
+           </tr>
+        </thead>
+        <tbody>
+            {% for i in checks %}
+            <tr></tr>
+                <td>{{i.checklist}}</td>
+                <td>{{i.resultado}}</td>
+                <td>{{i.id_cliente.nombre_empresa}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+</body>
+</html>
