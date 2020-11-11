@@ -32,6 +32,7 @@ urlpatterns = [
     path('listar-checklist/',views.listar_checklist, name="listar-checklist"),
     path('tachar/<pk>',views.tachar, name="tachar"),
     path('cancelar/<pk>',views.cancelar, name="cancelar"),
+    path('detalles-servicio/<pk>/', views.listar_servicio_detalle, name="detalles-servicio"),
      
 
 

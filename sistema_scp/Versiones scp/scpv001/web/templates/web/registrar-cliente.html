@@ -68,6 +68,17 @@
                         </select>
                     </div>
                     <br>
+                    <br>
+                    <div class="field">
+                        <label for="reg-tipo">Profesion Asignado</label>
+                        <select name="lista_profesional" id ="lista_profesional">
+                            <option value="">Seleccionar</option>
+                            {% for t in lista_profesional %}
+                                <option value={{t.0}}>{{t.1}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <br>
                     <div class="field half">
                         <input type="checkbox", name="enviopass">
                         <label for="">Enviar contraseña por correo</label> 

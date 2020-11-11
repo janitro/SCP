@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.db import connection 
 import cx_Oracle
@@ -13,6 +14,7 @@ import django.contrib.sessions as session
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
+
 
 
 #Login
@@ -228,7 +230,8 @@ def sp_listado_tipo_cliente():
 def registrarCliente(request):
     data = {
     'tipo_cliente':sp_listado_tipo_cliente(),
-    'lista_comuna':SP_listarComunas()
+    'lista_comuna':SP_listarComunas(),
+    'lista_profesional':PS_listarProfesional()
     }
     if request.method == 'POST':
         ID_CLIENTE = request.POST.get('id')
@@ -238,9 +241,10 @@ def registrarCliente(request):
         ID_COMUNA = request.POST.get('lista_comuna')
         TELEFONO_EMPRESA = request.POST.get('telefono')
         DIRECCION = request.POST.get('direccion')
-        SERVICIO_ACTIVO= request.POST.get('servicio')
+        SERVICIO_ACTIVO = request.POST.get('servicio')
         ID_TIPO_CLIENTE = request.POST.get('tipo')
-        salida= PS_registrarCliente(ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE)
+        ID_PROFESIONAL = request.POST.get('lista_profesional')
+        salida= PS_registrarCliente(ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE, ID_PROFESIONAL)
         if salida == 1:
             data['mensaje'] = 'Agregado correctamente'
         else:
@@ -249,11 +253,11 @@ def registrarCliente(request):
     return render(request, 'web/registrar-cliente.html',data)
 
 #Función para llamar el procedimiento de registrar un cliente
-def PS_registrarCliente(ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE):
+def PS_registrarCliente(ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE, ID_PROFESIONAL):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_AGREGAR_CLIENTE',[ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE,salida])
+    cursor.callproc('SP_AGREGAR_CLIENTE',[ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE, ID_PROFESIONAL, salida])
     return salida.getvalue()
 
 #Función para listar los clientes
@@ -283,6 +287,7 @@ def modificarCliente(request,pk):
     data = {
     'tipo_cliente':sp_listado_tipo_cliente(),
     'lista_comuna':SP_listarComunas(),
+    'lista_profesional':PS_listarProfesional(),
     'idc': cliente.id_cliente,
     'nom': cliente.nombre_empresa,
     'email': cliente.email_cliente,
@@ -294,6 +299,9 @@ def modificarCliente(request,pk):
     'estado': cliente.servicio_activo,
     'tipoid': cliente.id_tipo_cliente.id_tipo_cliente,
     'tipo': cliente.id_tipo_cliente.tipo_cliente,
+    'idprof': cliente.id_profesional.id_profesional,
+    'prof': cliente.id_profesional.nombre_completo,
+    
     }
     if request.method == 'POST':
         ID_CLIENTE = request.POST.get('id')
@@ -305,12 +313,11 @@ def modificarCliente(request,pk):
         TELEFONO_EMPRESA = request.POST.get('telefono')
         SERVICIO_ACTIVO= request.POST.get('servicio')
         ID_TIPO_CLIENTE = request.POST.get('tipocli')
-        if SERVICIO_ACTIVO == True:
-            SERVICIO_ACTIVO = 1
-        else:
-            SERVICIO_ACTIVO = 0
-        salida= PS_modificarCliente(ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE)
-        print(ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE)
+        ID_PROFESIONAL = request.POST.get('lista_profesional')
+
+      
+        salida= PS_modificarCliente(ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE, ID_PROFESIONAL)
+        print(ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE, ID_PROFESIONAL)
         if salida == 1:
             data['mensaje'] = 'Modificado correctamente'
             return redirect('listar-cliente')
@@ -319,11 +326,11 @@ def modificarCliente(request,pk):
     return render(request, 'web/modificar-cliente.html',data)
 
 #función que llama el procedimiento para modificar profesional
-def PS_modificarCliente(ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE):
+def PS_modificarCliente(ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE, ID_PROFESIONAL):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_ACTUALIZAR_CLIENTE',[ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE,salida])
+    cursor.callproc('SP_ACTUALIZAR_CLIENTE',[ID_CLIENTE, NOMBRE_EMPRESA, EMAIL_CLIENTE, PASSWORD_CLIENTE, ID_COMUNA, TELEFONO_EMPRESA, DIRECCION, SERVICIO_ACTIVO, ID_TIPO_CLIENTE, ID_PROFESIONAL,salida])
     return salida.getvalue()
 
 #Función para eliminar un cliente
@@ -486,17 +493,19 @@ def listado_estado_servicio():
     return lista
 
 
-def Asignar_Profesional(request):
+def Asignar_Profesional(request, date=None):
+    
     data = {
         #'lista_tipo_servicio':listado_tipo_servicio(),
         'tipo_subtipo_servicio':listado_tipo_subtipo_servicio(),
         'listar_cliente':PS_listarCliente(),
         'listar_profesional':PS_listarProfesional(),
-        'estado_servicio':listado_estado_servicio()
+        'estado_servicio':listado_estado_servicio(),
+        
     }
     if request.method == 'POST':
         
-        FECHA_SERVICIO = request.POST.get('Fecha')
+        FECHA_SERVICIO = request.POST.get('fecha')
         PRECIO = request.POST.get('Precio')
         ID_CLIENTE = request.POST.get('listar_cliente')
         ID_PROFESIONAL = request.POST.get('listar_profesional')
@@ -520,10 +529,16 @@ def PS_registrarServicio(FECHA_SERVICIO, PRECIO, ID_CLIENTE, ID_PROFESIONAL, ID_
     return salida.getvalue()
 
 def Prueba(request):
+  
+    
     cal = ""
+   
     if request.method == 'GET':
         FECHA_SERVICIO = request.GET.get('fecha')
         cal = listado_servicio_calendar()
+     
+    
+    
     return render(request, 'web/prueba.html', {'cal': cal})
 
 
@@ -539,6 +554,79 @@ def listado_servicio_calendar():
     for fila in out_cur:
         lista.append(fila)
     return lista
+
+
+
+
+def listar_servicio_detalle(request,pk):
+    servicio = Servicio.objects.get(id_servicio=pk)
+    idservicio = servicio.id_servicio
+    data = PS_buscarServicio(idservicio)
+    
+    
+
+    return render(request, 'web/listar-servicio-detalle.html', {'data':data})
+
+def PS_buscarServicio(ID_SERVICIO):
+    django_cursor =  connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.CURSOR)
+    pr = cursor.callproc('SP_LISTAR_SERVICIO_ID',[ID_SERVICIO, salida])
+  
+    return salida.getvalue()
+
+
+    
+
+
+
+
+
+"""class Asiganar_Calender(TemplateView):
+
+    def post(self,request, *args,**kwargs):
+
+        data = {
+        #'lista_tipo_servicio':listado_tipo_servicio(),
+        'tipo_subtipo_servicio':listado_tipo_subtipo_servicio(),
+        'listar_cliente':PS_listarCliente(),
+        'listar_profesional':PS_listarProfesional(),
+        'estado_servicio':listado_estado_servicio()
+         }
+        if request.method == 'POST':
+        
+          FECHA_SERVICIO = request.POST.get('Fecha')
+          PRECIO = request.POST.get('Precio')
+          ID_CLIENTE = request.POST.get('listar_cliente')
+          ID_PROFESIONAL = request.POST.get('listar_profesional')
+          ID_SUBTIPO_SERVICIO = request.POST.get('tipo_subtipo_servicio')
+          ID_ESTADO_SERVICIO = request.POST.get('estado_servicio')
+          salida = PS_registrarServicio(FECHA_SERVICIO, PRECIO, ID_CLIENTE, ID_PROFESIONAL, ID_SUBTIPO_SERVICIO, ID_ESTADO_SERVICIO)
+
+          if salida == 1:
+            data['mensaje'] = 'Agregado correctamente'
+            return redirect('get')
+          else:
+            data['mensaje'] = 'Error al agregar'
+        return render(request, 'web/prueba.html',data )
+
+
+
+
+    def get(self,request, *args,**kwargs):
+        cal = ""
+   
+        if request.method == 'GET':
+          FECHA_SERVICIO = request.GET.get('fecha')
+          cal = listado_servicio_calendar()
+        return render(request, 'web/prueba.html', {'cal': cal})"""
+    
+   
+
+
+
+
+
 
 def checkList1(request):
     checks = Checklist.objects.all()

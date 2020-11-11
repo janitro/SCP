@@ -14,8 +14,7 @@ class Administrador(models.Model):
     nombre_completo = models.CharField(max_length=200)
     email_admin = models.CharField(max_length=255)
     password_admin = models.CharField(max_length=30)
-    last_login = models.DateField(blank=True, null=True)
-
+    
     USERNAME_FIELD = 'email_admin'
 
     class Meta:
@@ -111,6 +110,20 @@ class Capacitacion(models.Model):
         db_table = 'capacitacion'
 
 
+class Checklist(models.Model):
+    id = models.FloatField(primary_key=True)
+    checklist = models.CharField(max_length=250, blank=True, null=True)
+    resultado = models.BooleanField(blank=True, null=True)
+    id_cliente = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='id_cliente', blank=True, null=True)
+    
+    def str(self):
+        return self.checklist + ' | ' + str(self.resultado)
+
+    class Meta:
+        managed = False
+        db_table = 'checklist'
+
+
 class Cliente(models.Model):
     id_cliente = models.CharField(primary_key=True, max_length=10)
     nombre_empresa = models.CharField(max_length=100)
@@ -121,6 +134,7 @@ class Cliente(models.Model):
     direccion = models.CharField(max_length=200)
     servicio_activo = models.BooleanField()
     id_tipo_cliente = models.ForeignKey('TipoCliente', models.DO_NOTHING, db_column='id_tipo_cliente')
+    id_profesional = models.ForeignKey('Profesional', models.DO_NOTHING, db_column='id_profesional')
 
     class Meta:
         managed = False
@@ -207,15 +221,13 @@ class DocsCliente(models.Model):
         db_table = 'docs_cliente'
 
 
-class Emergencia(models.Model):
-    nivel_urgencia = models.CharField(max_length=50)
-    id_ticket = models.OneToOneField('Ticket', models.DO_NOTHING, db_column='id_ticket', primary_key=True)
-    area = models.CharField(max_length=50)
-    especialidad = models.CharField(max_length=100)
+class EstadoServicio(models.Model):
+    id_estado_servicio = models.IntegerField(primary_key=True)
+    descripcion = models.CharField(max_length=100)
 
     class Meta:
         managed = False
-        db_table = 'emergencia'
+        db_table = 'estado_servicio'
 
 
 class HistorialProfesional(models.Model):
@@ -229,27 +241,18 @@ class HistorialProfesional(models.Model):
         db_table = 'historial_profesional'
 
 
-class Llamada(models.Model):
-    duracion = models.DateField()
-    id_ticket = models.OneToOneField('Ticket', models.DO_NOTHING, db_column='id_ticket', primary_key=True)
-
-    class Meta:
-        managed = False
-        db_table = 'llamada'
-
-
 class Login(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.FloatField(primary_key=True)
     email = models.CharField(max_length=250)
     password = models.CharField(max_length=250)
-    is_admin = models.BooleanField(default=False, null=True)
-    is_prof = models.BooleanField(default=False, null=True)
-    is_cliente = models.BooleanField(default=False, null=True)
-    id_admin = models.ForeignKey('administrador', models.DO_NOTHING, db_column='id_admin', blank=True, null=True)
+    is_admin = models.BooleanField(blank=True, null=True)
+    is_prof = models.BooleanField(blank=True, null=True)
+    is_cliente = models.BooleanField(blank=True, null=True)
+    id_admin = models.ForeignKey(Administrador, models.DO_NOTHING, db_column='id_admin', blank=True, null=True)
     id_prof = models.ForeignKey('Profesional', models.DO_NOTHING, db_column='id_prof', blank=True, null=True)
     id_cliente = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='id_cliente', blank=True, null=True)
     last_login = models.DateField(blank=True, null=True)
-
+    
     USERNAME_FIELD = 'email'
 
     def check_password(self, raw_password):
@@ -263,7 +266,7 @@ class Login(models.Model):
     
     def is_superuser(self):
         return self.is_admin
-        
+
 
     class Meta:
         managed = False
@@ -293,6 +296,20 @@ class PagosCliente(models.Model):
         db_table = 'pagos_cliente'
 
 
+class Precio(models.Model):
+    contrato = models.IntegerField()
+    visita = models.IntegerField()
+    llamadas = models.IntegerField()
+    capacitacion = models.IntegerField()
+    asesoria = models.IntegerField()
+    modif_lista_chequeo = models.IntegerField()
+    actualizacion_docs = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'precio'
+
+
 class Profesional(models.Model):
     id_profesional = models.CharField(primary_key=True, max_length=10)
     nombre_completo = models.CharField(max_length=200)
@@ -304,7 +321,6 @@ class Profesional(models.Model):
     estado = models.CharField(max_length=100)
     contrato_activo = models.BooleanField()
     id_tipo_profesional = models.ForeignKey('TipoProfesional', models.DO_NOTHING, db_column='id_tipo_profesional')
-    last_login = models.DateField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -333,9 +349,9 @@ class RegistroError(models.Model):
 class Servicio(models.Model):
     id_servicio = models.FloatField(primary_key=True)
     fecha_servicio = models.DateField()
-    precio = models.FloatField()
     id_cliente = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='id_cliente')
-    id_profesional = models.ForeignKey(Profesional, models.DO_NOTHING, db_column='id_profesional')
+    id_subtipo_servicio = models.ForeignKey('SubtipoServicio', models.DO_NOTHING, db_column='id_subtipo_servicio')
+    id_estado_servicio = models.ForeignKey(EstadoServicio, models.DO_NOTHING, db_column='id_estado_servicio')
 
     class Meta:
         managed = False
@@ -357,16 +373,14 @@ class ServiciosExtraCliente(models.Model):
         db_table = 'servicios_extra_cliente'
 
 
-class Ticket(models.Model):
-    id_ticket = models.FloatField(primary_key=True)
-    fecha = models.DateField()
-    motivo = models.CharField(max_length=100)
-    id_cliente = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='id_cliente')
-    id_profesional = models.ForeignKey(Profesional, models.DO_NOTHING, db_column='id_profesional')
+class SubtipoServicio(models.Model):
+    id_subtipo_servicio = models.IntegerField(primary_key=True)
+    descripcion = models.CharField(max_length=255)
+    id_tipo_servicio = models.ForeignKey('TipoServicio', models.DO_NOTHING, db_column='id_tipo_servicio')
 
     class Meta:
         managed = False
-        db_table = 'ticket'
+        db_table = 'subtipo_servicio'
 
 
 class TipoCliente(models.Model):
@@ -387,6 +401,15 @@ class TipoProfesional(models.Model):
         db_table = 'tipo_profesional'
 
 
+class TipoServicio(models.Model):
+    id_tipo_servicio = models.IntegerField(primary_key=True)
+    descripcion = models.CharField(max_length=100)
+
+    class Meta:
+        managed = False
+        db_table = 'tipo_servicio'
+
+
 class VisitaMensual(models.Model):
     nro_visita = models.FloatField()
     motivo = models.CharField(max_length=125)
@@ -398,17 +421,3 @@ class VisitaMensual(models.Model):
     class Meta:
         managed = False
         db_table = 'visita_mensual'
-
-
-
-class Checklist(models.Model):
-    id = models.AutoField(primary_key=True)
-    checklist = models.CharField(max_length=250, blank=True, null=True)
-    resultado = models.BooleanField(blank=True, null=True)
-    id_cliente = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='id_cliente', blank=True, null=True)
-
-    def str(self):
-        return self.checklist + ' | ' + str(self.resultado)
-
-    class Meta:
-        db_table = 'checklist'

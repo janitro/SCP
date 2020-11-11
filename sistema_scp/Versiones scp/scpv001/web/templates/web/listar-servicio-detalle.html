@@ -1,0 +1,51 @@
+{% extends 'web/020baseadmin.html' %}
+	{% load static %}
+	{% block title %}Listar Contrato - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - Slider-->
+		<div class="total">
+            <h2 class="major">Detalle de Servicio</h2>
+            <div class="table-wrapper">
+                <form action="" method="GET">
+                    {% csrf_token %}
+                    <table class = "alt" id="tablalist">
+                        <thead>
+                            <tr>
+                                <th>Numero Servicio</th>
+                                <th>Fecha</th>
+                                <th>Profesional</th>
+                                <th>Empresa</th>
+                                <th>Tipo de Servicio</th>
+                                <th>Detalle de Servicio</th>
+                                <th>Estado</th>
+                                
+            
+                           </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in data %}
+                            <tr>
+                                <td>{{i.0}}</td>
+                                <td>{{i.1}}</td>
+                                <td>{{i.2}}</td>
+                                <td>{{i.3}}</td>
+                                <td>{{i.4}}</td>
+                                <td>{{i.5}}</td>
+                                <td>{{i.6}}</td>
+                                <td><button onclick="self.close()">Cerrar</button></td>
+                                
+                                <br>
+                               
+                            </tr>
+                          
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+          
+
+		<!-- fin dinamico -->
+		{% endblock %}
