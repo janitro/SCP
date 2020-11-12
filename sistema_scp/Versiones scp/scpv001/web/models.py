@@ -7,7 +7,7 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 from django.contrib.auth.hashers import check_password
-
+from django.contrib.auth import password_validation
 
 class Administrador(models.Model):
     id_admin = models.CharField(primary_key=True, max_length=10)
@@ -15,7 +15,7 @@ class Administrador(models.Model):
     email_admin = models.CharField(max_length=255)
     password_admin = models.CharField(max_length=30)
     
-    USERNAME_FIELD = 'email_admin'
+    
 
     class Meta:
         managed = False
@@ -253,6 +253,7 @@ class Login(models.Model):
     id_cliente = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='id_cliente', blank=True, null=True)
     last_login = models.DateField(blank=True, null=True)
     
+    REQUIRED_FIELDS = ['password']
     USERNAME_FIELD = 'email'
 
     def check_password(self, raw_password):
@@ -267,10 +268,17 @@ class Login(models.Model):
     def is_superuser(self):
         return self.is_admin
 
+    def get_username(self):
+        return self.id_prof
+
+    def is_authenticated(self):
+        return True
 
     class Meta:
         managed = False
         db_table = 'login'
+    
+
 
 
 class MultasCliente(models.Model):
@@ -421,3 +429,58 @@ class VisitaMensual(models.Model):
     class Meta:
         managed = False
         db_table = 'visita_mensual'
+
+
+
+class TipoSolicitud(models.Model):
+    id_tipo_solicitud = models.FloatField(primary_key=True)
+    tipo_solicitud = models.CharField(max_length=30, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'tipo_solicitud'
+
+class EstadoSolicitud(models.Model):
+    id_estado_solicitud = models.FloatField(primary_key=True)
+    estado_solicitud = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'estado_solicitud'
+
+class Solicitud(models.Model):
+    id_solicitud = models.FloatField(primary_key=True)
+    id_cliente = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='id_cliente', blank=True, null=True)
+    id_profesional = models.CharField(max_length=10, blank=True, null=True)
+    id_tipo_solicitud = models.ForeignKey('TipoSolicitud', models.DO_NOTHING, db_column='id_tipo_solicitud', blank=True, null=True)
+    detalle = models.CharField(max_length=500, blank=True, null=True)
+    fecha_creacion = models.DateField(blank=True, null=True)
+    hora_creacion = models.CharField(max_length=10, blank=True, null=True)
+    id_estado_solicitud = models.ForeignKey('EstadoSolicitud', models.DO_NOTHING, db_column='id_estado_solicitud', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'solicitud'
+
+class SituacionActual(models.Model):
+    id_situacion = models.FloatField(primary_key=True)
+    situacion_actual = models.CharField(max_length=1000, blank=True, null=True)
+    propuesta_general = models.CharField(max_length=1000, blank=True, null=True)
+    id_cliente = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='id_cliente', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'situacion_actual'
+
+class ActividadMejora(models.Model):
+    id_actividad = models.FloatField(primary_key=True)
+    id_cliente = models.ForeignKey('Cliente', models.DO_NOTHING, db_column='id_cliente', blank=True, null=True)
+    origen = models.CharField(max_length=30, blank=True, null=True)
+    actividad = models.CharField(max_length=500, blank=True, null=True)
+    estado = models.CharField(max_length=30, blank=True, null=True)
+    evidencia_texto = models.CharField(max_length=1000, blank=True, null=True)
+    evidencia_imagen = models.BinaryField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'actividad_mejora'

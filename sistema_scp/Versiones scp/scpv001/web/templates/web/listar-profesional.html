@@ -1,67 +1,71 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel ="stylesheet" href="{%static 'css/estilos.css' %}">
-    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
-    <title>Listar profesional</title>  
-</head>
+{% extends 'web/020baseadmin.html' %}
+	{% load static %}
+	{% block title %}Listar Profesional - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - Listar Profesional-->
+        <div class="total">
+            <h2 class="major">Listado de profesionales</h2>
+            <div class="fields">
+                <form action="" method="GET">
+                    {% csrf_token %}
+                    <div class="field half">
+                        <label for ="rut">RUN</label> 
+                        <input type="text" name="rut">  
+                    </div>
+                    <ul class="actions">
+                        <li><input type="submit" value="Buscar" class="primary"></li>
+                    </ul>
+                    {% for s in salida %}
+                    <h5>{{s}}</h5>
+                    {% endfor %}
+                    <div class="table-wrapper">
+                        <table class = "alt" id="tablalist">
+                            <thead>
+                                <tr>
+                                    <th>Run</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Comuna</th>
+                                    <th>Dirección</th>
+                                    <th>Telefono</th>
+                                    <th>Estado</th>
+                                    <th>Estado del contrato</th>
+                                    <th>Tipo de profesional</th>
+                                    <th>acción</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for i in prof %}
+                                <tr>
+                                    <td>{{i.0}}</td>
+                                    <td>{{i.1}}</td>
+                                    <td>{{i.2}}</td>
+                                    <td>{{i.3}}</td>
+                                    <td>{{i.4}}</td>
+                                    <td>{{i.5}}</td>
+                                    <td>{{i.6}}</td>
+                                    {% if i.7 == 0 %}
+                                    <td class="inactivo-table">Inactivo</td>
+                                    {% else %}
+                                    <td class="activo-table">Activo</td>
+                                    {% endif %}
+                                    <td>{{i.8}}</td>
+                                    <br>
+                                    <td>
+                                        <a class="button" href="{% url 'modificar-profesional' i.0 %}">Editar</a>
+                                        <a class="button" href="{% url 'eliminar-profesional' i.0 %}">Eliminar</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                </form>
 
-<body>
-    <h1>Listado de profesionales</h1>
-<div>
-    <form action="" method="GET">
-        {% csrf_token %}
-    <label for ="rut">RUN</label> 
-    <input type="text" name="rut">  <input type="submit" value="Buscar">
-    {% for s in salida %}
-    <h5>{{s}}</h5>
-    {% endfor %}
-    <table class = "content-table" id="tablalist">
-        <thead>
-            <tr>
-                <th>Run</th>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>Comuna</th>
-                <th>Dirección</th>
-                <th>Telefono</th>
-                <th>Estado</th>
-                <th>Estado del contrato</th>
-                <th>Tipo de profesional</th>
-                <th>acción</th>
-           </tr>
-        </thead>
-        <tbody>
-            {% for i in prof %}
-            <tr>
-                <td>{{i.0}}</td>
-                <td>{{i.1}}</td>
-                <td>{{i.2}}</td>
-                <td>{{i.3}}</td>
-                <td>{{i.4}}</td>
-                <td>{{i.5}}</td>
-                <td>{{i.6}}</td>
-                {% if i.7 == 0 %}
-                <td>Inactivo</td>
-                {% else %}
-                <td>Activo</td>
-                {% endif %}
-                <td>{{i.8}}</td>
-                <br>
-                <td>
-                    <a class="button success" href="{% url 'modificar-profesional' i.0 %}">Editar</a>
-                    <a class="button success" href="{% url 'eliminar-profesional' i.0 %}">Eliminar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-    <br>
-    </form>
+            </div>
+        </div>
 
-</div>
-</body>
-</html>
+        <!-- fin dinamico -->
+        {% endblock %}  

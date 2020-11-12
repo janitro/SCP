@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar item de checklist checklist</title>
+    <h1>Editar item de checklist</h1>
+</head>
+<body>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{form.checklist}}
+        {{form.resultado}}
+        {{form.id_cliente}}
+        <input type="submit" name="Responder check">
+
+    </form>
+</body>
+</html>

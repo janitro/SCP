@@ -19,15 +19,25 @@
             <i class='bx fas fa-bars' id="header-toggle"></i>
         </div>
 
-        <div class="header__img">
-            <img src="{% static 'img/logo001.jpg' %}" alt="">
+        <div class="dropdown">
+            <i class='bx fas fa-user-circle' id="dropbtn"></i>
+            <div class="dropdown-content">
+
+                 
+                <a href="#" style="color:white; font-family:verdana; "> Cliente: {{request.user.id_cliente.nombre_empresa}} </a>
+                <a href="#" style="color:white; font-family:verdana; " > Correo: {{request.user.email}}</a>
+                <a href="#" class="far fa-info"> Mas Informacion </a>
+                <a href="#" class="far fa-info"> Mas Informacion </a>
+                <a href="#" class="far fa-info"> Mas Informacion </a>
+                <a href="#" class='cerrar far fa-door-open nav__icon'> Cerrar Sesion</a>
+            </div>
         </div>
     </header>
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-                <a href="#" class="nav__logo">
+                <a href="{% url 'homecliente' %}" class="nav__logo">
                     <i class='bx fas fa-user-shield nav__logo-icon'></i>
                     <span class="nav__logo-name">SCP Sistema Control</span>
                 </a>
@@ -74,7 +84,7 @@
                 </div>
             </div>
         
-            <a href="#" class="nav__link">
+            <a href="{% url 'logout' %}" class="nav__link">
                 <i class='bx fas fa-door-open nav__icon' ></i>
                 <span class="nav__name">Salir</span>
             </a>
@@ -97,6 +107,20 @@
 	<!-- Compiled and minified JavaScript -->
 	<!-- Otros JS -->
     <script src="{% static 'js/mainmenu.js' %}"></script>
+    <script src="{% static 'js/botonsubir.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire ({
+                    "title": "Felicitaciones",
+                    "text": "{{m}}",
+                    "icon": "success"
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
     {% block carga_js %}
     {% endblock %}
 </body>

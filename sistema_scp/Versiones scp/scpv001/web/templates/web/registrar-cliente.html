@@ -4,9 +4,13 @@
 		{% block content %}
 		<!-- dinamico -->
         <!-- one seccion - Slider-->
-        <div class="borde">
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <div class="borde-centro">
             <h1 class="major">Registrar Cliente</h1>
-            <div class="fields">
+            <div class="contorno-marco">
+                 <div class="fields">
                 <form action="" method="POST">
                     {% csrf_token %}
                     <div class="field half">
@@ -16,7 +20,7 @@
                     <br>
                     <div class="field half">
                         <label for="reg-nombre">Nombre empresa</label> 
-                        <input type="text" name="nombre" placeholder="Mi Empresa uwu">
+                        <input type="text" name="nombre" placeholder="Mi Empresa ">
                     </div>
                     <br>
                     <div class="field half">
@@ -92,6 +96,8 @@
                 </form>
 
                 {{mensaje}}
+        
+                </div>
             </div>
         </div>
 		

@@ -4,91 +4,96 @@
 		{% block content %}
 		<!-- dinamico -->
         <!-- one seccion - Slider-->
-        <div class="borde">
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <div class="borde-centro">
             <h1 class="major">Registrar Profesional</h1>
-            <div class="fields">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    <div class="field half">
-                        <label for="reg-rut">RUN</label> 
-                        <input id="reg-rut" type="text" name="id" required oninput="checkRut(this)" placeholder="12345678-9">
-                    </div>
-                    <br>
-                    <div class="field half">
-                        <label for="reg-nombre">Nombre Profesional</label> 
-                        <input type="text" name="nombre" placeholder="El Magnifico Cruck">
-                    </div>
-                    <br>
-                    <div class="field half">
-                        <label for="reg-email">Correo</label> 
-                        <input type="email" name="email" placeholder="micorreo@correo.cl">
-                    </div>
-                    <br>
-                    <div class="field half">
-                        <label for="">Contraseña</label> 
-                        <input type="password" name="password" placeholder="*************">
-                    </div>
-                    <br>
-                    <div class="field">
-                        <label for="reg-comuna">Comuna</label>
-                        <select name="lista_comuna" id="lista_comuna">
-                            <option value="">Seleccionar</option>
-                            {% for c in lista_comuna %}
-                                <option value="{{c.0}}">{{c.1}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <br>
-                    <div class="field half">
-                        <label for="reg-direccion">Direccion</label> 
-                        <input type="text" name="direccion" placeholder="Calle mi Casa 123">
-                    </div>
-                    <br>
-                    <div class="field half">
-                        <label for="reg-telefono">Telefono</label> 
-                        <input type="text" name="telefono" placeholder="987654321">
-                    </div>
-                    <br>
-                    <div class="field">
-                        <label for="">Estado</label>
-                        <select name="estado" id="estado">
-                            <option value="">Seleccionar</option>
-                            <option value="Disponible">Disponible</option>
-                            <option value="En terreno">En terreno</option>     
-                        </select>
-                    </div>
-                    <br>
-                    <div class="field">
-                        <label for="">Contrato Activo</label> 
-                        <select name="contrato" id="contrato">
-                            <option value="">Seleccionar</option>
-                            <option value="1">Activo</option>
-                            <option value="0">Inactivo</option>     
-                        </select>
-                    </div>
-                    <br>
-                    <div class="field">
-                        <label for="">Tipo de profesional</label> 
-                        <select name="tipoprof" id="tipoprof">
-                            <option value="">Seleccionar</option>
-                            {% for t in tipo_profesional %}
-                                <option value="{{t.0}}">{{t.1}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <br>
-                    <div class="field half">
-                        <input type="checkbox", name="enviopass">
-                        <label for="">Enviar contraseña por correo</label> 
-                    </div>
-                    <br>
-                    <ul class="actions">
-                        <li><input type="submit" value="Guardar" class="primary"></li>
-                        <li><input type="reset" value="Limpiar"></li>
-                    </ul>
-                </form>
-                
-                {{mensaje}}
+            <div class="contorno-marco">
+                <div class="fields">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="field half">
+                            <label for="reg-rut">RUN</label> 
+                            <input id="reg-rut" type="text" name="id" required oninput="checkRut(this)" placeholder="12345678-9">
+                        </div>
+                        <br>
+                        <div class="field half">
+                            <label for="reg-nombre">Nombre Profesional</label> 
+                            <input type="text" name="nombre" placeholder="El Magnifico Cruck">
+                        </div>
+                        <br>
+                        <div class="field half">
+                            <label for="reg-email">Correo</label> 
+                            <input type="email" name="email" placeholder="micorreo@correo.cl">
+                        </div>
+                        <br>
+                        <div class="field half">
+                            <label for="">Contraseña</label> 
+                            <input type="password" name="password" placeholder="*************">
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label for="reg-comuna">Comuna</label>
+                            <select name="lista_comuna" id="lista_comuna">
+                                <option value="">Seleccionar</option>
+                                {% for c in lista_comuna %}
+                                    <option value="{{c.0}}">{{c.1}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <br>
+                        <div class="field half">
+                            <label for="reg-direccion">Direccion</label> 
+                            <input type="text" name="direccion" placeholder="Calle mi Casa 123">
+                        </div>
+                        <br>
+                        <div class="field half">
+                            <label for="reg-telefono">Telefono</label> 
+                            <input type="text" name="telefono" placeholder="987654321">
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label for="">Estado</label>
+                            <select name="estado" id="estado">
+                                <option value="">Seleccionar</option>
+                                <option value="Disponible">Disponible</option>
+                                <option value="En terreno">En terreno</option>     
+                            </select>
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label for="">Contrato Activo</label> 
+                            <select name="contrato" id="contrato">
+                                <option value="">Seleccionar</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>     
+                            </select>
+                        </div>
+                        <br>
+                        <div class="field">
+                            <label for="">Tipo de profesional</label> 
+                            <select name="tipoprof" id="tipoprof">
+                                <option value="">Seleccionar</option>
+                                {% for t in tipo_profesional %}
+                                    <option value="{{t.0}}">{{t.1}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <br>
+                        <div class="field half">
+                            <input type="checkbox", name="enviopass">
+                            <label for="">Enviar contraseña por correo</label> 
+                        </div>
+                        <br>
+                        <ul class="actions">
+                            <li><input type="submit" value="Guardar" class="primary"></li>
+                            <li><input type="reset" value="Limpiar"></li>
+                        </ul>
+                    </form>
+                    
+                    {{mensaje}}
+                </div>
             </div>
         </div>
 		

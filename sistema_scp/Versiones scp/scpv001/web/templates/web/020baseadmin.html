@@ -19,15 +19,23 @@
             <i class='bx fas fa-bars' id="header-toggle"></i>
         </div>
 
-        <div class="header__img">
-            <img src="{% static 'img/logo001.jpg' %}" alt="">
+        <div class="dropdown">
+            <i class='bx fas fa-user-circle' id="dropbtn"></i>
+            <div class="dropdown-content">
+
+                <a href="#" style="color:white; font-family:verdana; "> Admin: {{request.user.id_admin.nombre_completo}} </a>
+                <a href="#" style="color:white; font-family:verdana; " > Correo: {{request.user.id_admin.email_admin}}</a>
+               
+             
+                <a href="#" style="color:white; font-family:verdana;background-color:black; "> Cerrar Sesion</a>
+            </div>
         </div>
     </header>
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-                <a href="#" class="nav__logo">
+                <a  href="{% url 'homeadmin' %}"class="nav__logo">
                     <i class='bx fas fa-user-shield nav__logo-icon'></i>
                     <span class="nav__logo-name">SCP Sistema Control</span>
                 </a>
@@ -53,9 +61,9 @@
                         <span class="nav__name">Informes</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="{% url 'home-calendar'%}" class="nav__link">
                         <i class='bx fas fa-tasks nav__icon' ></i>
-                        <span class="nav__name">Actividades</span>
+                        <span class="nav__name">Calenadario</span>
                     </a>
 
                     <a href="#" class="nav__link">
@@ -74,7 +82,7 @@
                 </div>
             </div>
         
-            <a href="#" class="nav__link">
+            <a href="{% url 'logout' %}" class="nav__link">
                 <i class='bx fas fa-door-open nav__icon' ></i>
                 <span class="nav__name">Salir</span>
             </a>
@@ -97,6 +105,24 @@
 	<!-- Compiled and minified JavaScript -->
 	<!-- Otros JS -->
     <script src="{% static 'js/mainmenu.js' %}"></script>
+    <script src="{% static 'js/botonsubir.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {% if messages %}
+        {% for m in messages %}
+
+            <script>
+                Swal.fire ({
+                    "title": "Felicitaciones",
+                    "text": "{{m}}",
+                    "icon": "success",
+                    "showConfirmButton": false,
+                    "timer": "1500"
+
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
     {% block carga_js %}
     {% endblock %}
 </body>

@@ -52,24 +52,12 @@
                     <div class="field">
                         <label for="">Estado</label>
                         <select name="estado" id="estado">
-                            <option value="{{estado}}">{{estado}}</option>
+                            <option value="{{estado}}">-----</option>
                             <option value="Disponible">Disponible</option>
                             <option value="En terreno">En terreno</option>     
                         </select>
                     </div>
-                    <br>
-                    <div class="field">
-                        <label for="">Contrato activo</label> 
-                        <select name="contrat" id="contrat" class="contrat">
-                            {% if contrat == True %}
-                            <option value="{{contrat}}">Activo</option>
-                            {% else %}
-                            <option value="{{contrat}}">Inactivo</option>
-                            {% endif %}
-                            <option value="1">Activoo </option>
-                            <option value="0">Inactivoo </option>
-                        </select>
-                    </div>
+                    
                     <br>
                     <div class="field">
                         <label for="">Tipo de profesional</label> 
@@ -78,6 +66,19 @@
                             {% for t in tipo_profesional %}
                                 <option value="{{t.0}}">{{t.1}}</option>
                             {% endfor %}
+                        </select>
+                    </div>
+                    <br>
+                    <div class="field">
+                        <label for="">Contrato activo</label> 
+                        <select name="contrat" id="contrat" class="contrat">
+                            {% if contrat == True %}
+                            <option  value="{{contrat}}">----- </option>
+                            {% else %}
+                            <option  value="{{contrat}}">-----</option>
+                            {% endif %}
+                            <option value="1">Activo </option>
+                            <option value="0">Inactivo </option>
                         </select>
                     </div>
                     <br>
