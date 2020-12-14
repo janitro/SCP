@@ -1,18 +1,8 @@
-Sistema Control de Prevencion v2.0 
-- Cambios Importantes Visuales:
- - Se incorpora un chat para profesional y cliente.
- - Se incorpora notificaciones.
- - Se agregar menu de ingreso de pago
- - Sweet alert 2 en los menu
- - Calendar java para ver visitas.
- 
- 
- 
-- Se agregan paquetes de :
- - Se agrega Websocket
- - Se agrega Signals
- - Se agrega Ajax
- - Se agrega django-filter.
+Sistema Control de Prevencion v2.1 
+-Desarrollado en Django 3.1.2, PL/SQL Oracle, Ajax, JavaScrips, ApiRest.
+Este Sistema fue desarrollado por los alumnos de Duoc Uc portafolio de titulo, Grupo Numero 1.
+
+
  
 
 
