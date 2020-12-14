@@ -1,4 +1,4 @@
-Sistema Control de Prevencion v1.4 - Integración de diversos CSS a la web, función del login y función del botón para el rol Admin para agregar y editar Clientes y Profesionales
+Sistema Control de Prevencion v1.7 - Integración de diversos CSS a la web, función del login y función del botón para el rol Admin para agregar y editar Clientes y Profesionales, se corrigio errores visuales de margenes.
 
  --ERRORES CONOCIDOS--
     
