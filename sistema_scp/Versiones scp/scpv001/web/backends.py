@@ -15,7 +15,7 @@ class LoginBackend(BaseBackend):
     def authenticate(self,request, email=None, password=None):
         try:
             user = Login.objects.get(email=email)
-            if user.check_password(password):
+            if user.check_password(user.password):
                 return user
         except Login.DoesNotExist:
             pass
@@ -24,6 +24,6 @@ class LoginBackend(BaseBackend):
 
     def get_user(self, id):
         try:
-            return Login.objects.get(id=id)
+            return Login.objects.get(id_login=id)
         except Login.DoesNotExist:
             return None

@@ -1,22 +1,27 @@
 
  {% extends 'web/003baseprofesional.html' %}
 	{% load static %}
-	{% block title %}Inicio - SCP{% endblock %}
+	{% block title %}Solicitud - SCP{% endblock %}
 		{% block content %}
 		<!-- dinamico -->
-        <!-- one seccion - Home Checklist-->
-		<div class="borde">
-            <h2 class="major"> Solicitudes</h2>
-            <div class="fields">
-                <ul class="actions">
-                    <li><a href="{% url 'crear-solicitud' %}" class="button">Crear Solicitud</a></li>
-                    <li><a href="#" class="button">Borrar si no sirve</a></li>
-                    <li><a href="{% url 'listar-solicitud' %}" class="button">Listar Solicitud</a></li>
-                    
-                </ul>
+        <!-- one seccion - Home solicitud-->
+        <br>
+        <div class="borde-centro">
+            <div class="contorno-marco">
+                <div class="borde">
+                    <h2 class="major"> Solicitudes</h2>
+                    <div class="fields">
+                        <ul class="actions-home">
+                            <li><a href="{% url 'crear-solicitud' %}" class="button-home">Crear Solicitud</a></li>
+                            <li><a href="{% url 'listar-solicitud' %}" class="button-home">Listar Solicitud</a></li>
+
+                        </ul>
+                    </div> 
+                </div>
             </div>
-            
-        </div>  
+        </div>
+        <br>
+		
 
 		<!-- fin dinamico -->
 		{% endblock %}  

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+:root{
+    /*===== Font and typography =====*/
+    --body-font: "Lucida Console", "Open Sans", Helvetica, sans-serif;
+}
+
+.text-center{
+    text-align: center;
+}
+
+h1{
+    font-size: 40px;
+}
+
+label{
+    font-size: 13px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+.center{
+    padding: 30px 0;
+    border: 3px solid #000000;
+    text-align: center;
+}
+/* ----------- TABLA ---------------*/
+  
+.table-wrapper {
+	-webkit-overflow-scrolling: touch;
+	overflow-x: auto;
+}
+  
+table {
+	margin: 0 0 2em 0;
+	width: 100%;
+}
+  
+	table tbody tr {
+		border: solid 1px rgba(0, 0, 0, 0.479);
+	}
+  
+		table tbody tr:nth-child(2n + 1) {
+			background-color: rgba(0, 0, 0, 0.719);
+		}
+  
+	table td {
+		padding: 0.75em 0.75em;
+	}
+  
+	table th {
+		color: #000000;
+		font-size: 0.9em;
+		font-weight: 300;
+		padding: 0.75em;
+		text-align: left;
+    }
+	table thead tr {
+        border: solid 1px rgba(0, 0, 0, 0.479);
+        height: 40px;
+	}
+
+</style>
+<body>
+    <div>
+        <div class="center">
+            <h1>Reporte de situación actual</h1>
+        </div>
+        <hr>
+        <div>
+            <h2>Informacion personal de la empresa </h2>
+            <label>Nombre cliente: {{cliente.nombre_empresa}}</label>
+            <br>
+            <label>RUT cliente: {{cliente.id_cliente}}</label>
+            <br>
+            <label>Profesional a cargo: {{cliente.id_profesional.nombre_completo}}</label>
+        </div>
+        <hr>
+    </div>
+    <br>
+    <h2>Checklist</h2>
+    <div class="table-wrapper">
+        <table id="invoice">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th style="width: 20%; text-align: center;">Resultado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in check %}
+                <tr>
+                    <td>{{c.checklist}}</td>
+                    {% if c.resultado == False %}
+                    <td class="text-center">Si</td>
+                    {% elif  c.resultado == null %}
+                    <td class="text-center">Sin Responder</td>
+                    {% else %}
+                    <td class="text-center">No</td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <h2>Historico de la Empresa</h2>
+    <div>
+        {% for s in situacion %}
+        <hr>
+        <h3>Situación actual de la empresa: </h3>
+        <label>{{s.situacion_actual}}</label>
+        <br>
+        <h3>Propuesta general de mejora: </h3>
+        <label>{{s.propuesta_general}}</label>
+        <br>
+        <hr>
+        {% endfor %}
+    </div>
+<br>
+
+<br>
+<h2>Actividades de mejora </h2>
+<div>
+    <table id="invoice">
+        <thead>
+            <tr>
+                <th style="width: 90%;">Actividad</th>
+                <th style="width: 10%;">Origen</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for a in actividad %}
+            <tr>
+                <td>{{a.actividad}}</td>
+                <td class="text-center">{{a.origen}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

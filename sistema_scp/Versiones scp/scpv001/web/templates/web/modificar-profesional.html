@@ -3,93 +3,149 @@
 	{% block title %}Modificar Profesional - SCP{% endblock %}
 		{% block content %}
 		<!-- dinamico -->
-        <!-- one seccion - Modificar Profesional-->
-        <div class="borde">
-            <h2 class="major">Modificar Profesional</h2>
-            <div class="fields">
-                <form name= 'myForm' action ="" method = "POST">
-                    {% csrf_token %}
-                    <div class="field half">
-                        <label for="">Run</label> 
-                        <input type="text" name="id" value ={{idp}} >
+        <!-- one seccion - subir -->
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Modificar profesional</h4>
+                                    <p>Seccion donde se podra editar los datos del profesional.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeadmin' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="{% url 'listarProfesional' %}">Listar profesional</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Editar profesional</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <br>
-                    <div class="field half">
-                        <label for="">Nombre</label> 
-                        <input type="text" name="nombre" value={{nom}}>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <!-- FORMULARIO -->
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-640">
+                                        <form name= 'myForm' action ="" method = "POST" class="j-pro" id="j-pro">
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="">Run</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" class="form-control" name="id" value ={{idp}}>
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="">Nombre Profesional</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="nombre" value={{nom}}>
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="">Email</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="email" name="email" value={{email}}>
+                                                    </div>                                                     
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="">Clave</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="password" name="password" value={{pass}}>
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="">Comuna</label>
+                                                    <div class="col-sm-10">
+                                                        <select name="lista_comuna" id="lista_comuna">
+                                                            <option value="{{comid}}">{{com}}</option>
+                                                            {% for c in lista_comuna %}
+                                                                <option value="{{c.0}}">{{c.1}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="">Direccion</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="direccion" value="{{direccion}}">
+                                                    </div>                                                     
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="">Telefono</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="telefono" value="{{telefono}}" maxlength="9">
+                                                    </div>                                                     
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="">Estado</label>
+                                                    <div class="col-sm-10">
+                                                        <select name="estado" id="estado">
+                                                            <option value="{{estado}}">-----</option>
+                                                            <option value="Disponible">Disponible</option>
+                                                            <option value="En terreno">En terreno</option>     
+                                                        </select>
+                                                    </div>                                                    
+                                                </div>    
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="">Tipo de profesional</label>
+                                                    <div class="col-sm-10">
+                                                        <select name="tipoprof" id="tipoprof">
+                                                            <option value="{{tipoid}}">{{tipo}}</option>
+                                                            {% for t in tipo_profesional %}
+                                                                <option value="{{t.0}}">{{t.1}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>                                                     
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-sm-2 col-form-label" for="">Contrato activo</label>
+                                                    <div class="col-sm-10">
+                                                        <select name="contrat" id="contrat" class="contrat">
+                                                            {% if contrat == True %}
+                                                            <option  value="{{contrat}}">----- </option>
+                                                            {% else %}
+                                                            <option  value="{{contrat}}">-----</option>
+                                                            {% endif %}
+                                                            <option value="1">Activo </option>
+                                                            <option value="0">Inactivo </option>
+                                                        </select>
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="j-response"></div>
+                                            </div>
+                                            <div class="j-footer">
+                                                <button type="submit" class="btn btn-primary">Modificar</button>
+                                                <button href="#" class="btn btn-default m-r-20">Cancelar</button>
+                                            </div>                                             
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <br>
-                    <div class="field half">
-                        <label for="">Email</label> 
-                        <input type="email" name="email" value={{email}}>
-                    </div>
-                    <br>
-                    <div class="field half">
-                        <label for="">Clave</label> 
-                        <input type="password" name="password" value={{pass}}>
-                    </div>
-                    <br>
-                    <div class="field">
-                        <label for="">Comuna</label> 
-                        <select name="lista_comuna" id="lista_comuna">
-                            <option value="{{comid}}">{{com}}</option>
-                            {% for c in lista_comuna %}
-                                <option value="{{c.0}}">{{c.1}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <br>
-                    <div class="field half">
-                        <label for="">Direccion</label> 
-                        <input type="text" name="direccion" value="{{direccion}}">
-                    </div>
-                    <br>
-                    <div class="field half">
-                        <label for="">Telefono</label> 
-                        <input type="text" name="telefono" value="{{telefono}}">
-                    </div>
-                    <br>
-                    <div class="field">
-                        <label for="">Estado</label>
-                        <select name="estado" id="estado">
-                            <option value="{{estado}}">-----</option>
-                            <option value="Disponible">Disponible</option>
-                            <option value="En terreno">En terreno</option>     
-                        </select>
-                    </div>
-                    
-                    <br>
-                    <div class="field">
-                        <label for="">Tipo de profesional</label> 
-                        <select name="tipoprof" id="tipoprof">
-                            <option value="{{tipoid}}">{{tipo}}</option>
-                            {% for t in tipo_profesional %}
-                                <option value="{{t.0}}">{{t.1}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <br>
-                    <div class="field">
-                        <label for="">Contrato activo</label> 
-                        <select name="contrat" id="contrat" class="contrat">
-                            {% if contrat == True %}
-                            <option  value="{{contrat}}">----- </option>
-                            {% else %}
-                            <option  value="{{contrat}}">-----</option>
-                            {% endif %}
-                            <option value="1">Activo </option>
-                            <option value="0">Inactivo </option>
-                        </select>
-                    </div>
-                    <br>
-                    <ul class="actions">
-                        <li><input type="submit" value="Modificar" class="primary"></li>
-                    </ul>
-                    <br>
-                    </form>
-                {{mensaje}}
+                </div>
             </div>
         </div>
-
         <!-- fin dinamico -->
         {% endblock %}

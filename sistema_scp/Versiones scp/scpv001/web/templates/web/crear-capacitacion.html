@@ -1,0 +1,99 @@
+{% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Crear Capacitacion- SCP{% endblock %}
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - subir -->
+        <br>
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Crear Capacitacion</h4>
+                                    <p>En esta seccion se podra ingresar la informacion necesaria que necesita el profesional para la capacitacion ingresada. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Crear Capacitacion</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-740">
+                                        <form method="POST" class="j-pro" id="j-pro" >
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <!-- CLIENTE - TIPO CAPACITACION -->
+                                                <div class="j-row">
+                                                    <div class="j-span3 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="reg-rut">
+                                                                <i class="icofont icofont-id"></i>
+                                                            </label>
+                                                            <input type="text" class="form-control" name="id_profesional" value={{request.user.id_prof.id_profesional}}>
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span9 j-unit">
+                                                        <div class="j-input">
+                                                            <label for="" class="j-input j-select">
+                                                                <select name="tipo_capacitacion" id="tipo_capacitacion">
+                                                                    <option value="">Tipo de Capacitacion</option>
+                                                                    {% for c in tipo_capacitacion %}
+                                                                        <option value="{{c.0}}">{{c.1}}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                                <i></i>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- INFORMACION -->
+                                                <label for="">Materiales</label> 
+                                                <textarea name="materiales" rows="10" cols="60"></textarea>
+                                            </div>
+                                            <br>
+                                            <!-- BUTON ENVIAR -->
+                                            <div class="j-footer">
+                                                <input type="submit" class="btn btn-primary" value="Guardar">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        
+
+<!-- fin dinamico -->
+{% endblock %}

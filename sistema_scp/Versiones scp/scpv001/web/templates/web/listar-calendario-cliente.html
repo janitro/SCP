@@ -1,0 +1,85 @@
+{% extends 'web/011basecliente.html' %}
+	{% load static %}
+	{% block title %}Calendario - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - subir -->
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Detalle de visita</h4>
+                                    <p>Sección donde se podrá ver en detalle la visita agendada.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homecliente' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="{% url 'visitas' request.user.id_cliente.id_cliente %}">Calendario Visita</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Detalle de Visitas</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="card">
+                        <div class="card-block table-border-style">
+                            <div class="table-responsive">
+                                <form action="" method="GET">
+                                    {% csrf_token %}
+                                    <table class = "table table-bordered" id="tablalist">
+                                        <thead>
+                                            <tr>
+                                                <th>Numero Servicio</th>
+                                                <th>Fecha</th>
+                                                <th>Hora</th>
+                                                <th>Empresa</th>
+                                                <th>Profesional</th>
+                                                <th>Motivo de Visita</th>
+                                                <th>Estado</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in data %}
+                                            <tr>
+                                                <td>{{i.0}}</td>
+                                                <td>{{i.1}}</td>
+                                                <td>{{i.2}}</td>
+                                                <td>{{i.3}}</td>
+                                                <td>{{i.4}}</td>
+                                                <td>{{i.5}}</td>
+                                                <td>{{i.6}}</td>
+                                                <td><a class="btn btn-primary" onclick="self.close()">Cerrar</a>
+                                            </tr>                        
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- fin dinamico -->
+		{% endblock %}

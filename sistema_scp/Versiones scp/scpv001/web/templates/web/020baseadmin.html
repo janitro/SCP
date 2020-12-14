@@ -2,115 +2,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% block head %}
+    {% endblock %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-	<!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="{% static 'css/estilohome.css' %}">
+    <!-- Compiled and minified CSS -->
+    <!-- Icono Superior -->
+    <link rel="icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <!-- Style Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons/themify-icons.css' %}">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/icofont/css/icofont.css' %}">
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/feather/css/feather.css' %}">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.mCustomScrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styleextra.css' %}">
+    <!-- jpro forms css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/demo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/j-pro-modern.css' %}">
+    <!-- Style  -->
+    <!-- <link rel="stylesheet" href="{% static 'css/estilohome.css' %}"> -->
 	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
 	<script src="https://kit.fontawesome.com/a8027f23d1.js" crossorigin="anonymous"></script>
 	<script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
 	<script src="{% static 'js/slider.js' %}"></script>
+    <script src="{%static 'js/jquery-3.5.1.min.js' %}" type="text/javascript"></script>
+
+
 
 </head>
+
 <body id="body-pd">
-    <header class="header" id="header">
-        <div class="header__toggle">
-            <i class='bx fas fa-bars' id="header-toggle"></i>
-        </div>
-
-        <div class="dropdown">
-            <i class='bx fas fa-user-circle' id="dropbtn"></i>
-            <div class="dropdown-content">
-
-                <a href="#" style="color:white; font-family:verdana; "> Admin: {{request.user.id_admin.nombre_completo}} </a>
-                <a href="#" style="color:white; font-family:verdana; " > Correo: {{request.user.id_admin.email_admin}}</a>
-               
-             
-                <a href="#" style="color:white; font-family:verdana;background-color:black; "> Cerrar Sesion</a>
-            </div>
-        </div>
-    </header>
-
-    <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div>
-                <a  href="{% url 'homeadmin' %}"class="nav__logo">
-                    <i class='bx fas fa-user-shield nav__logo-icon'></i>
-                    <span class="nav__logo-name">SCP Sistema Control</span>
-                </a>
-
-                <div class="nav__list">
-                    <a href="{% url 'home-registro' %}" class="nav__link">
-                        <i class='bx fas fa-user-plus nav__icon' ></i>
-                            <span class="nav__name">Usuarios</span>
-                    </a>
-                    
-                    <a href="{% url 'home-contrato' %}" class="nav__link">
-                    <i class='bx fas fa-mail-bulk nav__icon' ></i>
-                        <span class="nav__name">Contrato</span>
-                    </a>
-
-                    <a href="{% url 'registro-servicios'%}" class="nav__link">
-                        <i class='bx fas fa-people-arrows nav__icon' ></i>
-                        <span class="nav__name">Servicios</span>
-                    </a>
-                    
-                    <a href="#" class="nav__link">
-                        <i class='bx fas fa-file-medical nav__icon' ></i>
-                        <span class="nav__name">Informes</span>
-                    </a>
-
-                    <a href="{% url 'home-calendar'%}" class="nav__link">
-                        <i class='bx fas fa-tasks nav__icon' ></i>
-                        <span class="nav__name">Calenadario</span>
-                    </a>
-
-                    <a href="#" class="nav__link">
-                        <i class='bx fas fa-laptop-medical nav__icon' ></i>
-                        <span class="nav__name">Solicitudes</span>
-                    </a>
-
-                    <a href="#" class="nav__link">
-                        <i class='bx fas fa-cash-register nav__icon' ></i>
-                        <span class="nav__name">Pagos</span>
-                    </a>
-                    <a href="#" class="nav__link">
-                        <i class='bx fas fa-chart-bar nav__icon' ></i>
-                        <span class="nav__name">Metricas</span>
-                    </a>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div class='contain'>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
                 </div>
             </div>
-        
-            <a href="{% url 'logout' %}" class="nav__link">
-                <i class='bx fas fa-door-open nav__icon' ></i>
-                <span class="nav__name">Salir</span>
-            </a>
-        </nav>
+        </div>
     </div>
-    <!-- fin estatico -->
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <!-- LOGO -->
+                    <div class="navbar-logo">
+                        <a class="mobile-menu" id="mobile-collapse" href="#!">
+                            <i class="feather icon-menu"></i>
+                        </a>
+                        <a href="{% url 'homeadmin' %}">
+                            <img class="img-fluid" src="{% static 'img/logo3.png' %}" alt="Theme-Logo" width = "75%">
+                        </a>
+                    </div>
+                    <!-- NAV SUPERIOR -->
+                    <div class="navbar-container container-fluid">
+                        <!-- ICONOS IZQUIERDA -->
+                        <ul class="nav-left">
+                            <li>
+                                <!-- MAX Y MIN PANTALLA -->
+                                <a href="#!" onclick="javascript:toggleFullScreen()">
+                                    <i class="feather icon-maximize full-screen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- ICONOS DERECHA -->
+                        <ul class="nav-right">
+                            <li class="header-notification">
+                                <div class="dropdown-primary dropdown">
+                                    
+                                    <!-- PERFIL DE USUARIO -->
+                                    <li class="user-profile header-notification">
+                                        <div class="dropdown-primary dropdown">
+                                            <!-- VISUAL NAV USUARIO -->
+                                            <div class="dropdown-toggle" data-toggle="dropdown">
+                                                <img src="{% static 'img/perfil01.jpg' %}" class="img-radius" alt="User-Profile-Image">
+                                                <span>{{request.user.id_admin.nombre_completo}}</span>
+                                                <i class="feather icon-chevron-down"></i>
+                                            </div>
+                                            <!-- SUB NAV USUARIO -->
+                                            <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                <li>
+                                                    <a href="#!">
+                                                        <i class="feather icon-settings"></i> Ajustes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="feather icon-user"></i> Perfil
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'logout' %}">
+                                                        <i class="feather icon-log-out"></i> Cerrar Sesion 
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </nav>
+            <!-- MENU -->
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="pcoded-navigatio-lavel">Panel de Administrador</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                                        <span class="pcoded-mtext">Usuarios</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'registrar-cliente' %}">
+                                                <span class="pcoded-mtext">Crear Cliente</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'Profesional' %}">
+                                                <span class="pcoded-mtext">Crear Profesional</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-cliente' %}">
+                                                <span class="pcoded-mtext">Editar Cliente</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listarProfesional' %}">
+                                                <span class="pcoded-mtext">Editar Profesional</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-file-text"></i></span>
+                                        <span class="pcoded-mtext">Contrato</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'listar-contrato' %}">
+                                                <span class="pcoded-mtext">Ver Contratos</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'contratos-morosos' %}">
+                                                <span class="pcoded-mtext">Ver Contratos Morosos</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'calendar-detail'%}">
+                                        <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
+                                        <span class="pcoded-mtext">Calendario</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'report-all-admin'%}">
+                                        <span class="pcoded-micon"><i class="feather icon-file-plus"></i></span>
+                                        <span class="pcoded-mtext">Generar Informes</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'pagos'%}">
+                                        <span class="pcoded-micon"><i class="icofont icofont-money"></i></span>
+                                        <span class="pcoded-mtext">Registrar Pagos</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'listar-solicitud-admin'%}">
+                                        <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
+                                        <span class="pcoded-mtext">Ver Solicitudes</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">                            
+                        <!-- dinamico -->
+                        {% block content %}
+                        {% endblock %}
+                        <!-- fin dinamico -->                        
+                        <!-- footer -->
+                        <br>
+                        <footer id="footer">
+                            <p class="copyright">&copy; Portafolio Título. Diseñado: Grupo 1.</p>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 
-	<!-- dinamico -->
-	{% block content %}
-    {% endblock %}
-    <!-- fin dinamico -->
-		
-    <!-- estatico -->
-    <!-- footer -->
-	<footer id="footer">
-        <p class="copyright">&copy; Portafolio Titulo. Diseñado: <a>Grupo 1</a>.</p>
-    </footer>
-    <!-- fin estatico -->
-	
-	<!-- Compiled and minified JavaScript -->
-	<!-- Otros JS -->
+    <!-- Required Jquery -->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- j-pro js -->
+    <script type="text/javascript" src="{% static 'js/jquery.ui.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/jquery.maskedinput.min.js' %}"></script> -->
+    <script type="text/javascript" src="{% static 'js/jquery.j-pro.js' %}"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="{% static 'js/jquery.slimscroll.js' %}"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="{% static 'js/modernizr.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/css-scrollbars.js' %}"></script>
+    <!-- Otros JS -->
     <script src="{% static 'js/mainmenu.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
     <script src="{% static 'js/botonsubir.js' %}"></script>
+    <script src="{% static 'js/simplyCountdown.min.js' %}"></script>
+    <script src="{% static 'js/countdown.js' %}"></script>
+    <!-- Custom js -->
+    <script type="text/javascript" src="{% static 'js/form-job.js' %}"></script>
+    <script src="{% static 'js/pcoded.min.js' %}"></script>
+    <script src="{% static 'js/vartical-layout.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    
+    <!-- Alerta messages -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+    
     {% if messages %}
         {% for m in messages %}
-
+            {% if m.tags == 'success' %}
             <script>
                 Swal.fire ({
                     "title": "Felicitaciones",
@@ -121,8 +286,21 @@
 
                 })
             </script>
+            {% else %}
+            <script>
+                Swal.fire ({
+                    "title": "Error",
+                    "text": "{{m}}",
+                    "icon": "error",
+                    "showConfirmButton": false,
+                    "timer": "1500"
+
+                })
+            </script>
+            {% endif %}
         {% endfor %}
     {% endif %}
+
     {% block carga_js %}
     {% endblock %}
 </body>

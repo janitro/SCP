@@ -1,54 +1,152 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="{%static 'js/jquery-3.5.1.min.js' %}" type="text/javascript"></script>
-    <link rel ="stylesheet" href="{%static 'css/estilos.css' %}">
-    <title>Control y visualización de las actividades</title>
-    <h1>Control y visualización de las actividades</h1>
-</head>
-<body>
-    <h4>- Visualizar respuesta del cliente y su evidencia.</h4>   
-    <h4>- Modificar estado de la actividad si el cliente ha respondido.</h4>
-    <h4>[Tipos de estados]: <br>-Pendiente. <br>-En proceso. <br>-Completado.</h4>
-    <br>
-    <br>
-    <form action="" method="POST">
-        {% csrf_token %}
-        <label>Rut cliente</label> <input type=text name=id_cliente>
-        <input type=submit name=Buscar>
+{% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Control y visualización de las actividades- SCP{% endblock %}
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - subir -->
         <br>
-        <br>
-        <table class = "content-table" id="tablalist" >
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Origen</th>
-                    <th>Actividad</th>
-                    <th>Estado</th>
-                    <th>Respuesta del cliente</th>
-                    <th>Evidencia</th>
-               </tr>
-            </thead>
-            <tbody>
-                {% for i in actividad %}
-                <tr>
-                    <td name=id>{{i.0}}</td>
-                    <td>{{i.1}}</td>
-                    <td>{{i.2}}</td>
-                    <td >{{i.3}}</td>
-                    <td class="editable" data-id="{{i.0}}" data-type="estado">{{i.4}}</td>
-                    <td>{{i.5}}</td>
-                    <td>{{i.6}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            </table>
-</form>
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Control y visualización de las actividades</h4>
+                                    <p>En esta sección se podrá revisar los estados de las mejoras del cliente y si las  ha completado, además de cambiar los estados de estas mismas. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Control y visualización </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-740">                                                                                     
+                                        <form action="" method="POST" class="j-pro" id="j-pro">
+                                            {% csrf_token %}
+                                            <div class="j-pro">
+                                                <div class="col-sm-12">
+                                                    <div class="j-content">
+                                                        <div class="j-row">
+                                                            <div class="j-span3 j-unit">
+                                                                <select name ="id_cliente">
+                                                                    <option value="">Seleccionar</option>
+                                                                    {% for c in data%}
+                                                                    <option value = {{c.0}}>{{c.1}}</option>
+                                                                    {% endfor %}
+                                                                </select>
+                                                            </div>
+                                                            <div class="j-span6 j-unit">
+                                                                <div class="j-input">
+                                                                    <input type=submit class="btn btn-primary" name=Buscar>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="card-block table-border-style">
+                                                            <div class="table-responsive">
+                                                                <table class = "table table-bordered" id="tablalist" >
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>ID</th>
+                                                                            <th>Cliente</th>
+                                                                            <th>Origen</th>
+                                                                            <th>Actividad</th>
+                                                                            <th>Estado</th>
+                                                                            <th>Respuesta del cliente</th>
+                                                                            <th>Evidencia</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {% for i in actividad %}
+                                                                        <tr>
+                                                                            <td name=id>{{i.data.0}}</td>
+                                                                            <td>{{i.data.1}}</td>
+                                                                            <td>{{i.data.2}}</td>
+                                                                            <td >{{i.data.3}}</td>
+                                                                            {% if i.data.5 == null %}
+                                                                            <td>{{i.data.4}}</td>
+                                                                            {% else %}
+                                                                            <td class="editable" data-id="{{i.data.0}}" data-type="estado">{{i.data.4}}</td>
+                                                                            {% endif %}
+                                                                            <td>{{i.data.5}}</td>
+                                                                            <td>
+                                                                                {% if i.evidencia_imagen %}
+                                                                                    <img src="data:evidencia_imagen/png;base64, {{i.evidencia_imagen}}" alt="img" width="100">
+                                                                                {% endif %}
+                                                                            </td>
+                                                                        </tr>
+                                                                        {% endfor %}
+                                                                    </tbody>
+                                                                </table>
+                                                                <br>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <br>
+                                        <div class="card-block accordion-block">
+                                            <div id="accordion" role="tablist" aria-multiselectable="true">
+                                                <div class="accordion-panel">
+                                                    <div class="accordion-heading" role="tab" id="headingOne">
+                                                        <h3 class="card-title accordion-title">
+                                                        <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                            Ver Tipo de Estados
+                                                        </a>
+                                                    </h3>
+                                                    </div>
+                                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                        <div class="accordion-content accordion-desc">
+                                                            <div class="card-block table-border-style">
+                                                                <div class="content">
+                                                                    <ul>
+                                                                        <li>-Pendiente</li>
+                                                                        <li>-En Proceso</li>
+                                                                        <li>-Completado</li>
+                                                                    </ul>
+                                                                    <p>Esto permite visualizar la respuesta del cliente y su evidencia, además de modificar el estado de la actividad si el cliente ha respondido. </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+<!-- three seccion - script -->
 <script>
     $(document).ready(function(){
         $(document).on("dblclick",".editable",function(){
@@ -102,6 +200,21 @@
 
 </script>
 
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
 
-</body>
-</html>
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+</script>
+<!-- fin dinamico -->
+{% endblock %}

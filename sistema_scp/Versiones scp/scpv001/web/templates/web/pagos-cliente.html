@@ -1,0 +1,95 @@
+{% extends 'web/011basecliente.html' %}
+	{% load static %}
+	{% block title %}Pagos - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - subir -->
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Detalle de Pagos</h4>
+                                    <p>Sección donde se podrán ver el detalle de los pagos realizados y por hacer.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homecliente' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    
+                                    <li class="breadcrumb-item"><a href="#!">Detalle de Pagos</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="card">
+                        <div class="card-block table-border-style">
+                            <div class="table-responsive">
+                                <form action="" method="GET">
+                                    {% csrf_token %}
+                                    <table class = "table table-bordered" id="tablalist">
+                                        <thead>
+                                            <tr>
+                                                <th>N° Factura</th>
+                                                <th>Fecha</th>
+                                                <th>Tipo Servicio</th>
+                                                <th>Estado de Factura</th>
+                                                <th>Llamadas Valor</th>
+                                                <th>Capacitación Valor</th>
+                                                <th>Asesorías Valor</th>
+                                                <th>Modicaciones Valor</th>
+                                                <th>Actualizaciones Valor</th>
+                                                <th>Valor Contrato</th>
+                                                <th>Valor Neto</th>
+                                                <th>IVA</th>
+                                                <th>Valor Total</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in data %}
+                                            <tr>
+                                                <td>{{i.0}}</td>
+                                                <td>{{i.1}}</td>
+                                                <td>{{i.2}}</td>
+                                                <td>{{i.3}}</td>
+                                                <td>{{i.4}}</td>
+                                                <td>{{i.5}}</td>
+                                                <td>{{i.6}}</td>
+                                                <td>{{i.7}}</td>
+                                                <td>{{i.8}}</td>
+                                                <td>{{i.9}}</td>
+                                                <td>{{i.10}}</td>
+                                                <td>{{i.11}}</td>
+                                                <td>{{i.12}}</td>
+                                            </tr>                        
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- fin dinamico -->
+		{% endblock %}

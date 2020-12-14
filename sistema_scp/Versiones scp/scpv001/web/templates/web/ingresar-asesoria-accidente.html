@@ -1,0 +1,129 @@
+{% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Crear Asesoria Accidente- SCP{% endblock %}
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - subir -->
+        <br>
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Crear Asesoría Accidente</h4>
+                                    <p>En esta sección se podrá ingresar la información necesaria que necesita el profesional para la asesoría por accidente. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Crear Asesoría por Accidente</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-640">
+                                        <form method="POST" class="j-pro" id="j-pro">
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <div class="j-row">
+                                                    <div class="j-unit">
+                                                        <label class="j-icon-right" for="reg-rut">
+                                                            <i class="icofont icofont-id"></i>
+                                                        </label>
+                                                        <input type="text" class="form-control" name="id_profesional" value="{{request.user.id_prof.id_profesional}}">
+                                                    </div>
+                                                </div>
+                                                <h3>Servicios a realizar</h3>
+                                                <div class="j-row">
+                                                    <div class="j-span6 j-unit">
+                                                        <label>Inspección al lugar de accidente</label> 
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="si" name="inspeccion" value="1">
+                                                            <label for="si" style="padding-left: 10px;">Si</label>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="no" name="inspeccion" value="0">
+                                                            <label for="no" style="padding-left: 10px;">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="j-row">
+                                                    <div class="j-span6 j-unit">
+                                                        <label>Inspección al contrato del accidentado</label> 
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="si" name="verificar_contrato" value="1">
+                                                            <label for="si" style="padding-left: 10px;">Si</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="no" name="verificar_contrato" value="0">
+                                                            <label for="no" style="padding-left: 10px;">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="j-row">
+                                                    <div class="j-span6 j-unit">
+                                                        <label>Planificar capacitación de riesgos</label> 
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="si" name="planificar_capacitacion" value="1">
+                                                            <label for="si" style="padding-left: 10px;">Si</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="no" name="planificar_capacitacion" value="0">
+                                                            <label for="no" style="padding-left: 10px;">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="j-footer">
+                                                <input type="submit" class="btn btn-primary" value="Guardar">
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- fin dinamico -->
+{% endblock %}

@@ -1,0 +1,733 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sala de Espera - SCP</title>
+	<!-- Compiled and minified CSS -->
+    <!-- Icono Superior -->
+    <link rel="icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <!-- Style Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons/themify-icons.css' %}">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/icofont/css/icofont.css' %}">
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/feather/css/feather.css' %}">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.mCustomScrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styleextra.css' %}">
+    <!-- jpro forms css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/demo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/j-pro-modern.css' %}">
+    <!-- Notificacion -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <!-- Style  -->
+    <!-- <link rel="stylesheet" href="{% static 'css/estilohome.css' %}"> -->
+	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+	<script src="https://kit.fontawesome.com/a8027f23d1.js" crossorigin="anonymous"></script>
+	<script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+	<script src="{% static 'js/slider.js' %}"></script>
+    <script src="{%static 'js/jquery-3.5.1.min.js' %}" type="text/javascript"></script>
+</head>
+<body id="body-pd">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div class='contain'>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if request.user.id_prof%}
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <!-- LOGO -->
+                    <div class="navbar-logo">
+                        <a class="mobile-menu" id="mobile-collapse" href="#!">
+                            <i class="feather icon-menu"></i>
+                        </a>
+                        <a href="{% url 'homeprofesional' %}">
+                            <img class="img-fluid" src="{% static 'img/logo3.png' %}" alt="Theme-Logo" width = "75%">
+                        </a>
+                    </div>
+                    <!-- NAV SUPERIOR -->
+                    <div class="navbar-container container-fluid">
+                        <!-- ICONOS IZQUIERDA -->
+                        <ul class="nav-left">
+                            <li>
+                                <!-- MAX Y MIN PANTALLA -->
+                                <a href="#!" onclick="javascript:toggleFullScreen()">
+                                    <i class="feather icon-maximize full-screen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- ICONOS DERECHA -->
+                        <ul class="nav-right">
+                            <li class="header-notification">
+                                <div class="dropdown-primary dropdown">
+                                    <!-- ICONO NOTIFICACION -->
+                                    <div>
+                                        <div class="dropdown-toggle" data-toggle="dropdown" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <!-- CAMPANA -->
+                                            <i class="feather icon-bell"></i>
+    
+                                            <!-- CIRCULO -->                                        
+                                            <span class="badge bg-c-pink" id="newNotificationCount">0</span>
+                                        </div>
+                                        <!-- DESPLEGABLE NOTIFICACION -->                                         
+                                        <ul class="show-notification notification-view dropdown-menu" aria-labelledby="alertsDropdown" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                            <li>
+                                                <h6 class="dropdown-header">
+                                                    Notificaciones
+                                                </h6>
+                                            </li>
+                                            <li>
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <p class="notification-msg" id="newNotifications"></p>
+                                                        <p class="notification-msg" id="cheat"></p>
+                                                    </div>                                        
+                                                    
+                                                </div>
+                                            </li> 
+                                            
+                                            <!-- NOTIFICACIONES LISTADO  -->
+                                            {% for old_notification in old_notifications %}  
+                                            <li>                                                
+                                                <div class="media">                                                    
+                                                    <img class="d-flex align-self-center img-radius" src="{% static 'img/perfil01.jpg' %}" alt="Generic placeholder image">
+                                                    <div class="media-body">                                                        
+                                                        <p class="notification-msg">{{old_notification.descripcion}}</p>
+                                                        <span class="notification-time">{{old_notification.fecha_creacion}}</span>
+                                                    </div>                                                    
+                                                </div>                                                
+                                            </li>
+                                            {% endfor %}                                            
+                                        </ul>
+                                    </div>
+                                    <!-- PERFIL DE USUARIO -->
+                                    <li class="user-profile header-notification">
+                                        <div class="dropdown-primary dropdown">
+                                            <!-- VISUAL NAV USUARIO -->
+                                            <div class="dropdown-toggle" data-toggle="dropdown">
+                                                <img src="{% static 'img/perfil01.jpg' %}" class="img-radius" alt="User-Profile-Image">
+                                                <span>{{request.user.id_prof.nombre_completo}}</span>
+                                                <i class="feather icon-chevron-down"></i>
+                                            </div>
+                                            <!-- SUB NAV USUARIO -->
+                                            <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                <li>
+                                                    <a href="#!">
+                                                        <i class="feather icon-settings"></i> Ajustes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="feather icon-user"></i> Perfil
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'logout' %}">
+                                                        <i class="feather icon-log-out"></i> Cerrar Sesion 
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </nav>
+            <!-- MENU -->
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="pcoded-navigatio-lavel">Panel de Profesional</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="{% url 'home-calendar'%}">
+                                        <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
+                                        <span class="pcoded-mtext">Agendar Visita</span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-file-text"></i></span>
+                                        <span class="pcoded-mtext">Situación Cliente</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'checklist' %}">
+                                                <span class="pcoded-mtext">Crear Check-list</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-checklist' %}">
+                                                <span class="pcoded-mtext">Responder Checklist</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'situacion-actual' %}">
+                                                <span class="pcoded-mtext">Ingresar Situación Actual</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-file-plus"></i></span>
+                                        <span class="pcoded-mtext">Ficha Actividad</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'actividad-mejora' %}">
+                                                <span class="pcoded-mtext">Crear Actividad de Mejora</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-actividad' %}">
+                                                <span class="pcoded-mtext">Listar Actividad</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'report-all' %}">
+                                        <span class="pcoded-micon"><i class="icofont icofont-ui-folder"></i></span>
+                                        <span class="pcoded-mtext">Generar Reporte</span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="icofont icofont-archive"></i></span>
+                                        <span class="pcoded-mtext">Solicitudes</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'crear-solicitud' %}">
+                                                <span class="pcoded-mtext">Crear Solicitud</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-solicitud' %}">
+                                                <span class="pcoded-mtext">Listar Solicitud</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="icofont icofont-unique-idea"></i></span>
+                                        <span class="pcoded-mtext">Asesoría</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'listar-asesoria-accidente' %}">
+                                                <span class="pcoded-mtext">Ver Asesoría Accidente</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-asesoria-fiscalizacion' %}">
+                                                <span class="pcoded-mtext">Ver Asesoría Fiscalización</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'listar-capacitacion' %}">
+                                        <span class="pcoded-micon"><i class="icofont icofont-users-social"></i></span>
+                                        <span class="pcoded-mtext">Capacitación</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'listar-resultado' %}">
+                                        <span class="pcoded-micon"><i class="icofont icofont-document-folder"></i></span>
+                                        <span class="pcoded-mtext">Ver Resultados</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'ingresar-accidente' %}" target ="_blank">
+                                        <span class="pcoded-micon"><i class="icofont icofont-warning"></i></span>
+                                        <span class="pcoded-mtext">Ingresar Accidente</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">                            
+                        <!-- dinamico -->
+                        <!-- one seccion - subir -->
+                        <ul class="actions">
+                            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+                        </ul>
+                        <!-- two seccion - contenido -->
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <!-- TITULO PAGINA HEADER -->
+                                <div class="page-header">
+                                    <div class="row align-items-end">
+                                        <!-- INFORMACION -->
+                                        <div class="col-lg-8">
+                                            <div class="page-header-title">
+                                                <div class="d-inline">
+                                                    <h4>Ingresar al Chat</h4>
+                                                    <p>Sección donde se podrá acceder al chat de emergencia en conjunto con el profesional.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- RUTA -->
+                                        <div class="col-lg-4">
+                                            <div class="page-header-breadcrumb">
+                                                <ul class="breadcrumb-title">
+                                                    <li class="breadcrumb-item">
+                                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                                    </li>                                                    
+                                                    <li class="breadcrumb-item"><a href="#!">Sala de Espera</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CONTENIDO -->
+                                <div class="page-body">
+                                    <div class="card">
+                                        <div class="card-block table-border-style">
+                                            <div class="j-pro">
+                                                <div class="col-sm-12">
+                                                    <div class="j-content">
+                                                        <div class="j-row">
+                                                            
+                                                            <h1>Bienvenido, {{request.user.id_prof.nombre_completo}}</h1>
+                                                            <input name="person_name" id="person_name" type="hidden" size="100" value="{{ request.user.id_prof.nombre_completo|cut:' ' }}">
+                                                            <input name="room_name" id="room_name" type="hidden" size="100" value="{{request.user.id_prof.id_profesional|cut:'-'}}"><br>
+                                                            <p>Por favor ingrese a la sala, su cliente lo esta esperando.</p>
+                                                            <input id="submit" class="btn btn-primary" type="button" value="Enter">
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- fin dinamico -->                        
+                        <!-- footer -->
+                        <br>
+                        <footer id="footer">
+                            <p class="copyright">&copy; Portafolio Título. Diseñado: Grupo 1.</p>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    {% else %}
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <!-- LOGO -->
+                    <div class="navbar-logo">
+                        <a class="mobile-menu" id="mobile-collapse" href="#!">
+                            <i class="feather icon-menu"></i>
+                        </a>
+                        <a href="{% url 'homecliente' %}">
+                            <img class="img-fluid" src="{% static 'img/logo3.png' %}" alt="Theme-Logo" width = "75%">
+                        </a>
+                    </div>
+                    <!-- NAV SUPERIOR -->
+                    <div class="navbar-container container-fluid">
+                        <!-- ICONOS IZQUIERDA -->
+                        <ul class="nav-left">
+                            <li>
+                                <!-- MAX Y MIN PANTALLA -->
+                                <a href="#!" onclick="javascript:toggleFullScreen()">
+                                    <i class="feather icon-maximize full-screen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- ICONOS DERECHA -->
+                        <ul class="nav-right">
+                            <li class="header-notification">
+                                <div class="dropdown-primary dropdown">
+                                    
+                                    <!-- PERFIL DE USUARIO -->
+                                    <li class="user-profile header-notification">
+                                        <div class="dropdown-primary dropdown">
+                                            <!-- VISUAL NAV USUARIO -->
+                                            <div class="dropdown-toggle" data-toggle="dropdown">
+                                                <img src="{% static 'img/perfil01.jpg' %}" class="img-radius" alt="User-Profile-Image">
+                                                <span>{{request.user.id_cliente.nombre_empresa}}</span>
+                                                <i class="feather icon-chevron-down"></i>
+                                            </div>
+                                            <!-- SUB NAV USUARIO -->
+                                            <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                <li>
+                                                    <a href="#!">
+                                                        <i class="feather icon-settings"></i> Ajustes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="feather icon-user"></i> Perfil
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'logout' %}">
+                                                        <i class="feather icon-log-out"></i> Cerrar Sesion 
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </nav>
+            <!-- MENU -->
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="pcoded-navigatio-lavel">Panel de Cliente</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="{% url 'visitas' request.user.id_cliente.id_cliente %}">
+                                        <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
+                                        <span class="pcoded-mtext">Calendario</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'listar-actividad-cliente' %}">
+                                        <span class="pcoded-micon"><i class="icofont icofont-page"></i></span>
+                                        <span class="pcoded-mtext">Ver Actividades</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'crear-alerta' %}">
+                                        <span class="pcoded-micon"><i class="icofont icofont-exclamation-tringle"></i></span>
+                                        <span class="pcoded-mtext">Emergencia</span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="icofont icofont-file-pdf"></i></span>
+                                        <span class="pcoded-mtext">Ver Reporte</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'cliente-reporte-situacion' %}">
+                                                <span class="pcoded-mtext">Reporte Situación</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'cliente-reporte-visitas' %}">
+                                                <span class="pcoded-mtext">Reporte Visitas</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'cliente-reporte-capacitacion' %}">
+                                                <span class="pcoded-mtext">Reporte Capacitación</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'cliente-reporte-accidente' %}">
+                                                <span class="pcoded-mtext">Reporte Accidente</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'cliente-reporte-fiscalizacion' %}">
+                                                <span class="pcoded-mtext">Reporte Fiscalización</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'cliente-reporte-solicitud' %}">
+                                                <span class="pcoded-mtext">Reporte Solicitud</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'pagos-cliente' request.user.id_cliente.id_cliente %}">
+                                        <span class="pcoded-micon"><i class="icofont icofont-money"></i></span>
+                                        <span class="pcoded-mtext">Pagos</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">                            
+                        <!-- dinamico -->
+                        <!-- one seccion - subir -->
+                        <ul class="actions">
+                            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+                        </ul>
+                        <!-- two seccion - contenido -->
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <!-- TITULO PAGINA HEADER -->
+                                <div class="page-header">
+                                    <div class="row align-items-end">
+                                        <!-- INFORMACION -->
+                                        <div class="col-lg-8">
+                                            <div class="page-header-title">
+                                                <div class="d-inline">
+                                                    <h4>Ingresar al Chat</h4>
+                                                    <p>Sección donde se podrá acceder al chat de emergencia en conjunto con el profesional.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- RUTA -->
+                                        <div class="col-lg-4">
+                                            <div class="page-header-breadcrumb">
+                                                <ul class="breadcrumb-title">
+                                                    <li class="breadcrumb-item">
+                                                        <a href="{% url 'homecliente' %}"> <i class="feather icon-home"></i> </a>
+                                                    </li>
+                                                    <li class="breadcrumb-item"><a href="{% url 'crear-alerta' %}">Crear Alerta</a>
+                                                    </li>
+                                                    <li class="breadcrumb-item"><a href="#!">Sala de Espera</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CONTENIDO -->
+                                <div class="page-body">
+                                    <div class="card">
+                                        <div class="card-block table-border-style">
+                                            <div class="j-pro">
+                                                <div class="col-sm-12">
+                                                    <div class="j-content">
+                                                        <div class="j-row">
+                                                            <h1>Bienvenido, {{request.user.id_cliente.nombre_empresa}}</h1>
+                                                            <input name="person_name" id="person_name" type="hidden" size="100" value="{{ request.user.id_cliente.nombre_empresa|cut:' ' }}" >
+                                                            <input name="room_name" id="room_name" type="hidden" size="100" value="{{request.user.id_cliente.id_profesional.id_profesional|cut:'-'}}"><br>
+                                                            <p>Por favor, ingrese a la sala y espere a que su profesional a cargo pueda atenderlo.</p>
+                                                            <input id="submit" class="btn btn-primary" type="button" value="Enter">
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- fin dinamico -->                        
+                        <!-- footer -->
+                        <br>
+                        <footer id="footer">
+                            <p class="copyright">&copy; Portafolio Título. Diseñado: Grupo 1.</p>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    {% endif %}
+    
+
+
+    <!-- Required Jquery -->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- j-pro js -->
+    <script type="text/javascript" src="{% static 'js/jquery.ui.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/jquery.maskedinput.min.js' %}"></script> -->
+    <script type="text/javascript" src="{% static 'js/jquery.j-pro.js' %}"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="{% static 'js/jquery.slimscroll.js' %}"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="{% static 'js/modernizr.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/css-scrollbars.js' %}"></script>
+    <!-- Otros JS -->
+    <script src="{% static 'js/mainmenu.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
+    <script src="{% static 'js/botonsubir.js' %}"></script>
+    <script src="{% static 'js/simplyCountdown.min.js' %}"></script>
+    <script src="{% static 'js/countdown.js' %}"></script>
+    <!-- Custom js -->
+    <script type="text/javascript" src="{% static 'js/form-job.js' %}"></script>
+    <script src="{% static 'js/pcoded.min.js' %}"></script>
+    <script src="{% static 'js/vartical-layout.min.js' %}"></script>
+    <script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <!-- Notificacion -->
+    <script src="{% static 'js/notificationObj.js' %}"></script>
+
+    <script>
+
+    $('#alertsDropdown').click(function(){
+        const tmpObjsHTML = $('#newNotifications').html()
+        $.ajax({
+        method:'post',
+        url:'{% url "AJAXMarkNotificationAsReaded" %}',
+        data:{
+            csrfmiddlewaretoken:'{{csrf_token}}'
+        },
+        success:function(data){
+            $('#newNotifications').html('')
+            $('#cheat').html(tmpObjsHTML)
+            $('#newNotificationCount').text(data.unreaded_notification_count)
+        },
+        error:function(data){
+            console.log('ERR',data)
+        }
+        })
+    })
+
+
+    var ws = new WebSocket('ws://127.0.0.1:8000/ws/notification/{{request.user.id_prof.id_profesional}}')
+
+    ws.onopen = function(event){
+        console.log('opened', event);
+    }
+
+    ws.onmessage = function(event){
+        console.log('message', event);
+        var data = JSON.parse(event.data);
+        
+        var old_notifications = JSON.parse(data.old_notifications);
+        var unreaded_notifications = JSON.parse(data.unreaded_notifications);
+        var unreaded_notification_count = data.unreaded_notification_count;
+
+        $('#newNotifications').html('')
+        unreaded_notifications.forEach(element => {
+        var obj = new NotificationObj(element.fields)
+        $('#newNotifications').append(obj.drawNotification())
+        });
+
+        $('#newNotificationCount').text(unreaded_notification_count)
+        console.log('loaded')
+    }
+
+    ws.onclose = function(event){
+        console.log('close', event);
+    }
+
+    ws.onerror = function(event){
+        console.log('error', event);
+    }
+
+    // window.setInterval(function(){
+    //   loadNotifications();
+    // }, 1000);
+    </script>
+
+    <!-- Entrar Chat -->
+    <script>
+        document.querySelector("#submit").onclick=function(e){
+            var roomname=document.querySelector('#room_name').value;
+            var personname=document.querySelector('#person_name').value;
+            window.location.pathname='/room/'+roomname+'/'+personname;
+        }
+
+    </script>
+    <!-- Alerta messages -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
+    {% if messages %}
+        {% for m in messages %}
+            {% if m.tags == 'success' %}
+            <script>
+                Swal.fire ({
+                    "title": "Felicitaciones",
+                    "text": "{{m}}",
+                    "icon": "success",
+                    "showConfirmButton": false,
+                    "timer": "1500"
+
+                })
+            </script>
+            {% else %}
+            <script>
+                Swal.fire ({
+                    "title": "Error",
+                    "text": "{{m}}",
+                    "icon": "error",
+                    "showConfirmButton": false,
+                    "timer": "1500"
+
+                })
+            </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% block carga_js %}
+    {% endblock %}
+</body>
+</html>

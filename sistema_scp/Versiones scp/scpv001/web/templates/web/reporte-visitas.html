@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+table {
+   width: 100%;
+   border: 1px solid #000;
+}
+th, td {
+   width: 25%;
+   text-align: left;
+   vertical-align: top;
+   border: 1px solid #000;
+   border-collapse: collapse;
+   padding: 0.3em;
+   caption-side: bottom;
+}
+caption {
+   padding: 0.3em;
+   color: #fff;
+    background: #000;
+}
+th {
+   background: #eee;
+
+}
+    h1{
+        font-size: 40px;
+    }
+    
+    label{
+        font-size: 13px;
+    }
+    
+    h2 {
+        font-size: 20px;
+        font-weight: bold;
+    }
+    
+    </style>
+<body>
+        <div>
+            <h1>Reporte de las visitas a la empresa</h1>
+            <label>Nombre cliente: {{cliente.nombre_empresa}}</label>
+            <br>
+            <label>RUT cliente: {{cliente.id_cliente}}</label>
+            <br>
+            <label>Profesional a cargo: {{cliente.id_profesional.nombre_completo}}</label>
+        </div>
+        <hr>
+        <br>
+        <h2>Visitas</h2>
+        <table id="invoice">
+            <thead>
+                <tr>
+                    <th>N° servicio</th>
+                    <th >Motivo</th>
+                    <th >Fecha</th>
+                    <th >Hora</th>
+                    <th >Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in visita %}
+                <tr>
+                    <td >{{c.id_servicio}}</td>
+                    <td >{{c.id_motivo_visita.tipo_visita}}</td>
+                    <td >{{c.fecha_servicio}}</td>
+                    <td >{{c.hora_servicio}}</td>
+                    <td >{{c.id_estado_servicio.descripcion}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br>
+        <hr>
+    <h1>Detalles</h1>  
+    <label>Cantidad de visitas: {{total}}</label>
+    <br>
+    <label>Cantidad de visitas pendientes: {{pendiente}}</label>
+    <br>
+    <label>Cantidad de visitas en proceso: {{proceso}}</label>
+    <br>
+    <label>Cantidad de visitas finalizadas: {{finalizado}}</label>
+    <br>
+    <br>
+    <label>Visitas por checklists: {{checklist}}</label>
+    <br>
+    <label>Visitas por capacitacion: {{capacitacion}}</label>
+    <br>
+    <label>Visitas por asesoria de accidentes: {{accidente}}</label>
+    <br>
+    <label>Visitas por asesoria de fiscalización: {{fiscalizacion}}</label>
+
+</body>
+</html>

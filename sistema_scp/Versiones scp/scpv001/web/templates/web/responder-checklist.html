@@ -1,20 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar item de checklist checklist</title>
-    <h1>Editar item de checklist</h1>
-</head>
-<body>
+{% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Editar item de checklist- SCP{% endblock %}
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - Editar item de checklist -->
+        <br>
+        <div class="borde-centro">
+            <h1 class="major">Editar item de checklist</h1>
+            <div class="contorno-marco">
+                <div class="fields">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="field half">
+                            {{form.checklist}}
+                        </div>
+                        <div class="field half">
+                            {{form.checklist}}
+                        </div>
+                        <ul class="actions">
+                            <input type="submit" name="Responder check" class="primary">
+                        </ul>
+                    </form>
+                </div>
+            </div>
+        </div>
     
-    <form method="POST">
-        {% csrf_token %}
-        {{form.checklist}}
-        {{form.resultado}}
-        {{form.id_cliente}}
-        <input type="submit" name="Responder check">
-
-    </form>
-</body>
-</html>
+<!-- fin dinamico -->
+{% endblock %}

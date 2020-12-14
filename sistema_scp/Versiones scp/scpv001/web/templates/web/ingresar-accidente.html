@@ -1,0 +1,205 @@
+{% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Ingresar Accidente- SCP{% endblock %}
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - subir -->
+        <br>
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Ingresar Accidente</h4>
+                                    <p>En esta sección el profesional podrá ingresar la información necesaria sobre un accidente de un cliente en un reporte. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Ingresar Accidente</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-640">
+                                        <form method="POST" class="j-pro" id="j-pro">
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <h3>Datos del suceso</h3>
+                                                <br>
+                                                <!--RUT CLIENTE -->
+                                                <div class="j-unit">
+                                                    <label class="j-icon-right" for="reg-rut">
+                                                        <i class="icofont icofont-id"></i>
+                                                    </label>
+                                                    <input type="text" name="id_cliente" value="" placeholder="Ingresar RUT de la empresa">
+                                                </div>
+                                                <!-- FECHA - HORA -->
+                                                <div class="j-row">
+                                                    <div class="j-span6 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="reg-email">
+                                                                <i class="icofont icofont-calendar"></i>
+                                                            </label>
+                                                            <input type="text" name="fecha" value="" placeholder="Fecha del suceso">
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span6 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="reg-email">
+                                                                <i class="icofont icofont-clock-time"></i>
+                                                            </label>
+                                                            <input type="text" name="hora" value="" placeholder="Hora del suceso">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- LUGAR DEL ACCIDENTE -->
+                                                <div class="j-unit">
+                                                    <label class="j-icon-right" for="reg-rut">
+                                                        <i class="icofont icofont-location-pin"></i>
+                                                    </label>
+                                                    <input type="text" name="lugar_accidente" value="" placeholder="Ingrese el lugar donde ocurrió el accidente">
+                                                </div>
+                                                <!-- ENCUESTA -->
+                                                <div class="j-row">
+                                                    <div class="j-span6 j-unit">
+                                                        <label>¿Era su trabajo habitual?</label> 
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="si" name="trabajo_habitual" value="1">
+                                                            <label for="si" style="padding-left: 10px;">Si</label>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="no" name="trabajo_habitual" value="0">
+                                                            <label for="no" style="padding-left: 10px;">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="j-row">
+                                                    <div class="j-span6 j-unit">
+                                                        <label>¿Tenía experiencia?</label> 
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="si" name="tiene_experiencia" value="1">
+                                                            <label for="si" style="padding-left: 10px;">Si</label>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="no" name="tiene_experiencia" value="0">
+                                                            <label for="no" style="padding-left: 10px;">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="j-row">
+                                                    <div class="j-span6 j-unit">
+                                                        <label>¿La tarea requería autorización?</label> 
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="si" name="tarea_autorizacion" value="1">
+                                                            <label for="si" style="padding-left: 10px;">Si</label>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="no" name="tarea_autorizacion" value="0">
+                                                            <label for="no" style="padding-left: 10px;">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- DIVICION -->
+                                                <br>
+                                                <h3>Consecuencias</h3>
+                                                <br>
+                                                <div class="j-unit">
+                                                    <textarea name="desc_lesion" placeholder="Describa detalladamente la lesión..."></textarea>
+                                                </div>
+                                                <!-- ENCUESTA -->
+                                                <div class="j-row">
+                                                    <div class="j-span3 j-unit">
+                                                        <label>Grado de la lesión:</label> 
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="leve" name="grado_lesion" value="leve">
+                                                            <label for="leve" style="padding-left: 10px;">Leve</label>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="grave" name="grado_lesion" value="grave">
+                                                            <label for="grave" style="padding-left: 10px;">Grave</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span3 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="muy grave" name="grado_lesion" value="muy grave">
+                                                            <label for="muy grave" style="padding-left: 10px;">Muy Grave</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span2 j-unit">
+                                                        <div class="form-group row">
+                                                            <input type="radio" id="mortal" name="grado_lesion" value="mortal">
+                                                            <label for="mortal" style="padding-left: 10px;">Mortal</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- DIVICION -->
+                                                <br>
+                                                <h3>Contingencia</h3>
+                                                <br>
+                                                <div class="j-unit">
+                                                    <textarea name="contingencia" placeholder="Describa detalladamente la contingencia de la situación..."></textarea>
+                                                </div>
+                                                
+                                            </div>
+                                            <br>
+                                            <div class="j-footer">
+                                                <input type="submit" class="btn btn-primary" value="Guardar">
+                                            </div>
+                                            
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+<!-- fin dinamico -->
+{% endblock %}

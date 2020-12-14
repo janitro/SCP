@@ -1,0 +1,116 @@
+{% extends 'web/020baseadmin.html' %}
+	{% load static %}
+	{% block title %}Pagos Admin - SPC{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - subir -->
+        <!-- dinamico -->
+                        <!-- one seccion - subir -->
+                        <br>
+                        <ul class="actions">
+                            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+                        </ul>
+                        <!-- two seccion - contenido -->
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <!-- TITULO PAGINA HEADER -->
+                                <div class="page-header">
+                                    <div class="row align-items-end">
+                                        <!-- INFORMACION -->
+                                        <div class="col-lg-8">
+                                            <div class="page-header-title">
+                                                <div class="d-inline">
+                                                    <h4>Ingresar Pago</h4>
+                                                    <p>En esta sección se podrá ver los clientes y generar los pagos. 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- RUTA -->
+                                        <div class="col-lg-4">
+                                            <div class="page-header-breadcrumb">
+                                                <ul class="breadcrumb-title">
+                                                    <li class="breadcrumb-item">
+                                                        <a href="{% url 'homeadmin' %}"> <i class="feather icon-home"></i> </a>
+                                                    </li>
+                                                    <li class="breadcrumb-item"><a href="#!">Ingresar Pago</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CONTENIDO -->
+                                    <div class="page-body">
+                                                <div class="card">
+                                                    <div class="card-block table-border-style">
+                                                        <div class="table-responsive">
+                                                            <form action="" method="POST">
+                                                                {% csrf_token %}
+                                                                <div class="j-pro">
+                                                                    <div class="col-sm-12">                                               
+                                                                        <div class="j-content">
+                                                                            <div class="j-row">
+                                                                                <div class="j-span3 j-unit">
+                                                                                    <div class="j-input">
+                                                                                        <label class="j-icon-right" for="rut">
+                                                                                            <i class="icofont icofont-id"></i>
+                                                                                        </label>
+                                                                                        <input type="text" id="rut" name="rut" required oninput="checkRut(this)" placeholder="Ingrese Rut de Cliente" maxlength="10">
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="j-span6 j-unit">
+                                                                                    <div class="j-input">
+                                                                                        <button type="submit" class="btn btn-primary">Ingresar Pago</button>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>                                        
+                                                                    </div> 
+                                                                </div>                                                       
+                                                                    <table class = "table table-bordered" id="tablalist">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Factura</th>
+                                                                                <th>Fecha</th>
+                                                                                <th>Tipo Servicio</th>
+                                                                                <th>Estado Servicio</th>
+                                                                                <th>Precio Neto</th>
+                                                                                <th>Iva</th>
+                                                                                <th>Total a Pagar</th>
+                                                                                <th>Cliente</th>
+                                                                                
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            {% for i in salida %}
+                                                                            <tr>
+                                                                                <td>{{i.0}}</td>
+                                                                                <td>{{i.1}}</td>
+                                                                                <td>{{i.2}}</td>
+                                                                                <td>{{i.3}}</td>
+                                                                                <td>{{i.4}}</td>
+                                                                                <td>{{i.5}}</td>
+                                                                                <td>{{i.6}}</td>
+                                                                                <td>{{i.7}}</td>
+                                                                            {% endfor %}
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                                <br>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        <!-- fin dinamico -->
+        {% endblock %}
