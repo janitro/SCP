@@ -26,7 +26,7 @@ SECRET_KEY = 'q-g0a46_m2j90gxj30!*fm$6k6vb#1d$v_+uhos(7v13*(k^y)'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.10.10']
 
 X_FRAME_OPTIONS = 'ALLOWALL'
 
@@ -40,9 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web.apps.WebConfig',
+    'channels',
     'rest_framework',
     'django_filters',
-    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +84,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': '127.0.0.1:1521/xe',
-        'USER': 'TEST2',
+        'USER': 'TEST1',
         'PASSWORD': 'TEST',
         'TEST': {
             'USER': 'default_test',
@@ -141,7 +141,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGOUT_REDIRECT_URL = reverse_lazy('home')
 
-
+CHANNEL_LAYERS = {
+    "default":{
+        "BACKEND":"channels_redis.core.RedisChannelLayer",
+        "CONFIG":{
+            "hosts":[("localhost",6379)],
+        }
+    }
+}
 
 PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
