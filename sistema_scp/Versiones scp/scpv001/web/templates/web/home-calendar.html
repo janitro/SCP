@@ -1,0 +1,103 @@
+
+{% extends 'web/020baseadmin.html' %}
+	{% load static %}
+	{% block title %}Actividades - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - Slider-->
+		<div class="borde">
+            <h2 class="major">Calendario de Actividades</h2>
+            <div class="fields">
+           <link rel="stylesheet" href="{% static 'lib/main.css' %}">
+        <link rel="stylesheet" href="{% static 'lib/font-awesome.css' %}">
+        <script type='text/javascript' src="{% static 'lib/main.js' %}"></script>
+        <script type='text/javascript' src="{% static 'lib/locales-all.js' %}"></script>
+        <script type='text/javascript' src="{% static 'lib/moment.js' %}"></script>
+        
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+
+
+
+
+<body>
+        <div class="row">
+       
+       <div class="col-md-3" >
+       </div>
+       <div class="col-md-5" >
+        <div id="calendar" ></div>
+       
+       </div>
+      <div class="col-md-3" >
+       </div>
+       </div>
+
+
+        
+        
+
+
+
+
+            </div>
+        </div> 
+
+        <script>
+
+document.addEventListener('DOMContentLoaded', function(){
+    var calenderUI = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calenderUI,{
+        
+        events: [
+            {% for i in cal %}
+             
+                {
+                    title: "{{ i.2 }}",
+                    start: '{{ i.1 | date:"Y-m-d" }}',
+                    url: '{% url 'detalles-servicio' i.0 %}'
+                   
+                },
+             
+
+            {% endfor %}
+        ],
+        eventClick: function(info) {
+        info.jsEvent.preventDefault(); 
+            
+
+            if (info.event.url) {
+            window.open(info.event.url);
+            }
+        },
+        
+        dateClick: function(info) {
+        alert('Fecha de hoy:' + info.dateStr)
+        window.location.href = "{% url 'asignar-profesional'  %}" ;
+       
+
+        
+        },
+        windowResize: function(arg) {
+        
+        }
+        
+      
+     
+      
+
+    });
+    calendar.render();
+    calendar.setOption('locale','es');
+}); 
+
+
+
+
+
+</script> 
+
+		<!-- fin dinamico -->
+		{% endblock %}
+

@@ -1,0 +1,22 @@
+
+ {% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Inicio - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - Home Checklist-->
+		<div class="borde">
+            <h2 class="major"> Checklist</h2>
+            <div class="fields">
+                <ul class="actions">
+                    <li><a href="{% url 'checklist' %}" class="button">Crear Check-list</a></li>
+                    <li><a href="#" class="button">Responder Checklist</a></li>
+                    <li><a href="{% url 'listar-checklist' %}" class="button">Listar Checklist</a></li>
+                    
+                </ul>
+            </div>
+            
+        </div>  
+
+		<!-- fin dinamico -->
+		{% endblock %}       

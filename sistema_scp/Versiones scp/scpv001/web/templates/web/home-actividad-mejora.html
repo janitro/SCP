@@ -1,0 +1,22 @@
+
+ {% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Inicio - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - Home Checklist-->
+		<div class="borde">
+            <h2 class="major"> Ficha de Prevencion</h2>
+            <div class="fields">
+                <ul class="actions">
+                    <li><a href="{% url 'actividad-mejora' %}" class="button">Crear Actividad de Mejora</a></li>
+                    <li><a href="{% url 'listar-actividad' %}" class="button">Listar Actividad </a></li>
+                    <li><a href="{% url 'modificar-actividad' %}" class="button">Modificar Actividad</a></li>
+                    
+                </ul>
+            </div>
+            
+        </div>  
+
+		<!-- fin dinamico -->
+		{% endblock %}  

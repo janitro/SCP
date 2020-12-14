@@ -19,15 +19,24 @@
             <i class='bx fas fa-bars' id="header-toggle"></i>
         </div>
 
-        <div class="header__img">
-            <img src="{% static 'img/logo001.jpg' %}" alt="">
+        <div class="dropdown">
+            <i class='bx fas fa-user-circle' id="dropbtn"></i>
+            <div class="dropdown-content">
+
+                <a href="#" class="far fa-user"> Profesional: {{request.user.id_prof.nombre_completo}} </a>
+                <a href="#" class="info-usuario far fa-at"> Correo : {{request.user.email}}  </a>
+                <a href="#" class="far fa-info"> Mas Informacion </a>
+                <a href="#" class="far fa-info"> Mas Informacion </a>
+                <a href="#" class="far fa-info"> Mas Informacion </a>
+                <a href="#" class='cerrar far fa-door-open nav__icon'> Cerrar Sesion</a>
+            </div>
         </div>
     </header>
 
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-                <a href="#" class="nav__logo">
+                <a href="{% url 'homeprofesional' %}" class="nav__logo">
                     <i class='bx fas fa-user-shield nav__logo-icon'></i>
                     <span class="nav__logo-name">SCP Sistema Control</span>
                 </a>
@@ -49,7 +58,7 @@
                         <span class="nav__name">Asesorias</span>
                     </a>
                     
-                    <a href="#" class="nav__link">
+                    <a href="{% url 'ficha-terreno' %}" class="nav__link">
                         <i class='bx fas fa-tasks nav__icon' ></i>
                         <span class="nav__name">Fichas Terreno</span>
                     </a>
@@ -59,25 +68,25 @@
                         <span class="nav__name">Capacitacion</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="{% url 'home-prevencion' %}" class="nav__link">
                         <i class='bx icon fa-folder-open nav__icon' ></i>
                         <span class="nav__name">Ficha Prevencion</span>
                     </a>
 
-                    <a href="#" class="nav__link">
+                    <a href="{% url 'home-solicitud' %}" class="nav__link">
                         <i class='bx icon fa-comments nav__icon' ></i>
-                        <span class="nav__name">Tickets</span>
+                        <span class="nav__name">Solicitudes</span>
                     </a>
                 </div>
             </div>
         
-            <a href="#" class="nav__link">
+            <a href="{% url 'logout' %}" class="nav__link">
                 <i class='bx fas fa-door-open nav__icon' ></i>
                 <span class="nav__name">Salir</span>
             </a>
         </nav>
     </div>
-    <!-- fin estatico -->
+    <!-- fin estatico --> 
 
 	<!-- dinamico -->
 	{% block content %}
@@ -91,9 +100,24 @@
     </footer>
     <!-- fin estatico -->
 	
-	<!-- Compiled and minified JavaScript -->
+    
 	<!-- Otros JS -->
     <script src="{% static 'js/mainmenu.js' %}"></script>
+    <script src="{% static 'js/botonsubir.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    {% if messages %}
+        {% for m in messages %}
+            <script>
+                Swal.fire ({
+                    "title": "Felicitaciones",
+                    "text": "{{m}}",
+                    "icon": "success"
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
     {% block carga_js %}
     {% endblock %}
 </body>
