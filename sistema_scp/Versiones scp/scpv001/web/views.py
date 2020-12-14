@@ -1412,6 +1412,8 @@ def PS_registrarAccidente(ID_CLIENTE, FECHA, HORA, LUGAR_ACCIDENTE, TRABAJO_HABI
     return salida.getvalue()
 
 def ingresar_accidente(request):
+    id_profesional = request.user.id_prof.id_profesional
+    data = PS_listar_cliente(id_profesional)
 
     if request.method == 'POST':
         CLIENTE = request.POST.get('id_cliente')
@@ -1427,8 +1429,10 @@ def ingresar_accidente(request):
         salida= PS_registrarAccidente(CLIENTE, FECHA, HORA, LUGAR_ACCIDENTE, TRABAJO_HABITUAL, TIENE_EXPERIENCIA, TAREA_AUTORIZACION, DESC_LESION, GRADO_LESION, CONTINGENCIA)
         if salida == 1:
             print("agrego")
+            messages.success(request, "Accidente Ingresado")
         else:
             print("no agrego")
+            messages.error(request, "Error al registrar accidente")
     return render (request, 'web/ingresar-accidente.html')
 
 def PS_registrarAsesoriaAccidente(ID_SERVICIO, ID_PROFESIONAL, INSPECCION_LUGAR_ACCIDENTE, VERIFICAR_CONTRATO_ACCIDENTADO, PLANIFICAR_CAPACITACION_RIESGOS):
