@@ -102,6 +102,9 @@
                                 <a href="#!" onclick="javascript:toggleFullScreen()">
                                     <i class="feather icon-maximize full-screen"></i>
                                 </a>
+                                
+                                <!-- <button type="button" class="btn btn-dark" onclick="cambiarModo()"></button> -->
+                                
                             </li>
                         </ul>
                         <!-- ICONOS DERECHA -->
@@ -113,7 +116,6 @@
                                         <div class="dropdown-toggle" data-toggle="dropdown" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <!-- CAMPANA -->
                                             <i class="feather icon-bell"></i>
-    
                                             <!-- CIRCULO -->                                        
                                             <span class="badge bg-c-pink" id="newNotificationCount">0</span>
                                         </div>
@@ -264,32 +266,30 @@
                                 <li class="pcoded-hasmenu">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="icofont icofont-unique-idea"></i></span>
-                                        <span class="pcoded-mtext">Asesoría</span>
+                                        <span class="pcoded-mtext">Ingresar Resultados</span>
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="">
                                             <a href="{% url 'listar-asesoria-accidente' %}">
-                                                <span class="pcoded-mtext">Ver Asesoría Accidente</span>
+                                                <span class="pcoded-mtext">Asesoría Accidente</span>
                                             </a>
                                         </li>
                                         <li class="">
                                             <a href="{% url 'listar-asesoria-fiscalizacion' %}">
-                                                <span class="pcoded-mtext">Ver Asesoría Fiscalización</span>
+                                                <span class="pcoded-mtext">Asesoría Fiscalización</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-capacitacion' %}">
+                                                <span class="pcoded-mtext">Capacitación</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-resultado' %}">
+                                                <span class="pcoded-mtext">Ver Resultados</span>
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-                                <li class="">
-                                    <a href="{% url 'listar-capacitacion' %}">
-                                        <span class="pcoded-micon"><i class="icofont icofont-users-social"></i></span>
-                                        <span class="pcoded-mtext">Capacitación</span>
-                                    </a>
-                                </li>
-                                <li class="">
-                                    <a href="{% url 'listar-resultado' %}">
-                                        <span class="pcoded-micon"><i class="icofont icofont-document-folder"></i></span>
-                                        <span class="pcoded-mtext">Ver Resultados</span>
-                                    </a>
                                 </li>
                                 <li class="">
                                     <a href="{% url 'ingresar-accidente' %}" target ="_blank">
@@ -372,7 +372,7 @@
     })
 
 
-    var ws = new WebSocket('ws://192.168.10.10:8000/ws/notification/{{request.user.id_prof.id_profesional}}')
+    var ws = new WebSocket('ws://127.0.0.1:8000/ws/notification/{{request.user.id_prof.id_profesional}}')
 
     ws.onopen = function(event){
         console.log('opened', event);
@@ -407,6 +407,13 @@
     // window.setInterval(function(){
     //   loadNotifications();
     // }, 1000);
+    </script>
+    <!-- MODO OSCURO -->
+    <script type="text/javascript"> 
+        function cambiarModo() { 
+        var cuerpoweb = document.body; 
+        cuerpoweb.classList.toggle("oscuro"); 
+        } 
     </script>
 
     <!-- Alerta messages -->
