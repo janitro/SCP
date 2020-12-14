@@ -1,14 +1,18 @@
-Sistema Control de Prevencion v1.9 
-- Cambios visuales en todo el sistema:
+Sistema Control de Prevencion v2.0 
+- Cambios Importantes Visuales:
+ - Se incorpora un chat para profesional y cliente.
+ - Se incorpora notificaciones.
+ - Se agregar menu de ingreso de pago
+ - Sweet alert 2 en los menu
+ - Calendar java para ver visitas.
+ 
+ 
+ 
+- Se agregan paquetes de :
+ - Se agrega Websocket
+ - Se agrega Signals
+ - Se agrega Ajax
+ - Se agrega django-filter.
+ 
 
-Se cambia de solo css a boostrap4
-Se agrega Api rest
-Se agrega calendario con java Scrips.
-Se Agregan metricas en los paneles de Administrador, Profesional, Cliente.
-Se agregar Visualizador de pdf y se agrega generadores de PDF.
-
-Error Correguidos
-
-Se corrigue error en los combox de region y comuna.
-Se corrigue un error en el login.
 
