@@ -4,21 +4,23 @@
 		{% block content %}
 		<!-- dinamico -->
         <!-- one seccion - Slider-->
-		<div class="borde">
-            <h2 class="major">Asignar Profesional </h2>
-            <div class="fields">
-                <ul class="actions">
-                    <li><a href="{% url 'asignar-profesional' %}" class="button">Asignar Profesional y Servicios</a></li>
-                </ul>
+        <br>
+        <div class="borde-centro">
+            <div class="contorno-marco">
+                <div class="borde">
+                    <div class="title-home">
+                        <h2 class="major">Agendar Visita </h2>
+                    </div>
+                    <div class="fields">
+                        <ul class="actions-home">
+                            <li><a href="{% url 'agendar_visita' %}" class="button-home">Registrar Visita</a></li>
+                        </ul>
+                    </div>
+                    
+                </div> 
             </div>
-            <h2 class="major">Ver Servicios</h2>
-            <div class="fields">
-                <ul class="actions">
-                    <li><a href="{% url 'listar-contrato' %}" class="button">Ver Servicios </a></li>
-                    <li><a href="{% url 'contratos-morosos' %}" class="button">Ver Profesional con Servicios</a></li>
-                </ul>
-            </div>
-        </div>  
+        </div>
+		 
 
 		<!-- fin dinamico -->
 		{% endblock %}

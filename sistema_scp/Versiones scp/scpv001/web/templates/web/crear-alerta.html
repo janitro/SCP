@@ -1,0 +1,84 @@
+{% extends 'web/011basecliente.html' %}
+	{% load static %}
+	{% block title %}Crear Alerta - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - subir -->
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Crear Alerta</h4>
+                                    <p>Sección donde se podrán crear las alertas que el cliente enviará al profesional a través de un chat que se generará entre ellos.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homecliente' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Crear Alerta</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="card">
+                        <div class="card-block table-border-style">
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <div class="j-pro">
+                                    <div class="col-sm-12">
+                                        <div class="j-row">
+                                            <label></label><input name="asignado_a" type="hidden" class="form-control" value="{{request.user.id_cliente.id_profesional.id_profesional}}">
+                                            <input name="creado_por" class="form-control" type="hidden" value="{{request.user.id_cliente.id_cliente}}">
+                                            <br>
+                                            <br>
+                                            <div class="j-span3 j-unit">
+                                                <label class="j-icon-right" for="">
+                                                    <i class="icofont icofont-id"></i>
+                                                </label>
+                                                <input type="text" class="" name="titulo" value="" placeholder="Título Emergencia">
+                                            </div>
+                                            <div class="j-span7 j-unit">
+                                                <label class="j-icon-right" for="">
+                                                    <i class="icofont icofont-pencil"></i>
+                                                </label>
+                                                <input type="text" class="" name="descripcion" value="" placeholder="Detalle de la Emergencia">
+                                            </div>
+                                            <div class="j-span2 j-unit">
+                                                <input type="submit" class="btn btn-primary" name="guardar">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        
+        <!-- fin dinamico -->
+        {% endblock %}  

@@ -5,18 +5,33 @@
 		{% block content %}
 		<!-- dinamico -->
         <!-- one seccion - Home Checklist-->
-		<div class="borde">
-            <h2 class="major"> Checklist</h2>
-            <div class="fields">
-                <ul class="actions">
-                    <li><a href="{% url 'checklist' %}" class="button">Crear Check-list</a></li>
-                    <li><a href="#" class="button">Responder Checklist</a></li>
-                    <li><a href="{% url 'listar-checklist' %}" class="button">Listar Checklist</a></li>
-                    
-                </ul>
+        <br>
+        <div class="borde-centro">
+            <div class="contorno-marco">
+                <div class="borde-grande">
+                    <div class="title-grande">
+                        <h2 class="major"> Checklist</h2>
+                    </div>
+
+                    <div class="fields">
+                        <ul class="actions-grande">
+                            <li><a href="{% url 'checklist' %}" class="button-home">Crear Check-list</a></li>
+                            <li><a href="{% url 'listar-checklist' %}" class="button-home">Responder Checklist</a></li>
+                        </ul>
+                    </div>
+                    <div class="title-grande">
+                        <h2 class="major"> Situacion Actual de la Empresa</h2>
+                    </div>
+                    <div class="fields">
+                        <ul class="actions-grande">
+                            <li><a href="{% url 'situacion-actual' %}" class="button-home">Ingresar Situacion Actual</a></li>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
-            
-        </div>  
+        </div>
+        <br>
 
 		<!-- fin dinamico -->
 		{% endblock %}       

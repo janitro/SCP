@@ -1,65 +1,78 @@
 
-{% extends 'web/020baseadmin.html' %}
+{% extends 'web/003baseprofesional.html' %}
 	{% load static %}
 	{% block title %}Actividades - SCP{% endblock %}
 		{% block content %}
 		<!-- dinamico -->
-        <!-- one seccion - Slider-->
-		<div class="borde">
-            <h2 class="major">Calendario de Actividades</h2>
-            <div class="fields">
-           <link rel="stylesheet" href="{% static 'lib/main.css' %}">
+        <link rel="stylesheet" href="{% static 'lib/main.css' %}">
         <link rel="stylesheet" href="{% static 'lib/font-awesome.css' %}">
         <script type='text/javascript' src="{% static 'lib/main.js' %}"></script>
         <script type='text/javascript' src="{% static 'lib/locales-all.js' %}"></script>
         <script type='text/javascript' src="{% static 'lib/moment.js' %}"></script>
-        
-        
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-
-
-
-
-
-<body>
-        <div class="row">
-       
-       <div class="col-md-3" >
-       </div>
-       <div class="col-md-5" >
-        <div id="calendar" ></div>
-       
-       </div>
-      <div class="col-md-3" >
-       </div>
-       </div>
-
-
-        
-        
-
-
-
-
+        <!-- one seccion - subir -->
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Calendario de Visitas</h4>
+                                    <p>Seccion donde el profesional podra ver todas las actividades agendadas de sus clientes y podra agendar nuevas visitas.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Calendario de Visitas</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="card">
+                        <br>
+                        <br>
+                        <div id="calendar" ></div>
+                        <br>
+                        <br>
+                    </div>
+                </div>
             </div>
-        </div> 
+        </div>
 
-        <script>
+<script>
 
 document.addEventListener('DOMContentLoaded', function(){
     var calenderUI = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calenderUI,{
+        contentHeight: 'auto',
         
         events: [
             {% for i in cal %}
-             
+            
                 {
-                    title: "{{ i.2 }}",
-                    start: '{{ i.1 | date:"Y-m-d" }}',
-                    url: '{% url 'detalles-servicio' i.0 %}'
-                   
+                    title: "{{ i.3 }}",
+                    start: '{{ i.2 | date:"Y-m-d" }}',
+                    url: '{% url 'detalle-calendario' i.0 %}'
                 },
-             
+            
 
             {% endfor %}
         ],
@@ -73,23 +86,18 @@ document.addEventListener('DOMContentLoaded', function(){
         },
         
         dateClick: function(info) {
-        alert('Fecha de hoy:' + info.dateStr)
-        window.location.href = "{% url 'asignar-profesional'  %}" ;
-       
+        
+        window.location.href = "{% url 'agendar_visita'  %}"  ;
+    
 
         
         },
-        windowResize: function(arg) {
-        
-        }
-        
-      
-     
-      
+    
 
     });
     calendar.render();
     calendar.setOption('locale','es');
+    
 }); 
 
 

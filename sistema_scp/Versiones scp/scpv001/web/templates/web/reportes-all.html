@@ -1,0 +1,835 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado Cliente - SCP</title>
+	<!-- Compiled and minified CSS -->
+    <!-- Icono Superior -->
+    <link rel="icon" href="{% static 'img/logo2.png' %}" type="image/x-icon">
+    <!-- Style Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons/themify-icons.css' %}">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/icofont/css/icofont.css' %}">
+    <!-- feather Awesome -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/feather/css/feather.css' %}">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.mCustomScrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styleextra.css' %}">
+    <!-- jpro forms css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/demo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/j-pro-modern.css' %}">
+    <!-- Notificacion -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+    <!-- Style  -->
+    <!-- <link rel="stylesheet" href="{% static 'css/estilohome.css' %}"> -->
+	<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}">
+	<script src="https://kit.fontawesome.com/a8027f23d1.js" crossorigin="anonymous"></script>
+	<script src="{% static 'js/jquery-3.1.0.min.js' %}"></script>
+	<script src="{% static 'js/slider.js' %}"></script>
+    <script src="{%static 'js/jquery-3.5.1.min.js' %}" type="text/javascript"></script>
+</head>
+<body id="body-pd">
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div class='contain'>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    {% if request.user.id_prof%}
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <!-- LOGO -->
+                    <div class="navbar-logo">
+                        <a class="mobile-menu" id="mobile-collapse" href="#!">
+                            <i class="feather icon-menu"></i>
+                        </a>
+                        <a href="{% url 'homeprofesional' %}">
+                            <img class="img-fluid" src="{% static 'img/logo3.png' %}" alt="Theme-Logo" width = "75%">
+                        </a>
+                    </div>
+                    <!-- NAV SUPERIOR -->
+                    <div class="navbar-container container-fluid">
+                        <!-- ICONOS IZQUIERDA -->
+                        <ul class="nav-left">
+                            <li>
+                                <!-- MAX Y MIN PANTALLA -->
+                                <a href="#!" onclick="javascript:toggleFullScreen()">
+                                    <i class="feather icon-maximize full-screen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- ICONOS DERECHA -->
+                        <ul class="nav-right">
+                            <li class="header-notification">
+                                <div class="dropdown-primary dropdown">
+                                    <!-- ICONO NOTIFICACION -->
+                                    <div>
+                                        <div class="dropdown-toggle" data-toggle="dropdown" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <!-- CAMPANA -->
+                                            <i class="feather icon-bell"></i>
+    
+                                            <!-- CIRCULO -->                                        
+                                            <span class="badge bg-c-pink" id="newNotificationCount">0</span>
+                                        </div>
+                                        <!-- DESPLEGABLE NOTIFICACION -->                                         
+                                        <ul class="show-notification notification-view dropdown-menu" aria-labelledby="alertsDropdown" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                            <li>
+                                                <h6 class="dropdown-header">
+                                                    Notificaciones
+                                                </h6>
+                                            </li>
+                                            <li>
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <p class="notification-msg" id="newNotifications"></p>
+                                                        <p class="notification-msg" id="cheat"></p>
+                                                    </div>                                        
+                                                    
+                                                </div>
+                                            </li> 
+                                            
+                                            <!-- NOTIFICACIONES LISTADO  -->
+                                            {% for old_notification in old_notifications %}  
+                                            <li>                                                
+                                                <div class="media">                                                    
+                                                    <img class="d-flex align-self-center img-radius" src="{% static 'img/perfil01.jpg' %}" alt="Generic placeholder image">
+                                                    <div class="media-body">                                                        
+                                                        <p class="notification-msg">{{old_notification.descripcion}}</p>
+                                                        <span class="notification-time">{{old_notification.fecha_creacion}}</span>
+                                                    </div>                                                    
+                                                </div>                                                
+                                            </li>
+                                            {% endfor %}                                            
+                                        </ul>
+                                    </div>
+                                    <!-- PERFIL DE USUARIO -->
+                                    <li class="user-profile header-notification">
+                                        <div class="dropdown-primary dropdown">
+                                            <!-- VISUAL NAV USUARIO -->
+                                            <div class="dropdown-toggle" data-toggle="dropdown">
+                                                <img src="{% static 'img/perfil01.jpg' %}" class="img-radius" alt="User-Profile-Image">
+                                                <span>{{request.user.id_prof.nombre_completo}}</span>
+                                                <i class="feather icon-chevron-down"></i>
+                                            </div>
+                                            <!-- SUB NAV USUARIO -->
+                                            <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                <li>
+                                                    <a href="#!">
+                                                        <i class="feather icon-settings"></i> Ajustes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="feather icon-user"></i> Perfil
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'logout' %}">
+                                                        <i class="feather icon-log-out"></i> Cerrar Sesion 
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </nav>
+            <!-- MENU -->
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="pcoded-navigatio-lavel">Panel de Profesional</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="{% url 'home-calendar'%}">
+                                        <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
+                                        <span class="pcoded-mtext">Agendar Visita</span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-file-text"></i></span>
+                                        <span class="pcoded-mtext">Situación Cliente</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'checklist' %}">
+                                                <span class="pcoded-mtext">Crear Check-list</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-checklist' %}">
+                                                <span class="pcoded-mtext">Responder Checklist</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'situacion-actual' %}">
+                                                <span class="pcoded-mtext">Ingresar Situación Actual</span>
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-file-plus"></i></span>
+                                        <span class="pcoded-mtext">Ficha Actividad</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'actividad-mejora' %}">
+                                                <span class="pcoded-mtext">Crear Actividad de Mejora</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-actividad' %}">
+                                                <span class="pcoded-mtext">Listar Actividad</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'report-all' %}">
+                                        <span class="pcoded-micon"><i class="icofont icofont-ui-folder"></i></span>
+                                        <span class="pcoded-mtext">Generar Reporte</span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="icofont icofont-archive"></i></span>
+                                        <span class="pcoded-mtext">Solicitudes</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'crear-solicitud' %}">
+                                                <span class="pcoded-mtext">Crear Solicitud</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-solicitud' %}">
+                                                <span class="pcoded-mtext">Listar Solicitud</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="icofont icofont-unique-idea"></i></span>
+                                        <span class="pcoded-mtext">Asesoría</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'listar-asesoria-accidente' %}">
+                                                <span class="pcoded-mtext">Ver Asesoría Accidente</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-asesoria-fiscalizacion' %}">
+                                                <span class="pcoded-mtext">Ver Asesoría Fiscalizacion</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'listar-capacitacion' %}">
+                                        <span class="pcoded-micon"><i class="icofont icofont-users-social"></i></span>
+                                        <span class="pcoded-mtext">Capacitación</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'listar-resultado' %}">
+                                        <span class="pcoded-micon"><i class="icofont icofont-document-folder"></i></span>
+                                        <span class="pcoded-mtext">Ver Resultados</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'ingresar-accidente' %}" target ="_blank">
+                                        <span class="pcoded-micon"><i class="icofont icofont-warning"></i></span>
+                                        <span class="pcoded-mtext">Ingresar Accidente</span>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">                            
+                        <!-- dinamico -->
+                        <!-- one seccion - subir -->
+                        <ul class="actions">
+                            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+                        </ul>
+                        <!-- two seccion - contenido -->
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <!-- TITULO PAGINA HEADER -->
+                                <div class="page-header">
+                                    <div class="row align-items-end">
+                                        <!-- INFORMACION -->
+                                        <div class="col-lg-8">
+                                            <div class="page-header-title">
+                                                <div class="d-inline">
+                                                    <h4>Generar Reporte Situación Actual</h4>
+                                                    <p>En esta sección se podrá ver los clientes y generar los PDF para ver el detalle de la situación actual de cada cliente. 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- RUTA -->
+                                        <div class="col-lg-4">
+                                            <div class="page-header-breadcrumb">
+                                                <ul class="breadcrumb-title">
+                                                    <li class="breadcrumb-item">
+                                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                                    </li>
+                                                    <li class="breadcrumb-item"><a href="#!">Listado de Clientes</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CONTENIDO -->
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card">
+                                                <div class="card-block table-border-style">
+                                                    <div class="j-wrapper j-wrapper-740">
+                                                        <form action="" method="GET" class="j-pro" id="j-pro">
+                                                            {% csrf_token %}
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered" id="tablalist">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Rut</th>
+                                                                            <th>Nombre</th>
+                                                                            <th>Email</th>
+                                                                            <th>Comuna</th>
+                                                                            <th>Teléfono</th>
+                                                                            <th>Dirección</th>
+                                                                            <th>Estado del servicio</th>
+                                                                            <th>Tipo de empresa</th>
+                                                                            <th>Acción</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {% for i in clien %}
+                                                                        <tr>
+                                                                            <td>{{i.0}}</td>
+                                                                            <td>{{i.1}}</td>
+                                                                            <td>{{i.2}}</td>
+                                                                            <td>{{i.3}}</td>
+                                                                            <td>{{i.4}}</td>
+                                                                            <td>{{i.5}}</td>
+                                                                            {% if i.6 == 0 %}
+                                                                            <td>Inactivo</td>
+                                                                            {% else %}
+                                                                            <td>Activo</td>
+                                                                            {% endif %}
+                                                                            <td>{{i.7}}</td>
+                                                                            <br>
+                                                                            <td>
+                                                                                
+                                                                                <a class="btn btn-primary" href="{% url 'situacion-reporte' i.0 %}">Reporte situación actual </a>
+                                                                                
+                                                                            </td>
+                                                                        </tr>
+                                                                        {% endfor %}
+                                                                    </tbody>
+                                                                    
+                                                                </table>
+                                                                <br>
+                                                                
+                                                            </div>
+                                                        <br>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- fin dinamico -->                        
+                        <!-- footer -->
+                        <br>
+                        <footer id="footer">
+                            <p class="copyright">&copy; Portafolio Título. Diseñado: Grupo 1.</p>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    {% else %}
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <!-- LOGO -->
+                    <div class="navbar-logo">
+                        <a class="mobile-menu" id="mobile-collapse" href="#!">
+                            <i class="feather icon-menu"></i>
+                        </a>
+                        <a href="{% url 'homeadmin' %}">
+                            <img class="img-fluid" src="{% static 'img/logo3.png' %}" alt="Theme-Logo" width = "75%">
+                        </a>
+                    </div>
+                    <!-- NAV SUPERIOR -->
+                    <div class="navbar-container container-fluid">
+                        <!-- ICONOS IZQUIERDA -->
+                        <ul class="nav-left">
+                            <li>
+                                <!-- MAX Y MIN PANTALLA -->
+                                <a href="#!" onclick="javascript:toggleFullScreen()">
+                                    <i class="feather icon-maximize full-screen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- ICONOS DERECHA -->
+                        <ul class="nav-right">
+                            <li class="header-notification">
+                                <div class="dropdown-primary dropdown">
+                                    
+                                    <!-- PERFIL DE USUARIO -->
+                                    <li class="user-profile header-notification">
+                                        <div class="dropdown-primary dropdown">
+                                            <!-- VISUAL NAV USUARIO -->
+                                            <div class="dropdown-toggle" data-toggle="dropdown">
+                                                <img src="{% static 'img/perfil01.jpg' %}" class="img-radius" alt="User-Profile-Image">
+                                                <span>{{request.user.id_admin.nombre_completo}}</span>
+                                                <i class="feather icon-chevron-down"></i>
+                                            </div>
+                                            <!-- SUB NAV USUARIO -->
+                                            <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                                                <li>
+                                                    <a href="#!">
+                                                        <i class="feather icon-settings"></i> Ajustes
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">
+                                                        <i class="feather icon-user"></i> Perfil
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'logout' %}">
+                                                        <i class="feather icon-log-out"></i> Cerrar Sesion 
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                </div>
+            </nav>
+            <!-- MENU -->
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="pcoded-navigatio-lavel">Panel de Administrador</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                                        <span class="pcoded-mtext">Usuarios</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'registrar-cliente' %}">
+                                                <span class="pcoded-mtext">Crear Cliente</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'Profesional' %}">
+                                                <span class="pcoded-mtext">Crear Profesional</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listar-cliente' %}">
+                                                <span class="pcoded-mtext">Editar Cliente</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'listarProfesional' %}">
+                                                <span class="pcoded-mtext">Editar Profesional</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-file-text"></i></span>
+                                        <span class="pcoded-mtext">Contrato</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'listar-contrato' %}">
+                                                <span class="pcoded-mtext">Ver Contratos</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="{% url 'contratos-morosos' %}">
+                                                <span class="pcoded-mtext">Ver Contratos Morosos</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'calendar-detail'%}">
+                                        <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
+                                        <span class="pcoded-mtext">Calendario</span>
+                                    </a>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="feather icon-file-plus"></i></span>
+                                        <span class="pcoded-mtext">Informes</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="{% url 'report-all'%}">
+                                                <span class="pcoded-mtext">Generar Informes</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
+                                        <span class="pcoded-micon"><i class="icofont icofont-money"></i></span>
+                                        <span class="pcoded-mtext">Pagos</span>
+                                    </a>
+                                    <ul class="pcoded-submenu">
+                                        <li class="">
+                                            <a href="">
+                                                <span class="pcoded-mtext">Generar Pagos</span>
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a href="">
+                                                <span class="pcoded-mtext">Ver Pagos</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="">
+                                    <a href="{% url 'listar-solicitud-admin'%}">
+                                        <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
+                                        <span class="pcoded-mtext">Ver Solicitudes</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="pcoded-content">
+                    <div class="pcoded-inner-content">                            
+                        <!-- dinamico -->
+                        <!-- one seccion - subir -->
+                        <br>
+                        <ul class="actions">
+                            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+                        </ul>
+                        <!-- two seccion - contenido -->
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <!-- TITULO PAGINA HEADER -->
+                                <div class="page-header">
+                                    <div class="row align-items-end">
+                                        <!-- INFORMACION -->
+                                        <div class="col-lg-8">
+                                            <div class="page-header-title">
+                                                <div class="d-inline">
+                                                    <h4>Listado de clientes</h4>
+                                                    <p>En esta seccion se podra ver los clientes y generar los PDF para ver el detalle de la situacion actual de cada cliente. 
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- RUTA -->
+                                        <div class="col-lg-4">
+                                            <div class="page-header-breadcrumb">
+                                                <ul class="breadcrumb-title">
+                                                    <li class="breadcrumb-item">
+                                                        <a href="{% url 'homeadmin' %}"> <i class="feather icon-home"></i> </a>
+                                                    </li>
+                                                    <li class="breadcrumb-item"><a href="#!">Listado de clientes</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CONTENIDO -->
+                                <div class="page-body">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="card">
+                                                <div class="card-block table-border-style">
+                                                    <div class="j-wrapper j-wrapper-740">
+                                                        <form action="" method="GET" class="j-pro" id="j-pro">
+                                                            {% csrf_token %}
+                                                            <div class="table-responsive largo-table">
+                                                                <table class = "table table-bordered" id="tablalist">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Rut</th>
+                                                                            <th>Nombre</th>
+                                                                            <th>Email</th>
+                                                                            <th>Comuna</th>
+                                                                            <th>Telefono</th>
+                                                                            <th>Dirección</th>
+                                                                            <th>Estado del servicio</th>
+                                                                            <th>Tipo de empresa</th>
+                                                                            <th>acción</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {% for i in clien %}
+                                                                        <tr>
+                                                                            <td>{{i.0}}</td>
+                                                                            <td>{{i.1}}</td>
+                                                                            <td>{{i.2}}</td>
+                                                                            <td>{{i.3}}</td>
+                                                                            <td>{{i.4}}</td>
+                                                                            <td>{{i.5}}</td>
+                                                                            {% if i.6 == 0 %}
+                                                                            <td>Inactivo</td>
+                                                                            {% else %}
+                                                                            <td>Activo</td>
+                                                                            {% endif %}
+                                                                            <td>{{i.7}}</td>
+                                                                            <br>
+                                                                            <td>
+                                                                                <a class="btn btn-primary largito" href="{% url 'visitas-reporte' i.0 %}">reporte visitas</a>
+                                                                                <br>
+                                                                                <br>
+                                                                                <a class="btn btn-primary largito" href="{% url 'visitas-capacitacion' i.0 %}">reporte capacitaciones</a>
+                                                                                <br>
+                                                                                <br>
+                                                                                <a class="btn btn-primary largito" href="{% url 'asesoria-accidente' i.0 %}">reporte asesorias por accidente</a>
+                                                                                <br>
+                                                                                <br>
+                                                                                <a class="btn btn-primary largito" href="{% url 'asesoria-fiscalizacion' i.0 %}">reporte asesorias por fiscalización</a>
+                                                                                <br>
+                                                                                <br>
+                                                                                <a class="btn btn-primary largito" href="{% url 'reporte-solicitud' i.0 %}">reporte solicitudes</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        {% endfor %}
+                                                                    </tbody>
+                                                                </table>
+                                                                <br>
+                                                            </div>
+                                                        <br>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- fin dinamico -->                        
+                        <!-- footer -->
+                        <br>
+                        <footer id="footer">
+                            <p class="copyright">&copy; Portafolio Título. Diseñado: Grupo 1.</p>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    {% endif %}
+    
+<!-- Required Jquery -->
+<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<!-- j-pro js -->
+<script type="text/javascript" src="{% static 'js/jquery.ui.min.js' %}"></script>
+<!-- <script type="text/javascript" src="{% static 'js/jquery.maskedinput.min.js' %}"></script> -->
+<script type="text/javascript" src="{% static 'js/jquery.j-pro.js' %}"></script>
+<!-- jquery slimscroll js -->
+<script type="text/javascript" src="{% static 'js/jquery.slimscroll.js' %}"></script>
+<!-- modernizr js -->
+<script type="text/javascript" src="{% static 'js/modernizr.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/css-scrollbars.js' %}"></script>
+<!-- Otros JS -->
+<script src="{% static 'js/mainmenu.js' %}"></script>
+<script src="{% static 'js/login.js' %}"></script>
+<script src="{% static 'js/botonsubir.js' %}"></script>
+<script src="{% static 'js/simplyCountdown.min.js' %}"></script>
+<script src="{% static 'js/countdown.js' %}"></script>
+<!-- Custom js -->
+<script type="text/javascript" src="{% static 'js/form-job.js' %}"></script>
+<script src="{% static 'js/pcoded.min.js' %}"></script>
+<script src="{% static 'js/vartical-layout.min.js' %}"></script>
+<script src="{% static 'js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<!-- Notificacion -->
+<script src="{% static 'js/notificationObj.js' %}"></script>
+
+<script>
+
+$('#alertsDropdown').click(function(){
+    const tmpObjsHTML = $('#newNotifications').html()
+    $.ajax({
+    method:'post',
+    url:'{% url "AJAXMarkNotificationAsReaded" %}',
+    data:{
+        csrfmiddlewaretoken:'{{csrf_token}}'
+    },
+    success:function(data){
+        $('#newNotifications').html('')
+        $('#cheat').html(tmpObjsHTML)
+        $('#newNotificationCount').text(data.unreaded_notification_count)
+    },
+    error:function(data){
+        console.log('ERR',data)
+    }
+    })
+})
+
+
+var ws = new WebSocket('ws://127.0.0.1:8000/ws/notification/{{request.user.id_prof.id_profesional}}')
+
+ws.onopen = function(event){
+    console.log('opened', event);
+}
+
+ws.onmessage = function(event){
+    console.log('message', event);
+    var data = JSON.parse(event.data);
+    
+    var old_notifications = JSON.parse(data.old_notifications);
+    var unreaded_notifications = JSON.parse(data.unreaded_notifications);
+    var unreaded_notification_count = data.unreaded_notification_count;
+
+    $('#newNotifications').html('')
+    unreaded_notifications.forEach(element => {
+    var obj = new NotificationObj(element.fields)
+    $('#newNotifications').append(obj.drawNotification())
+    });
+
+    $('#newNotificationCount').text(unreaded_notification_count)
+    console.log('loaded')
+}
+
+ws.onclose = function(event){
+    console.log('close', event);
+}
+
+ws.onerror = function(event){
+    console.log('error', event);
+}
+
+// window.setInterval(function(){
+//   loadNotifications();
+// }, 1000);
+</script>
+
+<!-- Alerta messages -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+{% if messages %}
+        {% for m in messages %}
+            {% if m.tags == 'success' %}
+            <script>
+                Swal.fire ({
+                    "title": "Felicitaciones",
+                    "text": "{{m}}",
+                    "icon": "success",
+                    "showConfirmButton": false,
+                    "timer": "1500"
+
+                })
+            </script>
+            {% else %}
+            <script>
+                Swal.fire ({
+                    "title": "Error",
+                    "text": "{{m}}",
+                    "icon": "error",
+                    "showConfirmButton": false,
+                    "timer": "1500"
+
+                })
+            </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    
+{% block carga_js %}
+{% endblock %}
+
+</body>
+</html>

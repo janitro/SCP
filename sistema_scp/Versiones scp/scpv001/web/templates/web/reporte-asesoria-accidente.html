@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+#invoice thead tr th{
+    text-align: left;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    padding-top: 4px;
+}
+#invoice thead tr{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#invoice tbody tr{
+    padding:1;
+}
+
+.text-center{
+    text-align: center;
+}
+
+h1{
+    font-size: 40px;
+}
+
+label{
+    font-size: 13px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+</style>
+<body>
+    <div>
+    <h1>Reporte de las asesorias por accidente</h1>
+    <label>Nombre cliente: {{cliente.nombre_empresa}}</label>
+    <br>
+    <label>RUT cliente: {{cliente.id_cliente}}</label>
+    <br>
+    <label>Profesional a cargo: {{cliente.id_profesional.nombre_completo}}</label>
+    </div>
+<hr>
+<br>
+<h2>Planificación de las asesorias por accidente</h2>
+<table id="invoice">
+    <thead>
+        <tr>
+            <th>Empresa</th>
+            <th >Fecha del servicio</th>
+            <th >Hora</th>
+            <th >Tipo servicio</th>
+            <th>Inspeccion al lugar del accidente</th>
+            <th>Verificar contrato del accidentado</th>
+            <th>Planificar capacitacion de riesgos</th>
+            <th>Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in asesoria %}
+        <tr>
+            
+            <td >{{a.0}}</td>
+            <td >{{a.1}}</td>
+            <td >{{a.2}}</td>
+            <td >{{a.3}}</td>
+            {% if a.4 == 1%}
+            <td>Si</td>
+            {% else %}
+            <td>No</td>
+            {% endif %}
+            {% if a.5 == 1%}
+            <td>Si</td>
+            {% else %}
+            <td>No</td>
+            {% endif %}
+            {% if a.6 == 1%}
+            <td>Si</td>
+            {% else %}
+            <td>No</td>
+            {% endif %}
+            <td >{{a.7}}</td>
+                    
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr>
+<br>
+<h2>Listado de los accidentes </h2>
+<table id="invoice">
+    <thead>
+        <tr>
+            <th>N° accidente</th>
+            <th >Empresa</th>
+            <th >Fecha del accidente</th>
+            <th >Hora del accidente</th>
+            <th>Lugar del accidente</th>
+            <th>Era su trabajo habitual</th>
+            <th>Tenia experiencia</th>
+            <th>La tarea requería autorización</th>
+            <th>Descripción de lesión</th>
+            <th>Grado de la lesión</th>
+            <th>Contingencia</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for a in accidente %}
+        <tr>
+            
+            <td >{{a.id_accidente}}</td>
+            <td >{{a.id_cliente.nombre_empresa}}</td>
+            <td >{{a.fecha}}</td>
+            <td >{{a.hora}}</td>
+            <td >{{a.lugar_accidente}}</td>
+            {% if a.trabajo_habitual == True %}
+            <td>Si</td>
+            {% else %}
+            <td>No</td>
+            {% endif %}
+            {% if a.tiene_experiencia == True %}
+            <td>Si</td>
+            {% else %}
+            <td>No</td>
+            {% endif %}
+            {% if a.tarea_autorizacion == True %}
+            <td>Si</td>
+            {% else %}
+            <td>No</td>
+            {% endif %}    
+            <td >{{a.desc_lesion}}</td>
+            <td >{{a.grado_lesion}}</td>
+            <td >{{a.contingencia}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr>
+<br>
+<h2>Resultado de las Asesorias</h2>
+<table id="invoice">
+    <thead>
+        <tr>
+            <th>N° servicio</th>
+            <th >N° resultado</th>
+            <th >Empresa</th>
+            <th >Tipo servicio</th>
+            <th>Fecha finalización</th>
+            <th>Analisis del servicio completado</th>
+            <th>Resultado</th>
+            <th>Areas de oportunidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in resultado %}
+        <tr>
+            
+            <td >{{r.0}}</td>
+            <td >{{r.1}}</td>
+            <td >{{r.2}}</td>
+            <td >{{r.3}}</td>
+            <td >{{r.4}}</td>
+            <td >{{r.5}}</td>
+            <td >{{r.6}}</td>
+            <td >{{r.7}}</td>
+                    
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr>
+<br>
+<label>Cantidad de accidentes: {{count}}</label>
+</body>
+</html>

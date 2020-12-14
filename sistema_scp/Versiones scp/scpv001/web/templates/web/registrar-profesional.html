@@ -1,102 +1,219 @@
 {% extends 'web/020baseadmin.html' %}
 	{% load static %}
 	{% block title %}Registrar Profesional- SCP{% endblock %}
-		{% block content %}
-		<!-- dinamico -->
-        <!-- one seccion - Slider-->
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - subir -->
         <ul class="actions">
             <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
         </ul>
-        <div class="borde-centro">
-            <h1 class="major">Registrar Profesional</h1>
-            <div class="contorno-marco">
-                <div class="fields">
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        <div class="field half">
-                            <label for="reg-rut">RUN</label> 
-                            <input id="reg-rut" type="text" name="id" required oninput="checkRut(this)" placeholder="12345678-9">
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- CONTENIDO -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Registrar Profesional</h4>
+                                    <p>Sección donde el Administrador podrá crear Profesionales</p>
+                                </div>
+                            </div>
                         </div>
-                        <br>
-                        <div class="field half">
-                            <label for="reg-nombre">Nombre Profesional</label> 
-                            <input type="text" name="nombre" placeholder="El Magnifico Cruck">
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeadmin' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Crear Profesional</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                        <br>
-                        <div class="field half">
-                            <label for="reg-email">Correo</label> 
-                            <input type="email" name="email" placeholder="micorreo@correo.cl">
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <!-- FORMULARIO -->
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-640">
+                                        <form action="" method="POST" class="j-pro" id="j-pro">
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <!-- RUT - NOMBRE -->
+                                                <div class="j-row">
+                                                    <div class="j-span6 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="reg-rut">
+                                                                <i class="icofont icofont-id"></i>
+                                                            </label>
+                                                            <input type="text" class="form-control form-control-uppercase" id="reg-rut" name="id" required oninput="checkRut(this)" placeholder="12345678-K">
+                                                        </div>                                                        
+                                                    </div>
+                                                    <div class="j-span6 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="reg-nombre">
+                                                                <i class="icofont icofont-ui-user"></i>
+                                                            </label>
+                                                            <input type="text" id="last_name" name="nombre" placeholder="Luis Alverto Perez">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- CORREO - CONTRASEÑA -->
+                                                <div class="j-row">
+                                                    <div class="j-span6 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="reg-email">
+                                                                <i class="icofont icofont-envelope"></i>
+                                                            </label>
+                                                            <input type="email" placeholder="micorreo@correo.cl" id="email" name="email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span6 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="">
+                                                                <i class="icofont icofont-key"></i>
+                                                            </label>
+                                                            <input type="password" placeholder="Contrasena" id="password" name="password">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- DIVICION -->
+                                                <div class="divider gap-bottom-25"></div>
+                                                <!--REGION-->
+                                                <div class="j-unit">
+                                                    <label class="j-input j-select" for="reg-region">
+                                                        <select name="lista_region" id="lista_region" onchange="cambiarComuna()">
+                                                            <option value="">Seleccione su Region</option>
+                                                            {% for c in lista_region %}
+                                                                <option value="{{c.0}}">{{c.1}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        <i></i>
+                                                    </label>
+                                                </div>
+                                                <!-- COMUNA -->
+                                                <div class="j-unit">
+                                                    <label class="j-input j-select" for="reg-comuna">Seleccione su Comuna </label>
+                                                        <select name="lista_comuna" id="lista_comuna">
+                                                            <option value=""></option>
+                                                        </select>
+                                                        <i></i>
+                                                </div>
+                                                <!-- DIRECCION - TELEFONO -->
+                                                <div class="j-row">                                                    
+                                                    <div class="j-span8 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="reg-direccion">
+                                                                <i class="icofont icofont-building"></i>
+                                                            </label>
+                                                            <input type="text" id="direccion" placeholder="Calle Pedro Montt 123" name="direccion">
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span4 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="reg-telefono">
+                                                                <i class="icofont icofont-phone"></i>
+                                                            </label>
+                                                            <input type="text" id="telefono" placeholder="9-87 654 321" name="telefono">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- ESTADO - CONTRATO - TIPO -->
+                                                <div class="j-row">
+                                                    <div class="j-span3 j-unit">
+                                                        <label class="j-input j-select" for="reg-estado">
+                                                            <select name="estado" id="estado">
+                                                                <option value="">Estado</option>
+                                                                <option value="Disponible">Disponible</option>
+                                                                <option value="En terreno">En terreno</option>     
+                                                            </select>
+                                                            <i></i>
+                                                        </label> 
+                                                    </div>
+                                                    <div class="j-span4 j-unit">
+                                                        <label class="j-input j-select" for="reg-contrato">
+                                                            <select name="contrato" id="contrato">
+                                                                <option value="">Contrato Activo</option>
+                                                                <option value="1">Activo</option>
+                                                                <option value="0">Inactivo</option>     
+                                                            </select>
+                                                            <i></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="j-span5 j-unit">
+                                                        <label class="j-input j-select" for="reg-tipo">
+                                                            <select name="tipoprof" id="tipoprof">
+                                                                <option value="">Tipo profesional</option>
+                                                                {% for t in tipo_profesional %}
+                                                                    <option value="{{t.0}}">{{t.1}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                            <i></i>
+                                                        </label>
+                                                    </div>                                                  
+                                                </div>
+                                                <!-- ENVIAR CONTRASENA -->
+                                                <div class="form-group row">
+                                                    <div class="col-sm-10">
+                                                        <div class="checkbox-fade fade-in-primary">
+                                                            <label>
+                                                                <input type="checkbox" id="checkbox" name="Language" value="HTML">
+                                                                <span class="cr">
+                                                                    <i class="cr-icon icofont icofont-ui-check txt-primary"></i>
+                                                                </span>
+                                                                <span>Enviar contraseña por correo</span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="j-response"></div>                                                
+                                            </div>
+                                            <!-- BUTON ENVIAR -->
+                                            <div class="j-footer">
+                                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                                <button type="reset" class="btn btn-default m-r-20">Limpiar</button>
+                                            </div>
+                                        </form>
+                                        <!-- {{mensaje}} -->
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <br>
-                        <div class="field half">
-                            <label for="">Contraseña</label> 
-                            <input type="password" name="password" placeholder="*************">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label for="reg-comuna">Comuna</label>
-                            <select name="lista_comuna" id="lista_comuna">
-                                <option value="">Seleccionar</option>
-                                {% for c in lista_comuna %}
-                                    <option value="{{c.0}}">{{c.1}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field half">
-                            <label for="reg-direccion">Direccion</label> 
-                            <input type="text" name="direccion" placeholder="Calle mi Casa 123">
-                        </div>
-                        <br>
-                        <div class="field half">
-                            <label for="reg-telefono">Telefono</label> 
-                            <input type="text" name="telefono" placeholder="987654321">
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label for="">Estado</label>
-                            <select name="estado" id="estado">
-                                <option value="">Seleccionar</option>
-                                <option value="Disponible">Disponible</option>
-                                <option value="En terreno">En terreno</option>     
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label for="">Contrato Activo</label> 
-                            <select name="contrato" id="contrato">
-                                <option value="">Seleccionar</option>
-                                <option value="1">Activo</option>
-                                <option value="0">Inactivo</option>     
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field">
-                            <label for="">Tipo de profesional</label> 
-                            <select name="tipoprof" id="tipoprof">
-                                <option value="">Seleccionar</option>
-                                {% for t in tipo_profesional %}
-                                    <option value="{{t.0}}">{{t.1}}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <br>
-                        <div class="field half">
-                            <input type="checkbox", name="enviopass">
-                            <label for="">Enviar contraseña por correo</label> 
-                        </div>
-                        <br>
-                        <ul class="actions">
-                            <li><input type="submit" value="Guardar" class="primary"></li>
-                            <li><input type="reset" value="Limpiar"></li>
-                        </ul>
-                    </form>
-                    
-                    {{mensaje}}
+                    </div>
                 </div>
             </div>
         </div>
-		
+		<script>
 
+            function cambiarComuna(){
+        
+                let id_region = document.getElementById("lista_region").value;
+                let url ='/comuna/?region='+id_region;
+                fetch(url)
+                .then(function(result){
+        
+                    return result.text();
+                })
+                .then(function(result){
+        
+                document.getElementById('lista_comuna').innerHTML = result;
+                let id_comuna = document.getElementById("lista_comuna").value;
+                
+                })
+        
+               alert (id_comuna);
+        
+                
+            }
+        
+        </script>
 		<!-- fin dinamico -->
 		{% endblock %}

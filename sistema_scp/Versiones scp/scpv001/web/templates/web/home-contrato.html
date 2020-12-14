@@ -1,25 +1,29 @@
 {% extends 'web/020baseadmin.html' %}
 	{% load static %}
-	{% block title %}Contratos & Servicios - SCP{% endblock %}
+	{% block title %}Contratos {% endblock %}
 		{% block content %}
 		<!-- dinamico -->
         <!-- one seccion - Slider-->
-		<div class="borde">
-            <h2 class="major">Registrar Contratos</h2>
-            <div class="fields">
-                <ul class="actions">
-                    <li><a href="{% url 'registro-contrato' %}" class="button">Agregar Contrato ASDASD</a></li>
-                    <li><a href="{% url 'registro-servicios' %}" class="button">Agregar Servicios</a></li>
-                </ul>
+        <br>
+        <div class="borde-centro">
+            <div class="contorno-marco">
+                <div class="borde">
+                    <div class="title-home">
+                        <h2 class="major">Contratos</h2>
+                    </div>
+                    <div class="title-home">
+                        <h2 class="major">Revisar contratos</h2>
+                    </div>
+                    <div class="fields">
+                        <ul class="actions-home">
+                            <li><a href="{% url 'listar-contrato' %}" class="button-home">Ver Contratos</a></li>
+                            <li><a href="{% url 'contratos-morosos' %}" class="button-home">Ver Contratos Morosos</a></li>
+                        </ul>
+                    </div>
+                </div>  
             </div>
-            <h2 class="major">Revisar contratos</h2>
-            <div class="fields">
-                <ul class="actions">
-                    <li><a href="{% url 'listar-contrato' %}" class="button">Ver Contratos</a></li>
-                    <li><a href="{% url 'contratos-morosos' %}" class="button">Ver Contratos Morosos</a></li>
-                </ul>
-            </div>
-        </div>  
+        </div>
+		
 
 		<!-- fin dinamico -->
 		{% endblock %}

@@ -3,23 +3,33 @@
 	{% block title %}Inicio Cliente - SCP{% endblock %}
 		{% block content %}
 		<!-- dinamico -->
-        <!-- one seccion - Slider-->
-		<div class="borde">
-            <h2 class="major">Registrar Usuario</h2>
-            <div class="fields">
-                <ul class="actions">
-                    <li><a href="{% url 'registrar-cliente' %}" class="button">Registrar Cliente</a></li>
-                    <li><a href="{% url 'Profesional' %}" class="button">Registrar Profesional</a></li>
-                </ul>
+        <!-- one seccion - home registros-->
+		<br>
+        <div class="borde-centro">
+            <div class="contorno-marco">
+                <div class="borde">
+                    <div class="title-home">
+                        <h2 class="major">Registrar Usuario</h2>
+                    </div>
+                    <div class="fields">
+                        <ul class="actions-home">
+                            <li><a href="{% url 'Profesional' %}" class="button-home">Registrar Profesional</a></li>
+                            <li><a href="{% url 'registrar-cliente' %}" class="button-home">Registrar Cliente</a></li>   
+                        </ul>
+                    </div>
+                    <div class="title-home">
+                        <h2 class="major">Editar Usuario</h2>
+                    </div>
+                    <div class="fields">
+                        <ul class="actions-home">
+                            <li><a href="{% url 'listarProfesional' %}" class="button-home">Editar Profesional</a></li>
+                            <li><a href="{% url 'listar-cliente' %}" class="button-home">Editar Cliente</a></li>
+                        </ul>
+                    </div>
+                </div> 
             </div>
-            <h2 class="major">Editar Usuario</h2>
-            <div class="fields">
-                <ul class="actions">
-                    <li><a href="{% url 'listar-cliente' %}" class="button">Editar Cliente</a></li>
-                    <li><a href="{% url 'listarProfesional' %}" class="button">Editar Profesional</a></li>
-                </ul>
-            </div>
-        </div>  
+        </div>
+        <br> 
 
 		<!-- fin dinamico -->
 		{% endblock %}

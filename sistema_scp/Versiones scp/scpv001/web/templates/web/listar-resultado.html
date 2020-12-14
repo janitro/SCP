@@ -1,0 +1,111 @@
+{% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Ver Resultados- SCP{% endblock %}
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - subir -->
+        <br>
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Ver Resultados</h4>
+                                    <p>En esta sección se podrá ver toda la información ingresada por el profesional. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Ver Resultados</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-740">
+                                        <form action="" method="POST" class="j-pro" id="j-pro">
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <div class="j-row">
+                                                    <div class="j-span4 j-unit">
+                                                        <div class="j-input">
+                                                            <select name ="id_cliente">
+                                                                <option value="">Seleccionar</option>
+                                                                {% for c in data%}
+                                                                <option value = {{c.0}}>{{c.1}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span4 j-unit">
+                                                        <div class="j-input">
+                                                            <input type="submit" class="btn btn-primary" value="Buscar">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive largo-table">
+                                                    <table class = "table table-bordered" id="tablalist">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>N° resultado</th>
+                                                                <th>Empresa</th>
+                                                                <th>Tipo servicio</th>
+                                                                <th>Fecha finalización</th>
+                                                                <th>Análisis</th>
+                                                                <th>Resultado</th>
+                                                                <th>Áreas de oportunidad</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for i in salida %}
+                                                            <tr>
+                                                                <td>{{i.0}}</td>
+                                                                <td>{{i.1}}</td>
+                                                                <td>{{i.2}}</td>
+                                                                <td>{{i.3}}</td>
+                                                                <td>{{i.4}}</td>
+                                                                <td>{{i.5}}</td>
+                                                                <td>{{i.6}}</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- fin dinamico -->
+{% endblock %}

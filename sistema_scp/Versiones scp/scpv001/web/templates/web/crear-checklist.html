@@ -1,44 +1,153 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel ="stylesheet" href="{%static 'css/estilos.css' %}">
-    <title>Checklist</title>
-</head>
-<body>
-    <h1>Checklist</h1>
+{% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Checklist- SCP{% endblock %}
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - subir -->
+        <br>
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Checklist</h4>
+                                    <p>En esta seccion se podra ingresar los items necesarios para crear el checklist. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Detalle de Servicio</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <!-- FORMULARIO -->
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-740">                                        
+                                        <form method="POST" action="" class="j-pro" id="j-pro" > 
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <div class="j-row">
+                                                    <div class="j-span6 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="">
+                                                                <i class="icofont icofont-ui-edit"></i>
+                                                            </label>
+                                                            <input class="form-control" type="text" name="checklist", id ="checklist" placeholder="Ingresar Nuevo Item">
+                                                        </div> 
+                                                    </div>
+                                                    <div class="j-span3 j-unit">
+                                                        <label class="j-input j-select" for="">
+                                                            <select for=""  name="resultado">
+                                                                <option value="">En blanco</option>
+                                                                <option value="1">Si</option>
+                                                                <option value="0">No</option>
+                                                            </select> 
+                                                            <i></i>
+                                                        </label>
+                                                    </div>
+                                                    <div class="j-span3 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="">
+                                                                <i class="icofont icofont-id"></i>
+                                                            </label>
+                                                            <select name="id_cliente" id="id_cliente">
+                                                                <option value="">Seleccionar</option>
+                                                                {% for c in data %}
+                                                                    <option value="{{c.0}}">{{c.1}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>                                             
+                                            </div>
+                                            <div class="j-footer">
+                                                <ul class="actions">                                            
+                                                    <button type="submit" name="Crear item"class="btn btn-primary">Crear item</button>
+                                                </ul>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- TABLA -->
+                                <div class="card-block accordion-block">
+                                    <div id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                                            <div class="accordion-panel">
+                                                <div class="accordion-heading" role="tab" id="headingOne">
+                                                    <h3 class="card-title accordion-title">
+                                                    <a class="accordion-msg" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        Ver Detalle de Checklist
+                                                    </a>
+                                                </h3>
+                                                </div>
+                                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                    <div class="accordion-content accordion-desc">
+                                                        <div class="card-block table-border-style">
+                                                            <div class="table-responsive">
+                                                                <table class = "table table-bordered" id="tablalist">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Item</th>
+                                                                            <th>Respuesta</th>
+                                                                            <th>Cliente</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        {% for i in checks %}
+                                                                        <tr></tr>
+                                                                            <td>{{i.checklist}}</td>
+                                                                            {% if i.resultado == None %}
+                                                                            <td>Por responder</td>
+                                                                            {% elif i.resultado == False %}
+                                                                            <td>No</td>
+                                                                            {% else %}
+                                                                            <td>Si</td>
+                                                                            {% endif %}
+                                                                            <td>{{i.id_cliente.nombre_empresa}}</td>
+                                                                        </tr>
+                                                                        {% endfor %}
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                                
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <form method="POST" action=""> {% csrf_token %}
-        <label for="">Checklist </label><input class="form-control" type="text" name="checklist", id ="checklist">
-        <label for="">Respuesta </label>
-        <select for="" class="form-control" name="resultado">
-            <option value="">En blanco</option>
-            <option value="1">Si</option>
-            <option value="0">No</option>
-        </select>
-        <label for="">Rut empresa </label><input class="form-control" type="text" name="id_cliente", id ="id_cliente">
-        <input type="submit" name="Crear item">
-    </form>   
-    <br>
-    <table class = "content-table" id="tablalist">
-        <thead>
-            <tr>
-                <th>Item</th>
-                <th>Respuesta</th>
-                <th>Cliente</th>
-           </tr>
-        </thead>
-        <tbody>
-            {% for i in checks %}
-            <tr></tr>
-                <td>{{i.checklist}}</td>
-                <td>{{i.resultado}}</td>
-                <td>{{i.id_cliente.nombre_empresa}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-</body>
-</html>
+<!-- fin dinamico -->
+{% endblock %}

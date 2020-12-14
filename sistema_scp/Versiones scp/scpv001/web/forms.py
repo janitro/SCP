@@ -1,6 +1,7 @@
 from django import forms
-from web.models import Login, Profesional, Checklist
-from .models import Login, Profesional, Checklist
+from web.models import *
+from django.forms import ModelForm
+from .models import *
 
 class loginForm(forms.Form):
     email= forms.EmailField(
@@ -27,6 +28,7 @@ class loginForm(forms.Form):
 
 class CheckForm(forms.ModelForm):
     class Meta:
+        
         model = Checklist
         fields = '__all__'
 
@@ -35,7 +37,15 @@ class CheckForm(forms.ModelForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
 
-
+class AlertaForm(forms.ModelForm):
+    class Meta:
+        model = Alerta
+        fields = '__all__'
+      
+    def __init__(self, *args, **kwargs):
+        super(AlertaForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
 
 
 

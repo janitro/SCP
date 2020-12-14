@@ -1,0 +1,87 @@
+{% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Editar Asesoria Accidente- SCP{% endblock %}
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - subir -->
+        <br>
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Editar Asesoría Accidente</h4>
+                                    <p>En esta sección se podrá editar la información necesaria que necesita el profesional para la asesoría por accidente. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="{% url 'listar-asesoria-accidente' %}">Ver Asesoría por Accidente</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Editar Asesoria Accidente</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-640">
+                                        <form method="POST" class="j-pro" id="j-pro">
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <div class="form-group row">
+                                                    <label for="" class="col-sm-2 col-form-label">ID servicio</label> 
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="id_servicio" value ={{id_servicio}} readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="" class="col-sm-2 col-form-label">Cambiar Estado</label> 
+                                                    <div class="col-sm-10">
+                                                        <select name="estado_servicio">
+                                                            <option value={{id_estado}}>{{estado_servicio}}</option>
+                                                            {% for i in eee %}
+                                                            <option value={{i.0}}>{{i.1}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <br>
+                                            <div class="j-footer">
+                                                <input type="submit" class="btn btn-primary" value="Guardar">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<!-- fin dinamico -->
+{% endblock %}

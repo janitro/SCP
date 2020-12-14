@@ -1,0 +1,120 @@
+{% extends 'web/020baseadmin.html' %}
+	{% load static %}
+	{% block title %}Listado de solicitude - SCP{% endblock %}
+		{% block content %}
+		<!-- dinamico -->
+        <!-- one seccion - subir -->
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Listado de solicitud</h4>
+                                    <p>Sección donde se podrán ver todas las solicitudes de los clientes.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeadmin' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Listado de solicitude</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-740">
+                                        <form id="id-list-form" method="POST" class="j-pro" id="j-pro">
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <div class="j-row">
+                                                    <div class="j-span4 j-unit">
+                                                        <div class="j-input">
+                                                            <label class="j-icon-right" for="">
+                                                                <i class="icofont icofont-id"></i>
+                                                            </label>
+                                                            <input type="search" name="id_cliente" id ="id_cliente" value="{{ID_CLIENTE}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span4 j-unit">
+                                                        <div class="j-input">
+                                                            <input type="submit" class="btn btn-primary" id="boton" name="boton" value="Buscar">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive largo-table">
+                                                    <table class="table table-bordered" id="tabla">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>id</th>
+                                                                <th>Cliente</th>
+                                                                <th>Profesional</th>
+                                                                <th>Tipo de solicitud</th>
+                                                                <th>Detalle</th>
+                                                                <th>Fecha</th>
+                                                                <th>Hora</th>
+                                                                <th>Estado del servicio</th>
+                                                                <th>Acción</th>
+                                                                <th>Modificar</th>
+                                                            </tr>
+                                                        </thead>
+                                                        {% for things in check %}
+                                                        <tr>
+                                                            <td id = "id">{{things.0}}</td>
+                                                            <td id = "cliente">{{things.1}}</td>
+                                                            <td id = "profesional">{{things.2}}</td>
+                                                            <td id = "tipo">{{things.3}}</td>
+                                                            <td id = "detalle">{{things.4}}</td>
+                                                            <td id = "fecha">{{things.5}}</td>
+                                                            <td id = "hora">{{things.6}}</td>
+                                                            <td id = "estado">{{things.7}}</td>
+                                                            <td>          
+                                                                {% if things.3 == "Actualización de documentos" %}
+                                                                <a id="accion" class="btn btn-primary" href="{% url 'report-all-admin'%}" >Generar Informes</a>
+                                                                {% endif %}
+                                                            </td>
+                                                            <td>
+                                                                <a class="btn btn-primary" href="{% url 'modificar-solicitud-admin' things.0 %}">cambiar estado</a>
+                                                            </td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </table>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                                
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+		<!-- fin dinamico -->
+        {% endblock %}

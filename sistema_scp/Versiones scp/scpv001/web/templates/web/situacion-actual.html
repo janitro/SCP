@@ -1,0 +1,90 @@
+{% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Situación actual - SCP{% endblock %}
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - subir -->
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Registrar situación actual del cliente</h4>
+                                    <p>Sección donde se podrá detallar la situación actual del cliente y las propuestas de mejora.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Situación actual del cliente</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <!-- FORMULARIO -->
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-640">
+                                        <form action="" method="POST" class="j-pro" id="j-pro">
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <div class="form-group row">                                                    
+                                                    <label class="col-sm-3 col-form-label" for="">Rut cliente</label>
+                                                    <div class="col-sm-9">
+                                                        <select name="id_cliente" id="id_cliente">
+                                                            <option value="">Seleccionar</option>
+                                                            {% for c in data %}
+                                                                <option value="{{c.0}}">{{c.1}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>                                                        
+                                                    
+                                                </div>
+                                                <div class="form-group row">                                                    
+                                                    <label class="col-sm-3 col-form-label" for="">Situación actual</label>
+                                                    <div class="col-sm-9">
+                                                        <textarea name="situacion" rows="5" cols="5" class="form-control" placeholder="Ingresar Situación Actual de la empresa."></textarea>
+                                                    </div>  
+                                                </div>
+                                                <div class="form-group row">                                                    
+                                                    <label class="col-sm-3 col-form-label" for="">Propuesta general de mejora</label> 
+                                                    <div class="col-sm-9">
+                                                        <textarea  name="propuesta" rows="5" cols="5" class="form-control" placeholder="Ingresar observación para que la empresa pueda mejorar"></textarea>
+                                                    </div> 
+                                                </div>  
+                                            </div>
+                                            <div class="j-footer">
+                                                <button type="submit" name=guardar class="btn btn-primary">Guardar</button>
+                                                <button href="{% url 'homeprofesional' %}" class="btn btn-default m-r-20">Cancelar</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- fin dinamico -->
+{% endblock %}

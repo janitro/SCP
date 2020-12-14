@@ -28,6 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+X_FRAME_OPTIONS = 'ALLOWALL'
 
 # Application definition
 
@@ -38,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'web',
+    'web.apps.WebConfig',
+    'rest_framework',
+    'django_filters',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -64,13 +68,14 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'scpv001.wsgi.application'
-
+ASGI_APPLICATION = 'scpv001.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -79,7 +84,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': '127.0.0.1:1521/xe',
-        'USER': 'TEST1',
+        'USER': 'TEST2',
         'PASSWORD': 'TEST',
         'TEST': {
             'USER': 'default_test',
@@ -135,3 +140,26 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 LOGOUT_REDIRECT_URL = reverse_lazy('home')
+
+
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]
+
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'scp.compania@gmail.com'
+EMAIL_HOST_PASSWORD = 'scpcompania1.'
+EMAIL_USE_TLS = True
+
+REST_FRAMEWORK = {
+    'DATE_INPUT_FORMATS': "%d-%m-%Y",
+    'DATE_FORMAT': "%d-%m-%Y",
+    'DATETIME_FORMAT': "%d-%m-%Y %H:%M:%S",
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    
+}

@@ -1,0 +1,144 @@
+{% extends 'web/003baseprofesional.html' %}
+	{% load static %}
+	{% block title %}Ver Asesoria Fiscalizacion- SCP{% endblock %}
+        {% block content %}
+        <!-- dinamico -->
+        <!-- one seccion - subir -->
+        <br>
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Ver Asesoría Fiscalización</h4>
+                                    <p>En esta sección se podrá ver toda la información necesaria que necesita el profesional para la asesoría por fiscalización. 
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeprofesional' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Ver Asesoría Fiscalización</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <div class="j-wrapper j-wrapper-740">
+                                        <form action="" method="POST" class="j-pro" id="j-pro">
+                                            {% csrf_token %}
+                                            <div class="j-content">
+                                                <div class="j-row">
+                                                    <div class="j-span4 j-unit">
+                                                        <div class="j-input">
+                                                            <select name ="id_cliente">
+                                                                <option value="">Seleccionar</option>
+                                                                {% for c in data%}
+                                                                <option value = {{c.0}}>{{c.1}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="j-span4 j-unit">
+                                                        <div class="j-input">
+                                                            <ul class="">
+                                                                <input type="submit" class="btn btn-primary" value="Buscar">
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive largo-table">
+                                                    <table class="table table-bordered" id="tablalist">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Nro Servicio</th>
+                                                                <th>Empresa</th>
+                                                                <th>Fecha a realizar asesoría </th>
+                                                                <th>Hora estipulada</th>
+                                                                <th>Tipo de visita</th>
+                                                                <th>Ente fiscalizador</th>
+                                                                <th>Fecha de la fiscalización</th>
+                                                                <th>Detalle del evento</th>
+                                                                <th>¿Conlleva a juicio?</th>
+                                                                <th>Planificar conversación con el fiscalizador</th>
+                                                                <th>¿Se evidenciará documentación?</th>
+                                                                <th>Contingencia</th>
+                                                                <th>Estado de la asesoría</th>
+                                                                <th>Acción</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for i in salida %}
+                                                            <tr>
+                                                                <td>{{i.0}}</td>
+                                                                <td>{{i.1}}</td>
+                                                                <td>{{i.2}}</td>
+                                                                <td>{{i.3}}</td>
+                                                                <td>{{i.4}}</td>
+                                                                <td>{{i.5}}</td>
+                                                                <td>{{i.6}}</td>
+                                                                <td>{{i.7}}</td>
+                                                                {% if i.8 == 1 %}
+                                                                <td>Si</td>
+                                                                {% else %}
+                                                                <td>No</td>
+                                                                {% endif %}
+                                                                {% if i.9 == 1%}
+                                                                <td>Si</td>
+                                                                {% else %}
+                                                                <td>No</td>
+                                                                {% endif %}
+                                                                {% if i.10 == 1%}
+                                                                <td>Si</td>
+                                                                {% else %}
+                                                                <td>No</td>
+                                                                {% endif %}
+                                                                <td>{{i.11}}</td>
+                                                                <td>{{i.12}}</td>
+                                                                <td>
+                                                                    <a class="btn btn-primary" href="{% url 'modificar-asesoria-fiscalizacion' i.0 %}">Editar</a>
+                                                                    <a class="btn btn-primary" href="{% url 'ingresar-resultado' i.0 %}">Ingresar resultado</a>
+                                                                </td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+<!-- fin dinamico -->
+{% endblock %}

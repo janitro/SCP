@@ -3,54 +3,96 @@
 	{% block title %}Listar Contrato - SCP{% endblock %}
 		{% block content %}
 		<!-- dinamico -->
-        <!-- one seccion - Slider-->
-		<div class="total">
-            <h2 class="major">Listado de Contrato</h2>
-            <div class="table-wrapper">
-                <form action="" method="GET">
-                    {% csrf_token %}
-                    <table class = "alt" id="tablalist">
-                        <thead>
-                            <tr>
-                                <th>Rut</th>
-                                <th>Empresa</th>
-                                <th>Correo</th>
-                                <th>Telefono</th>
-                                <th>Direccion</th>
-                                <th>Comuna</th>
-                                <th>Num contrato</th>
-                                <th>Fecha</th>
-                                <th>Rubro</th>
-                                <th>Contrato</th>
-            
-                           </tr>
-                        </thead>
-                        <tbody>
-                            {% for i in data %}
-                            <tr>
-                                <td>{{i.0}}</td>
-                                <td>{{i.1}}</td>
-                                <td>{{i.2}}</td>
-                                <td>{{i.3}}</td>
-                                <td>{{i.4}}</td>
-                                <td>{{i.5}}</td>
-                                <td>{{i.6}}</td>
-                                <td>{{i.7}}</td>
-                                <td>{{i.8}}</td>
-                                {% if i.9 == 0 %}
-                                <td class="inactivo-table">Inactivo</td>
-                                {% else %}
-                                <td class="activo-table">Activo</td>
-                                {% endif %}
-                                <br>
-                               
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </form>
+        <!-- one seccion - subir -->
+        <ul class="actions">
+            <li><a onclick="topFunction()" id="myBtn" class="fas fa-angle-up" title="Go to top"></a></li>
+        </ul>
+        <!-- two seccion - contenido -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- TITULO PAGINA HEADER -->
+                <div class="page-header">
+                    <div class="row align-items-end">
+                        <!-- INFORMACION -->
+                        <div class="col-lg-8">
+                            <div class="page-header-title">
+                                <div class="d-inline">
+                                    <h4>Detalle de Contrato</h4>
+                                    <p>Seccion donde se podran ver el detalle del contrato seleccionado.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- RUTA -->
+                        <div class="col-lg-4">
+                            <div class="page-header-breadcrumb">
+                                <ul class="breadcrumb-title">
+                                    <li class="breadcrumb-item">
+                                        <a href="{% url 'homeadmin' %}"> <i class="feather icon-home"></i> </a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="{% url 'listar-contrato' %}">Listado de Contrato</a>
+                                    </li>
+                                    <li class="breadcrumb-item"><a href="#!">Listado de Contrato</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- CONTENIDO -->
+                <div class="page-body">
+                    <div class="card">
+                        <div class="card-block table-border-style">
+                            <div class="table-responsive">
+                                <form action="" method="GET">
+                                    {% csrf_token %}
+                                    <br>
+                                    <br>
+                                    <table class = "table table-bordered" id="tablalist">
+                                        <thead>
+                                            <tr>
+                                                <th>Rut</th>
+                                                <th>Empresa</th>
+                                                <th>Correo</th>
+                                                <th>Telefono</th>
+                                                <th>Direccion</th>
+                                                <th>Comuna</th>
+                                                <th>Num contrato</th>
+                                                <th>Fecha</th>
+                                                <th>Rubro</th>
+                                                <th>Contrato</th>            
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in data %}
+                                            <tr>
+                                                <td>{{i.0}}</td>
+                                                <td>{{i.1}}</td>
+                                                <td>{{i.2}}</td>
+                                                <td>{{i.3}}</td>
+                                                <td>{{i.4}}</td>
+                                                <td>{{i.5}}</td>
+                                                <td>{{i.6}}</td>
+                                                <td>{{i.7}}</td>
+                                                <td>{{i.8}}</td>
+                                                {% if i.9 == 0 %}
+                                                <td class="inactivo-table">Inactivo</td>
+                                                {% else %}
+                                                <td class="activo-table">Activo</td>
+                                                {% endif %}
+                                                <br>                               
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <br>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
 		<!-- fin dinamico -->
 		{% endblock %}

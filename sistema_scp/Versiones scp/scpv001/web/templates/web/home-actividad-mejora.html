@@ -5,18 +5,22 @@
 		{% block content %}
 		<!-- dinamico -->
         <!-- one seccion - Home Checklist-->
-		<div class="borde">
-            <h2 class="major"> Ficha de Prevencion</h2>
-            <div class="fields">
-                <ul class="actions">
-                    <li><a href="{% url 'actividad-mejora' %}" class="button">Crear Actividad de Mejora</a></li>
-                    <li><a href="{% url 'listar-actividad' %}" class="button">Listar Actividad </a></li>
-                    <li><a href="{% url 'modificar-actividad' %}" class="button">Modificar Actividad</a></li>
-                    
-                </ul>
+        <br>
+        <div class="borde-centro">
+            <div class="contorno-marco">
+                <div class="borde">
+                    <div class="title-home">
+                        <h2 class="major"> Ficha de Prevencion</h2>
+                    </div>
+                    <div class="fields">
+                        <ul class="actions-home">
+                            <li><a href="{% url 'actividad-mejora' %}" class="button-home">Crear Actividad de Mejora</a></li>
+                            <li><a href="{% url 'listar-actividad' %}" class="button-home">Listar Actividad </a></li>  
+                        </ul>
+                    </div>  
+                </div> 
             </div>
-            
-        </div>  
-
+        </div>
+        <br>
 		<!-- fin dinamico -->
 		{% endblock %}  
